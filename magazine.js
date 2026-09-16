@@ -41,11 +41,24 @@ function setupSubmitNavigation(){
   if (inlineSubmit) inlineSubmit.style.display = 'none';
 }
 
+function setupIdeaNavigation(){
+  document.querySelectorAll('nav a[href="#idea"], nav a[href="#mailbox"]').forEach(link => {
+    link.href = 'idea.html';
+    link.textContent = 'Have Any Idea?';
+    link.removeAttribute('data-i18n');
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      window.location.assign('idea.html');
+    });
+  });
+}
+
 if (typeof document !== 'undefined') {
   const observer = new MutationObserver(applyImageOverride);
   observer.observe(document.documentElement, {subtree:true, childList:true});
   document.addEventListener('DOMContentLoaded', () => {
     applyImageOverride();
     setupSubmitNavigation();
+    setupIdeaNavigation();
   });
 }
