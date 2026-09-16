@@ -91,19 +91,26 @@ async function setupAutomaticSubmissionCover(){
       }
 
       const {getApps} = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-      const {getStorage, ref, uploadBytes, getDownloadURL} = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js');
-      const {getDatabase, push, set} = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+      const {getStorage, ref: storageRef, uploadBytes, getDownloadURL} = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js');
+      const {getDatabase, ref: databaseRef, push, set} = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
 
       const apps = getApps();
-      if (!apps.length) throw new Error('Firebase is not ready yet. Please try again.');
+      if (!apps.length) throw new Error('Firebase is not ready yet. Please refresh the page and try again.');
 
       const app = apps[0];
-      const storage = getStorage(app);
+      const storage = getStorage(app, 'gs://atomictanvir.firebasestorage.app');
       const db = getDatabase(app);
-      const submissionRef = push(ref(db, 'submissions'));
+      if (!storage) throw new Error('Firebase Storage could not be initialized.');
+      if (!db) throw new Error('Firebase Database could not be initialized.');
+
+      const submissionRef = push(databaseRef(db, 'submissions'));
       const submissionId = submissionRef.key;
+      if (!submissionId) throw new Error('Could not create a submission ID.');
+
       const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, '-').slice(-90) || 'cover.jpg';
-      const imageRef = ref(storage, `submissions/${submissionId}/${safeName}`);
+      const imagePath = `submissions/${submissionId}/${safeName}`;
+      const imageRef = storageRef(storage, imagePath);
+      if (!imageRef || !imageRef.fullPath) throw new Error('Could not create the Firebase Storage file reference.');
 
       await uploadBytes(imageRef, file, {contentType: file.type});
       const imageUrl = await getDownloadURL(imageRef);
@@ -125,6 +132,7 @@ async function setupAutomaticSubmissionCover(){
         imageUrl,
         imageName: file.name,
         imageType: file.type,
+        imagePath,
         status: 'pending',
         timestamp: Date.now()
       });
@@ -135,7 +143,8 @@ async function setupAutomaticSubmissionCover(){
       preview.removeAttribute('src');
     } catch (error) {
       console.error('Automatic cover submission failed:', error);
-      if (status) status.textContent = `Could not send article: ${error?.message || 'upload failed'}`;
+      const message = error?.message || String(error) || 'upload failed';
+      if (status) status.textContent = `Could not send article: ${message}`;
     } finally {
       if (submitButton) {
         submitButton.disabled = false;
