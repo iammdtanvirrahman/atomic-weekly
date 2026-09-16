@@ -30,11 +30,15 @@ function applyImageOverride(){
 
 function setupSubmitNavigation(){
   document.querySelectorAll('nav a[href="#submit"]').forEach(link => {
+    link.href = 'submit.html';
     link.addEventListener('click', event => {
       event.preventDefault();
-      window.location.href = 'submit.html';
+      window.location.assign('submit.html');
     });
   });
+
+  const inlineSubmit = document.getElementById('submit');
+  if (inlineSubmit) inlineSubmit.style.display = 'none';
 }
 
 if (typeof document !== 'undefined') {
