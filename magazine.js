@@ -1,55 +1,18 @@
 /*
  * ATOMIC MAGAZINE — CONTENT CONTROL FILE
- *
- * Upload your .txt article files and cover images to GitHub, then add them here.
- * You do NOT need to edit index.html for normal magazine updates.
- *
- * Text files are loaded automatically from their paths.
- * Example:
- * {
- *   id: "moon",
- *   section: "Cosmos",
- *   title: "Your article title",
- *   author: "Your Name",
- *   date: "17 September 2026",
- *   image: "assets/moon.jpg",
- *   text: "content/moon.txt"
- * }
  */
-
 export const magazine = {
   name: "Atomic Magazine",
   tagline: "Science · Technology · Ideas · Discovery",
   issue: "Vol. 01",
   year: "2026",
-
-  // Add one object per article. Leave empty until you upload your first article.
-  articles: [
-    // {
-    //   id: "first-story",
-    //   section: "Science",
-    //   title: "Your article title",
-    //   dek: "A short description shown on the magazine front page.",
-    //   author: "Atomic Desk",
-    //   date: "17 September 2026",
-    //   readTime: "6 min read",
-    //   image: "assets/first-story.jpg",
-    //   text: "content/first-story.txt",
-    //   featured: true
-    // }
-  ]
+  articles: []
 };
 
-/* Image overrides for articles already stored in Firebase. */
 export const imageOverrides = {
   nafiz: "assets/nafiz1.jpeg"
 };
 
-/*
- * The Nafiz article is currently stored in Firebase, so its article object
- * may not contain an image field yet. Apply the local GitHub cover image
- * automatically when that article is rendered.
- */
 function applyImageOverride(){
   const cards = document.querySelectorAll('#articles .card');
   cards.forEach(card => {
@@ -65,14 +28,6 @@ function applyImageOverride(){
   });
 }
 
-/*
- * Automatic cover-image system for the public "Submit an article" form.
- * The existing page already sends text submissions to Firebase Realtime DB.
- * This enhancement adds a cover picker dynamically, uploads the selected
- * image to Firebase Storage, and saves the resulting URL as imageUrl on the
- * same submission record. The admin panel can therefore publish the cover
- * together with the article without exposing a GitHub token publicly.
- */
 async function setupAutomaticSubmissionCover(){
   const form = document.getElementById('submissionForm');
   if (!form || form.dataset.coverSystemReady) return;
@@ -86,12 +41,10 @@ async function setupAutomaticSubmissionCover(){
   wrap.style.display = 'grid';
   wrap.style.gap = '7px';
   wrap.innerHTML = `
-    <label for="sImage" style="font:800 .65rem Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">
-      Cover image (optional)
-    </label>
+    <label for="sImage" style="font:800 .65rem Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Cover image (optional)</label>
     <input id="sImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/*">
     <img id="sImagePreview" alt="Cover preview" style="display:none;width:100%;max-height:260px;object-fit:cover;border:1px solid var(--line);border-radius:8px">
-    <small style="color:var(--muted);font:600 .62rem Arial,sans-serif">This image will be attached to your article automatically.</small>
+    <small style="color:var(--muted);font:600 .62rem Arial,sans-serif">The selected cover is attached automatically.</small>
   `;
   textArea.insertAdjacentElement('beforebegin', wrap);
 
@@ -124,8 +77,6 @@ async function setupAutomaticSubmissionCover(){
     const file = imageInput.files?.[0];
     if (!file) return;
 
-    // Capture before the existing submit handler so the image is uploaded
-    // first and the normal submission record receives imageUrl.
     event.preventDefault();
     event.stopImmediatePropagation();
 
@@ -162,7 +113,6 @@ async function setupAutomaticSubmissionCover(){
       const title = document.getElementById('sTitle')?.value.trim() || '';
       const section = document.getElementById('sSection')?.value || 'Science';
       const text = document.getElementById('sText')?.value || '';
-
       if (!name || !title || !text) throw new Error('Please complete the required article fields.');
 
       await set(submissionRef, {
@@ -171,6 +121,7 @@ async function setupAutomaticSubmissionCover(){
         title,
         section,
         text,
+        image: imageUrl,
         imageUrl,
         imageName: file.name,
         imageType: file.type,
