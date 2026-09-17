@@ -1,24 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07080b"><title>Atomic Magazine · PDF</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080b">
+<title>Atomic Magazine · PDF</title>
+<link rel="icon" href="https://iammdtanvirrahman.github.io/atomic-weekly/favicon.svg">
 <style>
-*{box-sizing:border-box}html,body{margin:0;height:100%;background:#07080b;color:#f4f5f7;font-family:Arial,sans-serif}.top{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #242832;background:#0d0f14}.brand{font:900 24px Georgia}.brand i{font-style:normal;color:#ff3b30}.actions{display:flex;gap:8px}.btn{border:1px solid #2b3039;background:#15181e;color:#fff;text-decoration:none;border-radius:7px;padding:9px 12px;font:800 12px Arial}.viewer{height:calc(100% - 62px);width:100%;border:0;background:#1b1b1b}.fallback{display:none;height:calc(100% - 62px);padding:30px;text-align:center;color:#9298a5}.fallback a{color:#fff}
-</style></head><body>
-<div class="top"><div class="brand">Atomic<i>Magazine</i></div><div class="actions"><a class="btn" id="download" target="_blank" rel="noopener">Open PDF</a><a class="btn" href="index.html">Back</a></div></div>
-<iframe class="viewer" id="viewer" title="PDF viewer"></iframe>
-<div class="fallback" id="fallback">The PDF preview could not be embedded. <a id="fallbackLink" target="_blank" rel="noopener">Open the PDF directly</a>.</div>
+:root{--bg:#07080b;--panel:#0d0f14;--line:#242832;--text:#f4f5f7;--muted:#9298a5;--accent:#ff3b30}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}.shell{height:100%;display:flex;flex-direction:column}.top{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 14px;background:rgba(13,15,20,.96);border-bottom:1px solid var(--line)}.brand{font:900 25px Georgia,serif;letter-spacing:-.04em}.brand i{font-style:normal;color:var(--accent)}.actions{display:flex;gap:7px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#15181e;color:var(--text);text-decoration:none;border-radius:8px;padding:9px 12px;font:800 12px Arial,sans-serif}.btn:hover{background:#1b2027}.stage{position:relative;flex:1;min-height:0;background:#15171b}.viewer{width:100%;height:100%;border:0;background:#15171b}.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0b0d11;color:var(--muted);font-size:14px;z-index:1;pointer-events:none}.loading.hide{display:none}.error{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;padding:30px;color:var(--muted);background:#0b0d11;z-index:2}.error.show{display:flex}.errorBox{max-width:620px}.error strong{display:block;color:#fff;font:900 28px Georgia,serif;margin-bottom:8px}.error a{color:#fff}.info{position:absolute;left:12px;bottom:12px;right:12px;z-index:3;pointer-events:none;display:flex;justify-content:space-between;gap:10px;opacity:.82}.info span{background:rgba(7,8,11,.78);border:1px solid var(--line);padding:6px 9px;border-radius:7px;font-size:11px;color:#d4d8df;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:600px){.top{min-height:58px;padding:0 9px}.brand{font-size:21px}.btn{padding:8px 9px;font-size:11px}.info{left:7px;right:7px;bottom:7px}.info span:last-child{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><div class="brand">Atomic<i>Magazine</i></div><div class="actions"><a class="btn" id="download" target="_blank" rel="noopener">Open original PDF</a><a class="btn" href="./">Back to Magazine</a></div></header>
+<main class="stage"><div class="loading" id="loading">Loading PDF…</div><iframe id="viewer" class="viewer" title="Atomic Magazine PDF viewer" allow="fullscreen"></iframe><div class="error" id="error"><div class="errorBox"><strong>PDF could not be displayed.</strong><p>The document viewer could not load this file. Use the original PDF button above to open the source file directly.</p><p><a id="errorLink" target="_blank" rel="noopener">Open original PDF</a></p></div></div><div class="info"><span id="titleInfo"></span><span>Atomic Magazine PDF Viewer</span></div></main>
+</div>
 <script>
-const p=new URLSearchParams(location.search),src=p.get('src');
-const viewer=document.getElementById('viewer'),download=document.getElementById('download'),fallback=document.getElementById('fallback'),fallbackLink=document.getElementById('fallbackLink');
-if(src){
-  const pdf=src;
-  const gview='https://docs.google.com/gview?embedded=1&url='+encodeURIComponent(pdf);
-  viewer.src=gview;
-  download.href=pdf;
-  fallbackLink.href=pdf;
-}else{
-  viewer.style.display='none';download.remove();fallback.style.display='block';fallback.textContent='No PDF was selected.';
-}
-</script></body></html>
+const params=new URLSearchParams(location.search);const src=params.get('src');const viewer=document.getElementById('viewer');const loading=document.getElementById('loading');const error=document.getElementById('error');const download=document.getElementById('download');const errorLink=document.getElementById('errorLink');const titleInfo=document.getElementById('titleInfo');
+function showError(){loading.classList.add('hide');error.classList.add('show')}
+if(!src){download.remove();showError();document.querySelector('.error strong').textContent='No PDF selected.';document.querySelector('.error p').textContent='This viewer needs a PDF source.'}else{const pdf=decodeURIComponent(src);const gview='https://docs.google.com/gview?embedded=1&url='+encodeURIComponent(pdf);download.href=pdf;errorLink.href=pdf;try{const u=new URL(pdf);titleInfo.textContent=u.pathname.split('/').pop()||'PDF'}catch{titleInfo.textContent='PDF'}viewer.onload=()=>loading.classList.add('hide');viewer.src=gview;setTimeout(()=>loading.classList.add('hide'),8000)}
+</script>
+</body>
+</html>
