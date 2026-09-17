@@ -3,134 +3,87 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08090c">
-<title>Atomic Magazine</title>
+<meta name="theme-color" content="#f3f0e8">
+<title>Atomic Weekly</title>
 <link rel="icon" href="./favicon.svg">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
-:root{--bg:#08090c;--surface:#101217;--surface2:#171920;--line:#272b34;--text:#f5f6f8;--muted:#969ca8;--accent:#ff3b30;--max:1180px}
+:root{--ink:#171717;--muted:#77736c;--paper:#fffdf8;--page:#eeeae1;--accent:#b21f1f;--line:#d8d2c7;--dark:#121212}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-.top{position:sticky;top:0;z-index:50;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(8,9,12,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.brand{font:900 24px Georgia,serif;letter-spacing:-.5px}.brand i{font-style:normal;color:var(--accent)}
-.top-actions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:#fff;text-decoration:none;font-size:12px;font-weight:800;cursor:pointer}.btn:hover{background:var(--surface2)}
-.article-head{width:min(var(--max),calc(100% - 32px));margin:30px auto 22px}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.title{margin:0;font:900 clamp(28px,5vw,52px)/1.05 Georgia,serif;letter-spacing:-1px}.sub{margin:10px 0 0;color:var(--muted);font-size:14px}
-.pdf-shell{width:min(var(--max),calc(100% - 24px));margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 18px 55px rgba(0,0,0,.4)}
-#pages{width:100%;background:#fff}.page-wrap{width:100%;line-height:0;background:#fff}.page{display:block;width:100%;height:auto;margin:0;background:#fff}
-.loading{min-height:360px;display:grid;place-items:center;text-align:center;padding:40px;color:#666;background:#fff}.loader-ring{width:42px;height:42px;border:4px solid #ddd;border-top-color:#222;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}@keyframes spin{to{transform:rotate(360deg)}}
-.error{padding:50px 20px;color:#222;text-align:center;line-height:1.6}.error strong{display:block;font-size:22px;margin-bottom:8px}
-.comments{width:min(850px,calc(100% - 32px));margin:46px auto 80px}.comments h2{margin:0 0 18px;font:900 28px Georgia,serif}.reaction-row{display:flex;gap:8px;flex-wrap:wrap;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:18px}.react{border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}.react.active{border-color:var(--accent);background:rgba(255,59,48,.13)}
-.comment-form{display:flex;gap:10px;margin-bottom:20px}.comment-form input{min-width:0;flex:1;border:1px solid var(--line);background:var(--surface);color:#fff;border-radius:12px;padding:13px 14px;outline:none}.comment-form input:focus{border-color:#555}.comment-form button{border:0;border-radius:12px;background:var(--accent);color:#fff;padding:0 18px;font-weight:900;cursor:pointer}.comment-list{display:grid;gap:10px}.comment{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}.comment-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:6px}.comment-name{font-weight:900}.comment-time{font-size:11px;color:var(--muted)}.comment-text{color:#d9dce2;line-height:1.55;word-break:break-word}.empty{color:var(--muted);font-size:13px;padding:10px 0}
-.progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:100}
-@media(max-width:600px){.top{height:56px;padding:0 12px}.brand{font-size:20px}.top-actions .back{display:none}.article-head{margin-top:22px;width:calc(100% - 24px)}.pdf-shell{width:100%;border-radius:0;box-shadow:none}.comments{width:calc(100% - 24px);margin-top:34px}.comment-form{flex-direction:column}.comment-form button{height:45px}.title{font-size:32px}}
+body{margin:0;background:var(--page);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+.progress{position:fixed;left:0;top:0;height:3px;width:0;background:var(--accent);z-index:100}
+.masthead{background:var(--paper);border-bottom:1px solid #cfc8bb}
+.mast-inner{max-width:1500px;margin:auto;padding:18px 28px 14px}
+.utility{display:flex;justify-content:space-between;align-items:center;font:700 10px/1.2 Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--line)}
+.logo-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0 4px}
+.logo{font:900 clamp(36px,5vw,64px)/.9 Georgia,serif;letter-spacing:-.06em}.logo span{color:var(--accent)}
+.issue{font:700 11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right}
+.back{border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:0;padding:8px 12px;text-decoration:none;font:800 10px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.hero{max-width:1100px;margin:0 auto;padding:52px 24px 34px;text-align:center;background:var(--paper)}
+.kicker{font:800 11px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:15px}
+h1{margin:0;font:900 clamp(34px,6vw,72px)/.98 Georgia,serif;letter-spacing:-.045em}
+.deck{max-width:720px;margin:18px auto 0;font:italic 18px/1.55 Georgia,serif;color:#5e5a54}
+.meta{margin-top:22px;font:700 10px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.magazine{max-width:1500px;margin:0 auto;background:var(--paper);box-shadow:0 0 50px rgba(0,0,0,.08)}
+#pages{width:100%;background:var(--paper)}
+.page-wrap{width:100%;line-height:0;background:var(--paper)}
+.page{display:block;width:100%;height:auto;margin:0;background:#fff}
+.loading{min-height:420px;display:grid;place-items:center;text-align:center;padding:50px;font:16px Georgia,serif;color:var(--muted);background:var(--paper)}
+.loader{width:38px;height:38px;border:2px solid #d8d2c7;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 18px}@keyframes spin{to{transform:rotate(360deg)}}
+.error{padding:70px 24px;text-align:center;color:var(--muted);line-height:1.6}.error strong{display:block;font:900 30px Georgia,serif;color:var(--ink);margin-bottom:8px}
+.afterword{max-width:900px;margin:0 auto;padding:48px 24px 80px;background:var(--paper)}
+.rule{height:1px;background:var(--ink);margin-bottom:24px}
+.after-title{font:900 30px Georgia,serif;margin:0 0 20px}
+.reactions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.react{border:1px solid #cfc8bb;background:#fffaf0;color:var(--ink);border-radius:999px;padding:9px 14px;cursor:pointer;font:700 12px Arial,sans-serif}.react.active{border-color:var(--accent);color:var(--accent)}
+.comment-form{display:flex;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:18px}
+.comment-form input{flex:1;min-width:0;border:0;background:transparent;outline:0;font:16px Georgia,serif;color:var(--ink)}
+.comment-form button{border:0;background:var(--ink);color:#fff;padding:10px 16px;font:800 11px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.comment-list{display:grid;gap:14px}.comment{padding:14px 0;border-bottom:1px solid var(--line)}.comment-top{display:flex;justify-content:space-between;gap:15px}.comment-name{font:bold 14px Arial,sans-serif}.comment-time{font:10px Arial,sans-serif;color:var(--muted)}.comment-text{margin-top:7px;font:15px/1.6 Georgia,serif}.empty{font:14px Georgia,serif;color:var(--muted)}
+.footer{border-top:1px solid var(--ink);padding:18px 24px;text-align:center;background:var(--dark);color:#aaa;font:10px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:700px){.mast-inner{padding:13px 14px 10px}.utility{font-size:8px}.utility .hide-mobile{display:none}.logo-row{padding-top:12px}.logo{font-size:38px}.issue{font-size:8px}.back{padding:7px 9px}.hero{padding:34px 16px 26px}.deck{font-size:16px}.magazine{box-shadow:none}.page{width:100%}.afterword{padding:38px 16px 60px}.comment-form input{font-size:15px}.comment-form button{padding:10px 12px}}
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
-<header class="top">
-  <div class="brand">Atomic<i>Magazine</i></div>
-  <div class="top-actions">
-    <a class="btn" id="download" target="_blank" rel="noopener">↗ PDF</a>
-    <a class="btn back" href="./">Magazine</a>
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="utility"><span>Science · Technology · Ideas · Discovery</span><span class="hide-mobile">Atomic Weekly · 2026</span></div>
+    <div class="logo-row">
+      <div class="logo">Atomic <span>Weekly</span></div>
+      <div><div class="issue">Digital Magazine</div><a class="back" href="./">Back to Magazine</a></div>
+    </div>
   </div>
 </header>
-
-<section class="article-head">
-  <div class="eyebrow">Atomic Weekly · Article</div>
-  <h1 class="title" id="title">Magazine Article</h1>
-  <p class="sub" id="subtitle">Read the complete magazine continuously below.</p>
+<section class="hero">
+  <div class="kicker">Featured Article</div>
+  <h1 id="title">Atomic Weekly</h1>
+  <p class="deck">Read the complete story as a continuous digital magazine.</p>
+  <div class="meta">Atomic Weekly · Digital Edition · 2026</div>
 </section>
-
-<main class="pdf-shell">
-  <div id="pages"><div class="loading" id="loading"><div><div class="loader-ring"></div><strong>Loading article…</strong><div>Preparing the complete magazine</div></div></div></div>
-</main>
-
-<section class="comments" id="comments">
-  <h2>Reactions & Comments</h2>
-  <div class="reaction-row" id="reactions">
-    <button class="react" data-reaction="like">👍 <span>Like</span> <b>0</b></button>
-    <button class="react" data-reaction="love">❤️ <span>Love</span> <b>0</b></button>
-    <button class="react" data-reaction="wow">🤯 <span>Wow</span> <b>0</b></button>
-    <button class="react" data-reaction="idea">💡 <span>Interesting</span> <b>0</b></button>
+<main class="magazine"><div id="pages"><div class="loading"><div><div class="loader"></div><strong>Opening the magazine…</strong><div>Preparing the full article</div></div></div></div></main>
+<section class="afterword">
+  <div class="rule"></div>
+  <h2 class="after-title">What do you think?</h2>
+  <div class="reactions" id="reactions">
+    <button class="react" data-reaction="like">👍 Like <b>0</b></button>
+    <button class="react" data-reaction="love">❤️ Love <b>0</b></button>
+    <button class="react" data-reaction="wow">🤯 Wow <b>0</b></button>
+    <button class="react" data-reaction="idea">💡 Interesting <b>0</b></button>
   </div>
-  <form class="comment-form" id="commentForm">
-    <input id="commentInput" maxlength="500" placeholder="Write a comment…" autocomplete="off">
-    <button type="submit">Comment</button>
-  </form>
+  <form class="comment-form" id="commentForm"><input id="commentInput" maxlength="500" placeholder="Write a comment…" autocomplete="off"><button>Comment</button></form>
   <div class="comment-list" id="commentList"></div>
 </section>
-
+<footer class="footer">Atomic Weekly · Science · Technology · Ideas · Discovery</footer>
 <script>
-const params=new URLSearchParams(location.search);
-let src=params.get('src')||'';
-let title=params.get('title')||'Magazine Article';
-try{title=decodeURIComponent(title)}catch{}
-const titleEl=document.getElementById('title');
-titleEl.textContent=title;
-document.title=title+' · Atomic Magazine';
-
-function normalizePdf(value){
-  let s=value||'';try{s=decodeURIComponent(s)}catch{}
-  s=s.trim();if(!s)return '';
-  const raw='https://raw.githubusercontent.com/iammdtanvirrahman/atomic-weekly/main/';
-  const blob='https://github.com/iammdtanvirrahman/atomic-weekly/blob/main/';
-  if(s.startsWith(raw))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s.slice(raw.length);
-  if(s.startsWith(blob))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s.slice(blob.length);
-  if(s.startsWith('/atomic-weekly/'))return 'https://iammdtanvirrahman.github.io'+s;
-  if(s.startsWith('content/'))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s;
-  return s;
-}
-const pdfUrl=normalizePdf(src);
-const pages=document.getElementById('pages');
-const loading=document.getElementById('loading');
-const download=document.getElementById('download');
-if(pdfUrl)download.href=pdfUrl;else download.style.display='none';
-
-async function renderAll(){
-  if(!pdfUrl){loading.innerHTML='<div class="error"><strong>PDF not found</strong>No PDF source was provided.</div>';return}
-  if(!window.pdfjsLib){loading.innerHTML='<div class="error"><strong>Viewer unavailable</strong>PDF.js could not be loaded.</div>';return}
-  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  try{
-    const doc=await pdfjsLib.getDocument({url:pdfUrl}).promise;
-    pages.innerHTML='';
-    for(let n=1;n<=doc.numPages;n++){
-      const page=await doc.getPage(n);
-      const base=page.getViewport({scale:1});
-      const width=pages.clientWidth||window.innerWidth;
-      const scale=width/base.width;
-      const viewport=page.getViewport({scale});
-      const wrap=document.createElement('div');wrap.className='page-wrap';
-      const canvas=document.createElement('canvas');canvas.className='page';
-      canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
-      wrap.appendChild(canvas);pages.appendChild(wrap);
-      await page.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport}).promise;
-    }
-  }catch(err){
-    console.error(err);
-    pages.innerHTML='<div class="error"><strong>Could not load this article</strong><span>'+escapeHtml(String(err?.message||err))+'</span></div>';
-  }
-}
-function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-renderAll();
-
-/* Lightweight per-article reactions/comments. Stored locally so the static GitHub Pages site needs no backend. */
-const key='atomic-comments-'+btoa(unescape(encodeURIComponent(pdfUrl||title))).replace(/[^a-z0-9]/gi,'').slice(0,40);
-const state=JSON.parse(localStorage.getItem(key)||'{"reactions":{"like":0,"love":0,"wow":0,"idea":0},"comments":[]}');
-const reactionBtns=document.querySelectorAll('.react');
-function save(){localStorage.setItem(key,JSON.stringify(state));}
-function paint(){
- reactionBtns.forEach(btn=>{const r=btn.dataset.reaction;btn.querySelector('b').textContent=state.reactions[r]||0;btn.classList.toggle('active',localStorage.getItem(key+'-reacted-'+r)==='1')});
- const list=document.getElementById('commentList');
- list.innerHTML='';
- if(!state.comments.length){list.innerHTML='<div class="empty">Be the first to comment.</div>';return}
- state.comments.slice().reverse().forEach(c=>{const el=document.createElement('article');el.className='comment';el.innerHTML='<div class="comment-top"><span class="comment-name">'+escapeHtml(c.name)+'</span><span class="comment-time">'+escapeHtml(c.time)+'</span></div><div class="comment-text">'+escapeHtml(c.text)+'</div>';list.appendChild(el)});
-}
-reactionBtns.forEach(btn=>btn.addEventListener('click',()=>{const r=btn.dataset.reaction;const k=key+'-reacted-'+r;if(localStorage.getItem(k)==='1'){state.reactions[r]=Math.max(0,(state.reactions[r]||0)-1);localStorage.removeItem(k)}else{state.reactions[r]=(state.reactions[r]||0)+1;localStorage.setItem(k,'1')}save();paint()}));
-document.getElementById('commentForm').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('commentInput');const text=input.value.trim();if(!text)return;state.comments.push({name:'Reader',text,time:new Date().toLocaleString()});input.value='';save();paint()});
-paint();
-
-window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;document.getElementById('progress').style.width=(h>0?(scrollY/h)*100:0)+'%'});
+const params=new URLSearchParams(location.search);let src=params.get('src')||'';let title=params.get('title')||'Atomic Weekly';try{title=decodeURIComponent(title)}catch{}document.getElementById('title').textContent=title;document.title=title+' · Atomic Weekly';
+function normalizePdf(v){let s=v||'';try{s=decodeURIComponent(s)}catch{}s=s.trim();if(!s)return '';const raw='https://raw.githubusercontent.com/iammdtanvirrahman/atomic-weekly/main/';const blob='https://github.com/iammdtanvirrahman/atomic-weekly/blob/main/';if(s.startsWith(raw))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s.slice(raw.length);if(s.startsWith(blob))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s.slice(blob.length);if(s.startsWith('/atomic-weekly/'))return 'https://iammdtanvirrahman.github.io'+s;if(s.startsWith('content/'))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s;return s}
+const pdfUrl=normalizePdf(src),pages=document.getElementById('pages');
+async function renderAll(){if(!pdfUrl){pages.innerHTML='<div class="error"><strong>Article unavailable</strong>No magazine source was provided.</div>';return}if(!window.pdfjsLib){pages.innerHTML='<div class="error"><strong>Magazine could not open</strong>PDF renderer unavailable.</div>';return}pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';try{const doc=await pdfjsLib.getDocument({url:pdfUrl}).promise;pages.innerHTML='';for(let n=1;n<=doc.numPages;n++){const page=await doc.getPage(n),base=page.getViewport({scale:1}),width=pages.clientWidth||innerWidth,viewport=page.getViewport({scale:width/base.width}),wrap=document.createElement('div');wrap.className='page-wrap';const canvas=document.createElement('canvas');canvas.className='page';canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);wrap.appendChild(canvas);pages.appendChild(wrap);await page.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport}).promise}}catch(e){console.error(e);pages.innerHTML='<div class="error"><strong>This article could not be displayed</strong>'+escapeHtml(String(e?.message||e))+'</div>'}}
+function escapeHtml(s){return s.replace(/[&<>\'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}renderAll();
+const key='atomic-comments-'+btoa(unescape(encodeURIComponent(pdfUrl||title))).replace(/[^a-z0-9]/gi,'').slice(0,40);const state=JSON.parse(localStorage.getItem(key)||'{"reactions":{"like":0,"love":0,"wow":0,"idea":0},"comments":[]}');const buttons=document.querySelectorAll('.react');function save(){localStorage.setItem(key,JSON.stringify(state))}function paint(){buttons.forEach(b=>{const r=b.dataset.reaction;b.querySelector('b').textContent=state.reactions[r]||0;b.classList.toggle('active',localStorage.getItem(key+'-'+r)==='1')});const list=document.getElementById('commentList');list.innerHTML='';if(!state.comments.length){list.innerHTML='<div class="empty">Be the first to comment.</div>';return}state.comments.slice().reverse().forEach(c=>{const el=document.createElement('article');el.className='comment';el.innerHTML='<div class="comment-top"><span class="comment-name">'+escapeHtml(c.name)+'</span><span class="comment-time">'+escapeHtml(c.time)+'</span></div><div class="comment-text">'+escapeHtml(c.text)+'</div>';list.appendChild(el)})}buttons.forEach(b=>b.onclick=()=>{const r=b.dataset.reaction,k=key+'-'+r;if(localStorage.getItem(k)==='1'){state.reactions[r]=Math.max(0,(state.reactions[r]||0)-1);localStorage.removeItem(k)}else{state.reactions[r]=(state.reactions[r]||0)+1;localStorage.setItem(k,'1')}save();paint()});document.getElementById('commentForm').onsubmit=e=>{e.preventDefault();const i=document.getElementById('commentInput'),t=i.value.trim();if(!t)return;state.comments.push({name:'Reader',text:t,time:new Date().toLocaleString()});i.value='';save();paint()};paint();
+addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;document.getElementById('progress').style.width=(h>0?scrollY/h*100:0)+'%'})
 </script>
 </body>
 </html>
