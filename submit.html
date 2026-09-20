@@ -59,7 +59,7 @@ footer{border-top:1px solid var(--line);padding:25px 0 42px;color:#656b77;font:8
     <h1>Choose how<br>to submit.</h1>
     <p>Select a submission type below. Click any option to open its dedicated form.</p>
   </div>
-  <div class="note"><b>Three submission options</b><br>01 Article Only · 02 Article with Image · 03 Other Format</div>
+  <div class="note"><b>Four submission options</b><br>01 Article · 02 Story · 03 Article + Image · 04 Other Format</div>
 </section>
 
 <!-- ========================= CATEGORY BUTTONS ========================= -->
@@ -70,7 +70,7 @@ footer{border-top:1px solid var(--line);padding:25px 0 42px;color:#656b77;font:8
     <p>Submit your text article directly to the Admin Panel queue via Realtime Database.</p>
     <span class="option-arrow">Open form ↓</span>
   </button>
-  <button class="option" data-form="imageCard">
+  <button class="option" data-form="storyCard"><span class="option-number">02 · Writer Story</span><h2>Story</h2><p>Submit a short story, creative writing or fiction piece for Atomic Magazine.</p><span class="option-arrow">Open form ↓</span></button><button class="option" data-form="imageCard">
     <span class="option-number">02 · Article + Image</span>
     <h2>Article with Image</h2>
     <p>Notify admin panel and open Gmail to attach your article text and cover image.</p>
@@ -85,7 +85,7 @@ footer{border-top:1px solid var(--line);padding:25px 0 42px;color:#656b77;font:8
 </section>
 
 <!-- ========================= CONDITIONAL FORMS ========================= -->
-<section class="form-area">
+<section class="form-area"><article class="form-card" id="storyCard"><div class="form-head"><div class="kicker">02 · Writer Story</div><h2>Submit Your Story</h2><p>Stories are reviewed by the Atomic editorial team before publication.</p></div><form class="form" id="storyForm"><label for="sName">Your name</label><input id="sName" maxlength="80" required placeholder="Writer name"><label for="sEmail">Your email</label><input id="sEmail" maxlength="160" type="email" required placeholder="you@example.com"><label for="sTitle">Story title</label><input id="sTitle" maxlength="180" required placeholder="Story title"><label for="sText">Story</label><textarea id="sText" maxlength="50000" required placeholder="Write your story…"></textarea><button type="submit">Submit Story to Admin Panel →</button><div class="status" id="storyStatus"></div></form></article>
 
   <!-- FORM 1: ARTICLE ONLY (Database Direct) -->
   <article class="form-card active" id="articleCard">
@@ -225,6 +225,8 @@ function openGmail(subject,body){
 }
 
 /* ========================= 01. ARTICLE ONLY (DIRECT DB) ========================= */
+q('storyForm').addEventListener('submit',async e=>{e.preventDefault();const s=q('storyStatus'),b=e.submitter||e.target.querySelector('button[type="submit"]');try{if(b)b.disabled=true;s.textContent='Submitting story…';const id=await recordToDatabase({author:q('sName').value.trim(),email:q('sEmail').value.trim(),title:q('sTitle').value.trim(),section:'Stories',text:q('sText').value.trim(),type:'story',submissionType:'Writer Story',status:'pending'});s.textContent=`Story submitted ✓ Submission ID: ${id}`;s.className='status success';e.target.reset()}catch(err){s.textContent='Could not submit: '+(err.message||err);s.className='status error'}finally{if(b)b.disabled=false}});
+
 q('articleForm').addEventListener('submit',async e=>{
   e.preventDefault();
   const s=q('articleStatus'), b=e.submitter || e.target.querySelector('button[type="submit"]');
