@@ -54,11 +54,9 @@ function setupIdeaNavigation(){
 }
 
 if (typeof document !== 'undefined') {
-  const observer = new MutationObserver(applyImageOverride);
-  observer.observe(document.documentElement, {subtree:true, childList:true});
   document.addEventListener('DOMContentLoaded', () => {
     applyImageOverride();
     setupSubmitNavigation();
     setupIdeaNavigation();
-  });
+  }, { once: true });
 }
