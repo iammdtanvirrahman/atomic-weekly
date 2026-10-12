@@ -906,29 +906,30 @@ body.atomic-page-open{overflow:hidden}
     currentPage=page;
     const sharedPageStyle = `
 <style id="atomicEmbeddedPageStyle">
-:root{color-scheme:dark!important;--ink:#f4f5f7!important;--paper:#090b10!important;--paper2:#11151d!important;--white:#151a23!important;--muted:#aab4c3!important;--line:#293140!important;--accent:#ff6554!important;--olive:#b9c7a6!important;--dark:#090b10!important;--gold:#e8c987!important;--bg:#090b10!important;--panel:#11151d!important;--panel2:#171d27!important}
-body{background:radial-gradient(900px 500px at 90% 0%,rgba(38,96,139,.12),transparent 65%),#090b10!important;color:#f4f5f7!important;font-family:Manrope,Arial,sans-serif!important}
-main{color:#f4f5f7!important}
-.intro h1,.formHead h2,.option h2{color:#f5f0e7!important}
-.option,.formCard,.note,.info,.status,.submission-card,.panel,.card,[class*="option"],[class*="card"]{background:linear-gradient(145deg,#151d28,#0b1017)!important;color:#f4f5f7!important;border-color:rgba(177,191,211,.18)!important;box-shadow:0 14px 36px rgba(0,0,0,.22)!important}
-.option:hover,.option.active{border-color:rgba(233,191,121,.55)!important}
-.formCard{border-radius:16px!important}
-.form input,.form textarea,.form select{background:#080c12!important;color:#f5f0e7!important;border-color:#303b4b!important;border-radius:9px!important}
-.form label{color:#aab4c3!important}
-.form button{background:linear-gradient(135deg,#ff7967,#ff5148)!important;color:#fff!important;border-radius:999px!important}
-.note b{color:#f5f0e7!important}
-
-html,body{background:#090b10!important;color:#f4f5f7!important;min-width:0!important;max-width:100%!important;overflow-x:hidden!important;font-family:Manrope,Inter,Arial,sans-serif!important}
-body{padding-top:0!important}
+:root{color-scheme:dark!important;--ink:#e8dfcd!important;--paper:#050605!important;--paper2:#0b0c0a!important;--white:#10110d!important;--muted:#938a78!important;--line:rgba(201,164,106,.22)!important;--accent:#c9a46a!important;--olive:#9aa184!important;--dark:#050605!important;--gold:#c9a46a!important;--bg:#050605!important;--panel:#0b0c0a!important;--panel2:#10110d!important}
+*{box-sizing:border-box!important}
+html,body{background:#050605!important;color:#e8dfcd!important;min-width:0!important;max-width:100%!important;overflow-x:hidden!important;font-family:Manrope,Inter,Arial,sans-serif!important}
+body{background:radial-gradient(ellipse at 88% 0%,rgba(137,101,46,.1),transparent 38%),#050605!important;padding-top:0!important}
+body,main,section,article,aside,header,footer{color:#e8dfcd!important}
 .top,.topbar,.mast,.masthead,.nav,.navbar,.site-header,header.top,header.mast,body>header,body>.ticker,.ticker{display:none!important}
-h1,h2,h3,h4{color:#f4f5f7!important}
-p,.muted,.sub,.description,.desc{color:#aab4c3!important}
-.panel,.card,.box,.formCard,.form-card,.article-card,.tile,.section-card,.submission,.paper,.editor-panel,.option,.choice,.method,.submit-option,.submission-card,[class*="option"],[class*="card"]{background:linear-gradient(145deg,#161b25,#0d1017)!important;color:#f4f5f7!important;border-color:#293140!important;box-shadow:0 14px 42px rgba(0,0,0,.2)!important}
-h1,h2,h3,h4,.option h2,.choice h2,[class*="option"] h2{color:#f4f5f7!important}
-label{color:#cbd2dd!important}
-input,select,textarea{background:#11151d!important;color:#f4f5f7!important;border-color:#293140!important}
-button,.btn,.button{font-family:Manrope,Arial,sans-serif!important}
-@media(max-width:700px){.wrap,.container,.shell,.page,.layout{width:calc(100% - 28px)!important;max-width:100%!important}.row{grid-template-columns:minmax(0,1fr)!important}.panel,.card,.box,.formCard,.form-card{padding:18px!important}}
+h1,h2,h3,h4,.intro h1,.formHead h2,.option h2,.choice h2{color:#eee5d5!important;font-family:"Cormorant Garamond",Georgia,serif!important;letter-spacing:-.035em!important}
+p,.muted,.sub,.description,.desc,.status,.info,.help,.hint{color:#9c9586!important}
+a{color:#d8b777!important}
+.option,.formCard,.note,.info,.status,.submission-card,.panel,.card,.box,.form-card,.article-card,.tile,.section-card,.submission,.paper,.editor-panel,.choice,.method,.submit-option,[class*="option"],[class*="card"]{background:linear-gradient(145deg,#11120e,#080907)!important;color:#e8dfcd!important;border:1px solid rgba(201,164,106,.22)!important;border-radius:8px!important;box-shadow:0 14px 42px rgba(0,0,0,.25)!important}
+.option:hover,.option.active{border-color:rgba(201,164,106,.62)!important;background:linear-gradient(145deg,#17170f,#090a07)!important}
+.formCard,.form-card{border-radius:8px!important}
+label{color:#b7ad99!important;font:700 .64rem/1.5 Manrope,Arial,sans-serif!important;letter-spacing:.1em!important}
+input,select,textarea,.form input,.form textarea,.form select{background:#080907!important;color:#e8dfcd!important;border:1px solid rgba(201,164,106,.28)!important;border-radius:5px!important;max-width:100%!important;box-shadow:none!important}
+input:focus,select:focus,textarea:focus{border-color:#c9a46a!important;box-shadow:0 0 0 3px rgba(201,164,106,.1)!important}
+input::placeholder,textarea::placeholder{color:#6f6a5e!important}
+button,.btn,.button,.form button,.panel button{font-family:Manrope,Arial,sans-serif!important;background:linear-gradient(115deg,#e4c27f,#b98b4e)!important;color:#171209!important;border:1px solid #c9a46a!important;border-radius:5px!important;font-weight:800!important;letter-spacing:.07em!important;transition:transform .2s ease,filter .2s ease!important}
+button:hover,.btn:hover,.button:hover,.form button:hover,.panel button:hover{filter:brightness(1.08)!important;transform:translateY(-1px)!important}
+button.secondary{background:transparent!important;color:#e8dfcd!important;border-color:rgba(201,164,106,.32)!important}
+.note b{color:#e8dfcd!important}
+hr{border:0!important;border-top:1px solid rgba(201,164,106,.18)!important}
+footer{border-color:rgba(201,164,106,.2)!important;color:#777061!important}
+@media(max-width:700px){.wrap,.container,.shell,.page,.layout{width:calc(100% - 28px)!important;max-width:100%!important;min-width:0!important}.row{grid-template-columns:minmax(0,1fr)!important}.panel,.card,.box,.formCard,.form-card{padding:18px!important}.intro h1{font-size:clamp(3rem,13vw,4.5rem)!important}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>`;
     const pageHtml=pages[page].replace('</head>', sharedPageStyle+'</head>');
     frame.srcdoc=pageHtml;
