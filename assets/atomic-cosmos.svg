@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 900" fill="none">
+<defs>
+ <radialGradient id="space" cx="70%" cy="34%" r="78%"><stop stop-color="#28384b" stop-opacity=".8"/><stop offset=".46" stop-color="#111b2a" stop-opacity=".48"/><stop offset="1" stop-color="#06080d" stop-opacity="0"/></radialGradient>
+ <radialGradient id="sun" cx="50%" cy="50%" r="50%"><stop stop-color="#fff4d2"/><stop offset=".12" stop-color="#ffd99b" stop-opacity=".96"/><stop offset=".42" stop-color="#ff9b58" stop-opacity=".35"/><stop offset="1" stop-color="#ff7649" stop-opacity="0"/></radialGradient>
+ <linearGradient id="planet" x1=".25" y1="0" x2=".68" y2="1"><stop stop-color="#e3d3b7"/><stop offset=".25" stop-color="#6f7b8b"/><stop offset=".52" stop-color="#25394d"/><stop offset=".8" stop-color="#101923"/><stop offset="1" stop-color="#05070b"/></linearGradient>
+ <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe8bf"/><stop offset=".35" stop-color="#ffb46c" stop-opacity=".8"/><stop offset=".7" stop-color="#91b8db" stop-opacity=".2"/><stop offset="1" stop-color="#0b1018" stop-opacity="0"/></linearGradient>
+ <radialGradient id="moon"><stop stop-color="#f5d7b3"/><stop offset=".65" stop-color="#9c9ca6"/><stop offset="1" stop-color="#333c4c"/></radialGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="36"/></filter>
+ <filter id="glow"><feGaussianBlur stdDeviation="7"/></filter>
+ <clipPath id="disc"><circle cx="1290" cy="635" r="505"/></clipPath>
+</defs>
+<rect width="1800" height="900" fill="#070a10"/><rect width="1800" height="900" fill="url(#space)"/>
+<g opacity=".72" fill="#e8d9bf">
+ <circle cx="144" cy="111" r="1.3"/><circle cx="244" cy="270" r=".9"/><circle cx="390" cy="82" r="1.1"/><circle cx="542" cy="194" r=".8"/><circle cx="636" cy="56" r="1.4"/><circle cx="771" cy="139" r=".8"/><circle cx="914" cy="74" r="1.2"/><circle cx="1011" cy="190" r=".8"/><circle cx="1114" cy="57" r="1.3"/><circle cx="1190" cy="119" r=".8"/><circle cx="1397" cy="64" r="1.2"/><circle cx="1544" cy="197" r="1.1"/><circle cx="1690" cy="96" r=".8"/><circle cx="158" cy="466" r=".8"/><circle cx="520" cy="404" r="1.1"/><circle cx="702" cy="324" r=".8"/><circle cx="1024" cy="380" r="1.2"/><circle cx="1642" cy="360" r=".8"/><circle cx="1730" cy="520" r="1.2"/>
+</g>
+<g opacity=".8" stroke="#d8a875" stroke-width="1.3">
+ <ellipse cx="1240" cy="415" rx="575" ry="182" transform="rotate(-17 1240 415)" opacity=".35"/>
+ <ellipse cx="1250" cy="430" rx="450" ry="286" transform="rotate(27 1250 430)" opacity=".2"/>
+ <path d="M650 900C800 740 880 560 1100 405S1480 180 1780 185" opacity=".24"/>
+</g>
+<circle cx="1210" cy="225" r="220" fill="#ff965c" opacity=".2" filter="url(#blur)"/>
+<circle cx="1220" cy="229" r="145" fill="url(#sun)" opacity=".9"/>
+<circle cx="1290" cy="635" r="505" fill="url(#planet)"/>
+<g clip-path="url(#disc)" opacity=".45" stroke-linecap="round">
+ <path d="M780 410c230 40 280 130 510 110s310-160 470-100" stroke="#b4b9c5" stroke-width="22" opacity=".12"/>
+ <path d="M800 500c190-15 290 45 430 10s330-120 460-80" stroke="#f5cda0" stroke-width="7" opacity=".17"/>
+ <path d="M760 590c250-80 420 10 610-45s270-120 400-60" stroke="#91a9c0" stroke-width="14" opacity=".12"/>
+ <path d="M760 700c250-65 410 10 610-35s300-100 430-30" stroke="#f7d7ae" stroke-width="5" opacity=".15"/>
+ <path d="M900 330c160 130 150 260 290 350s260 90 400 150" stroke="#c4d0db" stroke-width="2" opacity=".22"/>
+</g>
+<circle cx="1290" cy="635" r="506" stroke="url(#rim)" stroke-width="5" opacity=".8"/>
+<path d="M810 555C930 435 1040 325 1197 235" stroke="#fff0d2" stroke-width="3" opacity=".5" filter="url(#glow)"/>
+<path d="M820 555C930 435 1040 325 1197 235" stroke="#fbe1bd" stroke-width="1.5" opacity=".85"/>
+<circle cx="1207" cy="230" r="18" fill="#fff0c8" opacity=".6" filter="url(#glow)"/><circle cx="1207" cy="230" r="5" fill="#fff6df"/>
+<circle cx="1560" cy="126" r="50" fill="url(#moon)"/><path d="M1527 88c-15 32-13 61 8 88" stroke="#f3ddbd" stroke-opacity=".4" stroke-width="2"/>
+<g stroke="#d9a875" stroke-width="1.5" opacity=".65"><path d="M900 745c240-135 490-170 760-115"/><path d="M980 805c245-112 475-120 720-68"/></g>
+</svg>
