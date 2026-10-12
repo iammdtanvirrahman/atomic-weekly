@@ -1006,28 +1006,56 @@ body{background-image:linear-gradient(rgba(7,8,8,.91),rgba(7,8,8,.97)),url('web-
 </header>
 <div class="ticker"><div class="wrap" id="ticker">ATOMIC WEEKLY / SCIENCE, STORIES & THE SPACE BETWEEN THEM / VOL. 01 — 2026</div></div>
 <main class="wrap">
- <section class="hero" id="hero">
-  <div class="heroGrid">
+ <section class="hero editorial-hero" id="hero">
+ <div class="wrap">
+  <div class="edition-line"><span class="edition-dot"></span><span id="heroEyebrow">THIS WEEK'S EDITION</span><span class="edition-rule"></span><span>VOL. 01 / 2026</span></div>
+  <div class="heroGrid editorial-grid">
    <div class="hero-copy">
-    <div class="eyebrow" id="heroEyebrow">An independent journal</div>
-    <h1 id="heroTitle">Science for the mind.<br><em>Stories for the heart.</em></h1>
-    <p id="heroDesc">A considered journal of science, discovery, and the stories that make an ordinary life feel extraordinary.</p>
-    <div class="hero-actions"><a class="hero-link hero-link-primary" href="#taster">Wander into the journal <span>↗</span></a><a class="hero-link" href="#latest">Explore the latest <span>↓</span></a></div>
-    <div class="hero-footnote"><span class="live-dot"></span> INDEPENDENT THOUGHTS · HUMAN CURIOSITY · VOL. 01 / 2026</div>
+    <p class="editorial-kicker">ATOMIC WEEKLY · INDEPENDENT JOURNAL</p>
+    <h1 id="heroTitle">Curiosity,<br><em>carefully edited.</em></h1>
+    <p id="heroDesc">One remarkable idea. Extraordinary stories. A wider view of the world.</p>
+    <div class="hero-actions"><a class="hero-link hero-link-primary" href="#latest">Explore the journal <span>↗</span></a><a class="hero-link" href="submit.html">Submit your story <span>＋</span></a></div>
+    <div class="hero-footnote"><span class="live-dot"></span> SCIENCE · HUMAN STORIES · THE SPACE BETWEEN THEM</div>
    </div>
-   <div class="artifact-wrap">
-    <div class="artifact-topline"><span>01&nbsp;&nbsp; / &nbsp;&nbsp;IMAGE ARTIFACT</span><span class="artifact-mark">✳</span></div>
-    <a href="#latest" class="artifact-image" aria-label="Explore the latest stories"><img src="web-assets/hero-reverie.png" alt="Golden luminous filaments tracing an intricate living constellation across a dark natural landscape" fetchpriority="high" decoding="async"><span class="image-corner">A / W&nbsp; — &nbsp;FIELD NOTES</span></a>
-    <div class="artifact-caption"><div class="artifact-title"><span class="artifact-kicker">A thought worth keeping</span><h2>Wonder is a way of seeing.</h2><p>Follow the strange, the beautiful, and the not-yet-understood.</p></div><div class="artifact-aside"><span>WANDERED FROM:</span><b>science / memory / the living world</b><div class="artifact-meta">ATOMIC WEEKLY&nbsp; · &nbsp;2026&nbsp; · &nbsp;OPEN JOURNAL</div></div></div>
-   </div>
-   <div class="word-rain" aria-hidden="true"><span>curiosity</span><span>deep sea</span><span>memory</span><span>old maps</span><span>starlight</span><span>becoming</span><span>the unknown</span></div>
+   <article class="featured-story" id="featuredCard" tabindex="0" role="button" aria-label="Read this week's featured story">
+    <div class="featured-topline"><span><b>01</b> / EDITOR'S SELECTION</span><span class="featured-status"><i></i> FEATURED</span></div>
+    <div class="featured-art" id="featuredArt">
+     <img id="featuredImage" src="web-assets/atomic-orbit.svg" alt="Abstract orbital artwork for Atomic Weekly" fetchpriority="high" decoding="async">
+     <span class="featured-art-shade"></span><span class="featured-art-mark">A/W</span>
+     <span class="featured-category" id="featuredCategory">THE WEEKLY PICK</span>
+    </div>
+    <div class="featured-copy">
+     <div class="featured-meta"><span id="featuredEyebrow">A THOUGHT WORTH KEEPING</span><span id="featuredNumber">01 — JOURNAL</span></div>
+     <h2 id="featuredTitle">A new perspective awaits.</h2>
+     <p id="featuredDesc">The latest from a journal for curious minds.</p>
+     <div class="featured-bottom"><span id="featuredAuthor">ATOMIC DESK</span><span class="featured-read">READ FEATURE <b>↗</b></span></div>
+    </div>
+   </article>
   </div>
- </section>
- <section class="taster" id="taster">
-  <div class="taster-intro"><span class="micro-label">TASTER / 001</span><h2>Give it a few sparks.</h2><p>Type a handful of curiosities and discover a story to begin with. No account, no feed. Just a little wonder.</p></div>
-  <div class="taster-control"><label class="sr-only" for="sparkSearch">What are you curious about?</label><div class="spark-input-wrap"><input id="sparkSearch" type="text" placeholder="e.g. deep sea, memory, lantern light…" autocomplete="off"><span>✳</span></div><div class="taster-buttons"><button type="button" id="wanderOnce">Wander once <span>↗</span></button><button type="button" id="runSearch">Find a thread</button></div><p class="taster-hint" id="sparkHint">One small curiosity can open an entire world.</p></div>
-  <div class="taster-result" id="sparkResult"><span class="result-sigil">✳</span><p>Your next unexpected thought<br>will begin here.</p><span class="result-small">ONE FINISHED ARTIFACT, NOT A FEED</span></div>
- </section>
+ </div>
+</section>
+<section class="pathways" id="pathways">
+ <div class="wrap">
+  <div class="pathways-heading"><div><span class="section-kicker">TWO WAYS INTO THE JOURNAL</span><h2>Choose your kind of wonder.</h2></div><p>For the things you want to understand—and the stories you want to feel.</p></div>
+  <div class="pathways-grid">
+   <a class="pathway pathway-science" href="#latest" data-section="Science">
+    <div class="pathway-visual"><span class="pathway-index">01 / UNDERSTAND</span><span class="pathway-symbol" aria-hidden="true">⟡</span><span class="pathway-orbit orbit-one"></span><span class="pathway-orbit orbit-two"></span></div>
+    <div class="pathway-copy"><div><span class="pathway-kicker">SCIENCE · TECHNOLOGY · COSMOS</span><h3>Explore the unknown.</h3><p>Discoveries, questions and ideas that change how we see the world.</p></div><span class="pathway-arrow">↗</span></div>
+   </a>
+   <a class="pathway pathway-stories" href="#latest" data-section="story">
+    <div class="pathway-visual"><span class="pathway-index">02 / FEEL</span><span class="pathway-symbol" aria-hidden="true">✳</span><span class="story-line story-line-one"></span><span class="story-line story-line-two"></span></div>
+    <div class="pathway-copy"><div><span class="pathway-kicker">PERSONAL ESSAYS · FICTION · LITERATURE</span><h3>Enter another world.</h3><p>Human stories, intimate details and words that stay with you.</p></div><span class="pathway-arrow">↗</span></div>
+   </a>
+  </div>
+ </div>
+</section>
+ <section class="taster smart-taster" id="taster">
+ <div class="wrap smart-taster-grid">
+  <div class="taster-intro"><span class="section-kicker">A SMALL SPARK IS ENOUGH</span><h2>What are you curious about?</h2><p>Give the journal a subject. Find a thread worth following.</p></div>
+  <div class="taster-control"><label class="sr-only" for="sparkSearch">Search by curiosity</label><div class="spark-input-wrap"><input id="sparkSearch" type="text" placeholder="e.g. deep sea, memory, the future…" autocomplete="off"><span>↗</span></div><div class="taster-buttons"><button type="button" id="runSearch">Find a thread <span>↗</span></button><button type="button" id="wanderOnce">Surprise me</button></div><p class="taster-hint" id="sparkHint">No feed to scroll. Just a question to follow.</p></div>
+  <div class="taster-result" id="sparkResult"><span class="result-sigil">✳</span><p>Your next unexpected thought begins here.</p><span class="result-small">ONE GOOD STORY CAN OPEN A WORLD</span></div>
+ </div>
+</section>
  <div class="motion-strip" aria-label="Atomic Weekly themes">
   <div class="motion-track">
    <span>SCIENCE, WITHOUT THE NOISE</span><i>✳</i><span>STORIES, WRITTEN WITH CARE</span><i>✳</i><span>QUESTIONS WORTH KEEPING</span><i>✳</i><span>THE UNIVERSE, A LITTLE CLOSER</span><i>✳</i>
@@ -1075,16 +1103,19 @@ function isStory(a){return a?.type==='story'||/^(story|stories)$/i.test(String(a
 function filtered(){const term=q('search').value.trim().toLowerCase(),f=q('filter').value.toLowerCase();return all.filter(a=>{const sec=String(a.section||'').toLowerCase(),match=f==='all'||(f==='story'&&isStory(a))||(!['all','story'].includes(f)&&sec===f);const text=Object.values(a).join(' ').toLowerCase();return match&&(!term||text.includes(term))}).sort((a,b)=>(b.publishedAt||b.updatedAt||b.timestamp||0)-(a.publishedAt||a.updatedAt||a.timestamp||0))}
 function coverFor(a){const s=String(a.section||a.category||'').toLowerCase();if(isStory(a)||s.includes('story')||s.includes('fiction')||s.includes('literature'))return 'assets/covers/stories-feature-cover.png';if(s.includes('science')||s.includes('biology')||s.includes('physics')||s.includes('chemistry'))return 'assets/covers/science-feature-cover.png';if(s.includes('tech')||s.includes('robot')||s.includes('comput'))return 'assets/covers/technology-feature-cover.png';if(s.includes('cosmos')||s.includes('space')||s.includes('astronomy'))return 'cosmos-feature-cover.png';return 'assets/issues/issue-01-cover.png'}
 function card(a,i=0){const im=url(a.cover||a.image||a.coverImage)||coverFor(a);const number=String(i+1).padStart(2,'0');return '<article class="card" data-id="'+esc(a.id)+'" data-index="'+number+'" tabindex="0" role="button" aria-label="Read '+esc(a.title||'Untitled')+'"><div class="thumb '+(im?'hasimg':'noimg')+'">'+(im?'<img class="cover-img" src="'+esc(im)+'" alt="" loading="lazy" decoding="async">':'')+'<div class="tag">'+esc(isStory(a)?'Story':(a.section||'Magazine'))+'</div><span class="cover-number">'+number+' / FIELD NOTE</span><span class="cover-open" aria-hidden="true">↗</span></div><div class="body"><div class="story-overline"><span>ATOMIC WEEKLY</span><span>'+number+' — '+esc(isStory(a)?'STORY':String(a.section||'JOURNAL').toUpperCase())+'</span></div><h3>'+esc(a.title||'Untitled')+'</h3><p class="dek">'+esc(a.dek||a.excerpt||'')+'</p><div class="story-bottom"><div class="meta">'+esc(a.author||'Atomic Desk')+(a.date?' · '+esc(a.date):'')+'</div><span class="story-read">READ THE STORY <b>↗</b></span></div></div></article>'}
-function render(){shown=filtered();q('count').textContent=shown.length+(shown.length===1?' story':' stories');q('articles').innerHTML=shown.length?'<div class="grid">'+shown.map((a,i)=>card(a,i)).join('')+'</div>':'<div class="grid"><div class="empty"><strong>No stories found.</strong>Try another search or section.</div></div>';if(revealObserver){document.querySelectorAll('.card,.topic').forEach(el=>revealObserver.observe(el))}}
+function render(){shown=filtered();q('count').textContent=shown.length+(shown.length===1?' story':' stories');q('articles').innerHTML=shown.length?'<div class="grid">'+shown.map((a,i)=>card(a,i)).join('')+'</div>':'<div class="grid"><div class="empty"><strong>No stories found.</strong>Try another search or section.</div></div>';renderFeatured();if(revealObserver){document.querySelectorAll('.card,.topic,.pathway').forEach(el=>revealObserver.observe(el))}}
+function renderFeatured(){const a=all.slice().sort((x,y)=>(y.publishedAt||y.updatedAt||y.timestamp||0)-(x.publishedAt||x.updatedAt||x.timestamp||0))[0];const cardEl=q('featuredCard');if(!cardEl)return;if(!a){q('featuredTitle').textContent=lang==='bn'?'নতুন ভাবনার অপেক্ষায়':'A new perspective awaits.';q('featuredDesc').textContent=lang==='bn'?'জার্নালে প্রকাশিত নতুন লেখা শিগগিরই এখানে দেখা যাবে।':'The latest from a journal for curious minds.';q('featuredAuthor').textContent='ATOMIC DESK';q('featuredCategory').textContent=lang==='bn'?'সম্পাদকের পছন্দ':'THE WEEKLY PICK';cardEl.dataset.articleId='';return}cardEl.dataset.articleId=a.id;q('featuredTitle').textContent=a.title||'Untitled';q('featuredDesc').textContent=a.dek||a.excerpt||a.description||'';q('featuredAuthor').textContent=(a.author||'Atomic Desk').toUpperCase();q('featuredCategory').textContent=isStory(a)?(lang==='bn'?'গল্প':'STORY'):(a.section||'JOURNAL').toUpperCase();q('featuredNumber').textContent='01 — '+(isStory(a)?'STORY':String(a.section||'JOURNAL').toUpperCase());q('featuredEyebrow').textContent=lang==='bn'?'সম্পাদকের পছন্দ':'A THOUGHT WORTH KEEPING';const image=q('featuredImage');const im=url(a.cover||a.image||a.coverImage)||coverFor(a);if(im){image.src=im;image.alt=a.title||'Featured Atomic Weekly story';image.style.display='block'}else{image.removeAttribute('src');image.style.display='none'}}
 function openReader(id){const next=all.find(a=>a.id===id);if(!next)return;readerSession++;previousScrollY=window.scrollY;current=next;const reader=q('reader'),image=q('readerImage');reader.classList.add('open');document.body.classList.add('lock');reader.scrollTop=0;const im=url(current.cover||current.image||current.coverImage);image.style.display=im?'block':'none';image.removeAttribute('src');if(im)image.src=im;q('readerTitle').textContent=current.title||'Untitled';q('readerText').innerHTML=clean(current.content||current.html||('<p>'+esc(current.text||current.body||'')+'</p>'));try{runTransaction(ref(db,'publishedArticles/'+id+'/views'),v=>(Number(v)||0)+1).catch(()=>{})}catch{};try{history.replaceState(null,'','#article='+encodeURIComponent(id))}catch{} }
 function closeReader(){const reader=q('reader');if(!reader.classList.contains('open'))return;readerSession++;reader.classList.remove('open');document.body.classList.remove('lock');q('readerText').replaceChildren();const image=q('readerImage');image.removeAttribute('src');image.style.display='none';q('readerTitle').textContent='';current=null;if(location.hash.startsWith('#article='))history.replaceState(null,'',location.pathname+location.search);requestAnimationFrame(()=>window.scrollTo(0,previousScrollY))}
 q('close').onclick=closeReader;q('reader').onclick=e=>{if(e.target===q('reader'))closeReader()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader()});
 q('search').oninput=render;q('filter').onchange=render;
 q('articles').addEventListener('click',e=>{const cardEl=e.target.closest('.card');if(!cardEl||e.target.closest('button'))return;openReader(cardEl.dataset.id)});
 q('articles').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('.card')){e.preventDefault();openReader(e.target.dataset.id)}});
-document.querySelectorAll('.topic').forEach(t=>t.onclick=e=>{e.preventDefault();q('filter').value=t.dataset.section==='story'?'story':t.dataset.section;q('search').value='';render();q('latest').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});history.replaceState(null,'','#latest')});
-const T={en:{ticker:'ATOMIC WEEKLY  /  SCIENCE, STORIES & THE SPACE BETWEEN THEM  /  VOL. 01 — 2026',hero:'An independent journal',title:'Science for the mind.<br>Stories for the heart.',desc:'A considered journal of science, discovery, and the stories that make an ordinary life feel extraordinary.',desk:'From the editor desk',deskDesc:'Curiosity deserves rigor. A good story deserves care. Both belong here.',latest:'Latest from the journal',sections:'Explore the journal',explore:'Choose a department',search:'Search articles and stories…',all:'All departments',stories:'Stories',science:'Science',technology:'Technology',cosmos:'Cosmos',ideas:'Ideas',news:'News',magazine:'Magazine',foot1:'© 2026 Atomic Weekly',foot2:'For curious minds, and the people they write for.'},bn:{ticker:'অ্যাটমিক উইকলি  /  বিজ্ঞান, গল্প ও মাঝের অনুভূতিগুলো  /  ভলিউম ০১ — ২০২৬',hero:'স্বাধীন জার্নাল',title:'বিজ্ঞানের ভাবনা।<br>হৃদয়ের গল্প।',desc:'বিজ্ঞান, আবিষ্কার এবং জীবনের ছোট ছোট অনুভূতিকে নিয়ে একটি যত্নে সাজানো ডিজিটাল জার্নাল।',desk:'সম্পাদকের ডেস্ক থেকে',deskDesc:'কৌতূহলে থাকুক যুক্তি, আর গল্পে থাকুক যত্ন। দুটিই এখানে জায়গা পায়।',latest:'জার্নালের নতুন লেখা',sections:'জার্নাল ঘুরে দেখুন',explore:'একটি বিভাগ বেছে নিন',search:'প্রবন্ধ ও গল্প খুঁজুন…',all:'সব বিভাগ',stories:'গল্প',science:'বিজ্ঞান',technology:'প্রযুক্তি',cosmos:'মহাকাশ',ideas:'ভাবনা',news:'সংবাদ',magazine:'ম্যাগাজিন',foot1:'© ২০২৬ অ্যাটমিক উইকলি',foot2:'কৌতূহলী মন আর যাদের জন্য লেখা হয়, তাদের জন্য।'}};
-function applyLang(){const t=T[lang];document.documentElement.lang=lang;q('ticker').textContent=t.ticker;q('heroEyebrow').textContent=t.hero;q('heroTitle').innerHTML=t.title;q('heroDesc').textContent=t.desc;q('latestTitle').textContent=t.latest;q('sectionsTitle').textContent=t.sections;q('explore').textContent=t.explore;q('search').placeholder=t.search;q('foot1').textContent=t.foot1;q('foot2').textContent=t.foot2;const opts=q('filter').options;[t.all,t.stories,t.science,t.technology,t.cosmos,t.ideas,t.news,t.magazine].forEach((x,i)=>opts[i].textContent=x);document.querySelectorAll('[data-en]').forEach(a=>a.textContent=a.dataset[lang]);document.querySelectorAll('.topic').forEach((a,i)=>{const b=a.querySelector('b'),s=a.querySelector('span');const data=lang==='bn'?[['বিজ্ঞান','পদার্থবিজ্ঞান · জীববিজ্ঞান · রসায়ন'],['প্রযুক্তি','এআই · রোবোটিক্স · কম্পিউটিং'],['মহাকাশ','মহাকাশ · জ্যোতির্বিজ্ঞান · উৎপত্তি'],['ভাবনা','প্রশ্ন · ভবিষ্যৎ'],['গল্প','সৃজনশীল লেখা · সাহিত্য · গল্প']][i]:[['Science','Physics · Biology · Chemistry'],['Technology','AI · Robotics · Computing'],['Cosmos','Space · Astronomy · Origins'],['Ideas','Questions · Future'],['Stories','Fiction · Creative Writing · Literature']][i];if(data){b.textContent=data[0];s.textContent=data[1]}});q('lang').textContent=lang==='en'?'বাংলা':'English'}
+document.querySelectorAll('.topic,.pathway').forEach(t=>t.onclick=e=>{e.preventDefault();q('filter').value=t.dataset.section==='story'?'story':t.dataset.section;q('search').value='';render();q('latest').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});history.replaceState(null,'','#latest')});
+q('featuredCard').addEventListener('click',()=>{const id=q('featuredCard').dataset.articleId;if(id)openReader(id);else q('latest').scrollIntoView({behavior:'smooth'})});
+q('featuredCard').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();q('featuredCard').click()}});
+const T={en:{ticker:'ATOMIC WEEKLY  /  SCIENCE, STORIES & THE SPACE BETWEEN THEM  /  VOL. 01 — 2026',hero:'THIS WEEK’S EDITION',title:'Curiosity,<br>carefully edited.',desc:'One remarkable idea. Extraordinary stories. A wider view of the world.',desk:'From the editor desk',deskDesc:'Curiosity deserves rigor. A good story deserves care. Both belong here.',latest:'Latest from the journal',sections:'Explore the journal',explore:'Choose a department',search:'Search articles and stories…',all:'All departments',stories:'Stories',science:'Science',technology:'Technology',cosmos:'Cosmos',ideas:'Ideas',news:'News',magazine:'Magazine',foot1:'© 2026 Atomic Weekly',foot2:'For curious minds, and the people they write for.'},bn:{ticker:'অ্যাটমিক উইকলি  /  বিজ্ঞান, গল্প ও মাঝের অনুভূতিগুলো  /  ভলিউম ০১ — ২০২৬',hero:'এই সপ্তাহের আয়োজন',title:'কৌতূহল,<br>যত্নে সম্পাদিত।',desc:'একটি অসাধারণ ভাবনা। কিছু মনে থাকার মতো গল্প। পৃথিবীকে দেখার আরও বিস্তৃত দৃষ্টিভঙ্গি।',desk:'সম্পাদকের ডেস্ক থেকে',deskDesc:'কৌতূহলে থাকুক যুক্তি, আর গল্পে থাকুক যত্ন। দুটিই এখানে জায়গা পায়।',latest:'জার্নালের নতুন লেখা',sections:'জার্নাল ঘুরে দেখুন',explore:'একটি বিভাগ বেছে নিন',search:'প্রবন্ধ ও গল্প খুঁজুন…',all:'সব বিভাগ',stories:'গল্প',science:'বিজ্ঞান',technology:'প্রযুক্তি',cosmos:'মহাকাশ',ideas:'ভাবনা',news:'সংবাদ',magazine:'ম্যাগাজিন',foot1:'© ২০২৬ অ্যাটমিক উইকলি',foot2:'কৌতূহলী মন আর যাদের জন্য লেখা হয়, তাদের জন্য।'}}
+function applyLang(){const t=T[lang];document.documentElement.lang=lang;q('ticker').textContent=t.ticker;q('heroEyebrow').textContent=t.hero;q('heroTitle').innerHTML=t.title;q('heroDesc').textContent=t.desc;q('featuredEyebrow').textContent=lang==='bn'?'সম্পাদকের পছন্দ':'A THOUGHT WORTH KEEPING';q('featuredCategory').textContent=lang==='bn'?'সম্পাদকের পছন্দ':'THE WEEKLY PICK';q('featuredTitle').textContent=q('featuredTitle').textContent|| (lang==='bn'?'নতুন ভাবনার অপেক্ষায়':'A new perspective awaits.');q('featuredDesc').textContent=q('featuredDesc').textContent||t.desc;renderFeatured();q('latestTitle').textContent=t.latest;q('sectionsTitle').textContent=t.sections;q('explore').textContent=t.explore;q('search').placeholder=t.search;q('foot1').textContent=t.foot1;q('foot2').textContent=t.foot2;const opts=q('filter').options;[t.all,t.stories,t.science,t.technology,t.cosmos,t.ideas,t.news,t.magazine].forEach((x,i)=>opts[i].textContent=x);document.querySelectorAll('[data-en]').forEach(a=>a.textContent=a.dataset[lang]);document.querySelectorAll('.topic').forEach((a,i)=>{const b=a.querySelector('b'),s=a.querySelector('span');const data=lang==='bn'?[['বিজ্ঞান','পদার্থবিজ্ঞান · জীববিজ্ঞান · রসায়ন'],['প্রযুক্তি','এআই · রোবোটিক্স · কম্পিউটিং'],['মহাকাশ','মহাকাশ · জ্যোতির্বিজ্ঞান · উৎপত্তি'],['ভাবনা','প্রশ্ন · ভবিষ্যৎ'],['গল্প','সৃজনশীল লেখা · সাহিত্য · গল্প']][i]:[['Science','Physics · Biology · Chemistry'],['Technology','AI · Robotics · Computing'],['Cosmos','Space · Astronomy · Origins'],['Ideas','Questions · Future'],['Stories','Fiction · Creative Writing · Literature']][i];if(data){b.textContent=data[0];s.textContent=data[1]}});q('lang').textContent=lang==='en'?'বাংলা':'English'}
 q('lang').onclick=()=>{lang=lang==='en'?'bn':'en';applyLang()};
 let revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('reveal');revealObserver.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px 80px'});
 onValue(ref(db,'publishedArticles'),s=>{all=Object.entries(s.val()||{}).map(([id,a])=>({...a,id})).filter(a=>a.status==='published'||a.published===true);render();if(!current&&location.hash.startsWith('#article=')){const id=decodeURIComponent(location.hash.slice(9));if(all.some(a=>a.id===id))openReader(id)}});
@@ -1410,6 +1441,123 @@ footer{background:#080909!important;border-color:#302b22!important;color:#8f8575
  .taster{grid-template-columns:1fr!important;gap:20px!important}
  .card,.topic{box-shadow:none!important}
 }
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+<style id="atomic-editorial-intelligence">
+:root{--ink:#eee9df;--paper:#080909;--paper2:#10110f;--white:#151613;--muted:#a29a8c;--line:#302d27;--accent:#d34a3f;--olive:#b5a27c;--dark:#11120f;--gold:#c7a56b;color-scheme:dark}
+html,body{background:#080909!important;color:#eee9df!important}
+body{background:radial-gradient(ellipse at 78% 2%,rgba(180,135,71,.075),transparent 32%),#080909!important}
+.wrap{width:min(1280px,calc(100% - 64px))!important}
+.top{background:rgba(8,9,9,.91)!important;border-color:#292720!important;backdrop-filter:blur(20px)!important}
+.top.scrolled{background:rgba(8,9,9,.97)!important;box-shadow:0 10px 35px rgba(0,0,0,.24)!important}
+.topbar{grid-template-columns:1fr auto auto!important;gap:clamp(16px,3vw,44px)!important;min-height:78px!important}
+.brand{color:#eee9df!important;font-size:1.36rem!important;letter-spacing:-.05em!important}
+.brand i{color:#c7a56b!important;font-size:1.58rem!important}
+.nav{gap:clamp(14px,2vw,29px)!important}
+.nav a{color:#a29a8c!important;font-size:.62rem!important;letter-spacing:.12em!important}
+.nav a:hover,.nav a:focus-visible{color:#eee9df!important}
+.nav a:after{background:#d34a3f!important}
+.nav .nav-cta{border:1px solid #544432!important;border-radius:3px!important;padding:12px 15px!important;color:#e2d2b4!important;background:transparent!important}
+.nav .nav-cta:hover{background:#d34a3f!important;border-color:#d34a3f!important;color:#fff!important}
+.lang{background:#10110f!important;border-color:#423a2e!important;color:#eee9df!important;border-radius:3px!important}
+.lang:hover{background:#c7a56b!important;border-color:#c7a56b!important;color:#080909!important}
+.ticker{background:#0e0f0d!important;border-color:#292720!important;color:#928875!important}
+.hero.editorial-hero{padding:clamp(26px,3.2vw,48px) 0 clamp(50px,6vw,84px)!important;background:#080909!important;border-color:#302d27!important}
+.edition-line{display:flex;align-items:center;gap:11px;color:#a69a84;font:600 .58rem/1.3 var(--sans);letter-spacing:.17em;text-transform:uppercase;margin-bottom:clamp(28px,4vw,52px)}
+.edition-dot{width:6px;height:6px;background:#d34a3f;border-radius:50%;box-shadow:0 0 13px rgba(211,74,63,.4)}
+.edition-rule{height:1px;background:#393329;flex:1;max-width:150px}
+.editorial-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;align-items:center!important;gap:clamp(30px,5.2vw,76px)!important}
+.editorial-kicker,.section-kicker{color:#c7a56b;font:700 .59rem/1.5 var(--sans);letter-spacing:.19em;text-transform:uppercase}
+.editorial-kicker{margin:0 0 22px!important}
+.hero h1{font-size:clamp(4.2rem,7.1vw,7.4rem)!important;line-height:.84!important;letter-spacing:-.065em!important;color:#eee9df!important;max-width:8ch!important;margin:0 0 25px!important}
+.hero h1 em{font-style:normal!important;color:#c7a56b!important;background:none!important;-webkit-text-fill-color:#c7a56b!important}
+.hero p{color:#a29a8c!important;max-width:390px!important;font-size:.94rem!important;line-height:1.85!important}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px!important;margin-top:28px!important}
+.hero-link{padding:13px 15px!important;border:1px solid #3d372d!important;border-radius:3px!important;background:transparent!important;color:#d4c9b7!important;font-size:.68rem!important;letter-spacing:.025em!important}
+.hero-link:hover{border-color:#c7a56b!important;color:#fff!important}
+.hero-link-primary{background:#c7a56b!important;color:#10100d!important;border-color:#c7a56b!important;box-shadow:none!important}
+.hero-link-primary span{color:#10100d!important}
+.hero-footnote{margin-top:34px!important;color:#817968!important;font-size:.52rem!important;letter-spacing:.13em!important}
+.live-dot{background:#d34a3f!important;box-shadow:0 0 12px rgba(211,74,63,.48)!important}
+.featured-story{min-width:0;cursor:pointer;border:1px solid #40382b;border-radius:7px;padding:11px;background:linear-gradient(145deg,#151510,#0c0d0b);box-shadow:0 22px 70px rgba(0,0,0,.28);transition:border-color .3s,transform .3s,box-shadow .3s}
+.featured-story:hover,.featured-story:focus-visible{border-color:#92774e;transform:translateY(-3px);box-shadow:0 28px 80px rgba(0,0,0,.4)}
+.featured-topline{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:4px 5px 12px;color:#a79b85;font:600 .56rem/1.4 ui-monospace,monospace;letter-spacing:.13em}
+.featured-topline b{color:#eee9df;font-weight:500}
+.featured-status{display:flex;align-items:center;gap:6px;color:#c7a56b;font-size:.52rem}
+.featured-status i{width:5px;height:5px;border-radius:50%;background:#d34a3f;display:inline-block}
+.featured-art{position:relative;aspect-ratio:1.47/1;overflow:hidden;background:radial-gradient(ellipse at 55% 42%,rgba(171,134,71,.2),transparent 45%),#090b0a;border:1px solid #302d27}
+.featured-art img{display:block;width:100%;height:100%;object-fit:cover;opacity:.9;transition:transform .8s,opacity .4s;filter:saturate(.76)}
+.featured-story:hover .featured-art img{transform:scale(1.025);opacity:1}
+.featured-art-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),transparent 45%,rgba(0,0,0,.5));pointer-events:none}
+.featured-art-mark{position:absolute;right:18px;top:15px;color:#e4c88f;font:500 1.5rem var(--serif);letter-spacing:-.08em}
+.featured-category{position:absolute;left:16px;bottom:15px;padding:8px 11px;border:1px solid rgba(199,165,107,.6);background:rgba(8,9,9,.68);color:#ead8b4;font:700 .56rem var(--sans);letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.featured-copy{padding:18px 8px 8px}
+.featured-meta{display:flex;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid #302d27;color:#a49a88;font:600 .53rem/1.5 ui-monospace,monospace;letter-spacing:.1em}
+.featured-meta span:last-child{text-align:right}
+.featured-copy h2{font:500 clamp(2rem,3vw,3rem)/.98 var(--serif)!important;letter-spacing:-.035em!important;color:#eee9df!important;margin:17px 0 7px!important}
+.featured-copy p{font:400 .81rem/1.65 var(--sans)!important;color:#a29a8c!important;margin:0!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.featured-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #302d27;margin-top:19px;padding-top:14px;color:#928875;font:600 .53rem/1.4 ui-monospace,monospace;letter-spacing:.1em}
+.featured-read{display:flex;align-items:center;gap:10px;color:#d9bd87}
+.featured-read b{display:grid;place-items:center;width:29px;height:29px;border:1px solid #69563a;border-radius:50%;font-weight:400;font-size:.8rem}
+.pathways{padding:clamp(44px,6vw,78px) 0;background:#0b0c0a;border-bottom:1px solid #302d27}
+.pathways-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:22px}
+.pathways-heading h2{margin:9px 0 0;color:#eee9df;font:500 clamp(2.3rem,4.4vw,4rem)/.94 var(--serif);letter-spacing:-.045em}
+.pathways-heading>p{max-width:330px;margin:0;color:#a29a8c;font-size:.78rem;line-height:1.8}
+.pathways-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.pathway{min-width:0;text-decoration:none;border:1px solid #302d27;border-radius:6px;background:#10110f;overflow:hidden;transition:border-color .3s,transform .3s,background .3s}
+.pathway:hover{border-color:#766143;transform:translateY(-3px);background:#13140f}
+.pathway-visual{height:clamp(145px,19vw,245px);position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 50%,rgba(199,165,107,.14),transparent 46%),linear-gradient(145deg,#14140f,#090a09);border-bottom:1px solid #302d27}
+.pathway-stories .pathway-visual{background:radial-gradient(ellipse at 50% 50%,rgba(211,74,63,.09),transparent 46%),linear-gradient(145deg,#15110f,#090a09)}
+.pathway-index{position:absolute;top:17px;left:18px;color:#a79a84;font:600 .56rem ui-monospace,monospace;letter-spacing:.14em}
+.pathway-symbol{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:400 clamp(4rem,8vw,7rem)/1 var(--serif);color:#c7a56b;text-shadow:0 0 40px rgba(199,165,107,.16)}
+.pathway-stories .pathway-symbol{color:#d34a3f;text-shadow:0 0 38px rgba(211,74,63,.12)}
+.pathway-orbit{position:absolute;left:50%;top:50%;border:1px solid rgba(199,165,107,.26);border-radius:50%;width:clamp(110px,18vw,210px);height:clamp(55px,9vw,105px);transform:translate(-50%,-50%) rotate(-24deg)}
+.orbit-two{transform:translate(-50%,-50%) rotate(57deg);width:clamp(100px,15vw,175px)}
+.story-line{position:absolute;left:20%;right:20%;top:50%;height:1px;background:linear-gradient(90deg,transparent,#d34a3f,transparent);transform:rotate(-25deg)}
+.story-line-two{transform:rotate(25deg);opacity:.6}
+.pathway-copy{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:20px}
+.pathway-kicker{font:600 .53rem/1.5 var(--sans);letter-spacing:.11em;color:#a99a7d}
+.pathway-copy h3{margin:7px 0 6px;color:#eee9df;font:500 clamp(1.8rem,3vw,2.6rem)/.98 var(--serif);letter-spacing:-.035em}
+.pathway-copy p{margin:0;max-width:390px;color:#a29a8c;font-size:.77rem;line-height:1.7}
+.pathway-arrow{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border:1px solid #4a4030;border-radius:50%;color:#c7a56b;transition:background .25s,color .25s,border-color .25s}
+.pathway:hover .pathway-arrow{background:#c7a56b;color:#080909;border-color:#c7a56b}
+.smart-taster{padding:clamp(35px,5vw,60px) 0!important;background:#080909!important;border-bottom:1px solid #302d27}
+.smart-taster-grid{display:grid;grid-template-columns:.8fr 1fr .72fr;gap:clamp(18px,3vw,42px);align-items:center}
+.taster-intro h2{margin:9px 0 8px!important;color:#eee9df!important;font:500 clamp(2rem,3.2vw,3.2rem)/.95 var(--serif)!important;letter-spacing:-.04em!important}
+.taster-intro p{margin:0;color:#a29a8c!important;font-size:.78rem!important;line-height:1.75!important}
+.spark-input-wrap{background:#10110f!important;border-color:#393226!important;border-radius:4px!important}
+.spark-input-wrap:focus-within{border-color:#c7a56b!important;box-shadow:0 0 0 2px rgba(199,165,107,.1)!important}
+.spark-input-wrap input{height:49px!important;color:#eee9df!important;font-size:.75rem!important}
+.spark-input-wrap input::placeholder{color:#777064!important}
+.spark-input-wrap span{color:#c7a56b!important}
+.taster-buttons{gap:8px!important}
+.taster-buttons button{border:1px solid #494033!important;border-radius:3px!important;background:transparent!important;color:#d4c9b7!important;padding:11px 13px!important;font-size:.67rem!important}
+.taster-buttons button:first-child{background:#c7a56b!important;border-color:#c7a56b!important;color:#080909!important;box-shadow:none!important}
+.taster-buttons button:first-child span{color:#080909!important}
+.taster-buttons button:hover{border-color:#c7a56b!important}
+.taster-hint{color:#817968!important;font-size:.59rem!important}
+.taster-result{min-height:125px!important;background:#10110f!important;border-color:#302d27!important;border-radius:5px!important}
+.result-sigil{color:#c7a56b!important}.taster-result p{color:#b4a995!important}.result-small{color:#777064!important}
+.section{padding:clamp(46px,6vw,82px) 0!important;scroll-margin-top:96px!important}
+.sectionHead{border-color:#302d27!important;margin-bottom:22px!important}
+.sectionHead h2{color:#eee9df!important;font-size:clamp(2.3rem,4vw,3.8rem)!important}
+.sectionHead span{color:#a29a8c!important}
+.tools{gap:10px!important;margin:16px 0 20px!important}
+.tools input,.tools select{background:#10110f!important;color:#eee9df!important;border:1px solid #39352c!important;border-radius:4px!important;min-height:48px!important}
+.tools input:focus,.tools select:focus{border-color:#c7a56b!important;box-shadow:0 0 0 2px rgba(199,165,107,.08)!important}
+.tools input::placeholder{color:#777064!important}
+.card,.topic{background:linear-gradient(145deg,#141410,#0c0d0b)!important;border-color:#302d27!important;border-radius:6px!important;box-shadow:none!important}
+.card:hover,.topic:hover{border-color:#766143!important;box-shadow:0 15px 38px rgba(0,0,0,.24)!important}
+.card h3,.topic b{color:#eee9df!important}.card .dek,.card .meta,.topic span{color:#a29a8c!important}
+.card .thumb{background:#0a0b0a!important}
+.card .tag{background:rgba(8,9,9,.76)!important;color:#d9bd87!important;border-color:#544432!important}
+.card .cover-open,.story-read b{border-color:#69563a!important;color:#d9bd87!important}
+.card .cover-open:hover,.story-read b:hover{background:#c7a56b!important;color:#080909!important}
+footer{background:#080909!important;color:#827967!important;border-color:#302d27!important}
+:focus-visible{outline:2px solid #c7a56b!important;outline-offset:3px!important}
+@media(max-width:1000px){.editorial-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:26px!important}.hero h1{font-size:clamp(3.8rem,6.5vw,5.8rem)!important}.smart-taster-grid{grid-template-columns:1fr 1.2fr!important}.taster-result{grid-column:1/-1!important;min-height:90px!important}.taster-result p{margin:4px 0!important}}
+@media(max-width:760px){.wrap{width:calc(100% - 32px)!important}.topbar{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:auto auto!important;gap:10px!important;padding:13px 0!important;min-height:0!important}.brand{grid-column:1;grid-row:1;font-size:1.18rem!important}.lang{grid-column:2;grid-row:1;min-height:38px!important}.nav{grid-column:1/-1;grid-row:2;justify-content:flex-start!important;gap:8px 18px!important;overflow-x:auto!important;flex-wrap:nowrap!important;padding:4px 0 7px!important}.nav a{font-size:.56rem!important;padding:8px 0!important}.nav .nav-cta{padding:9px 11px!important}.hero.editorial-hero{padding:25px 0 32px!important}.edition-line{margin-bottom:24px!important;font-size:.49rem!important;gap:8px!important}.edition-rule{max-width:45px}.editorial-grid{grid-template-columns:minmax(0,1fr)!important;gap:25px!important}.hero h1{font-size:clamp(3.35rem,13.5vw,5rem)!important;line-height:.86!important;margin-bottom:19px!important;max-width:8ch!important}.editorial-kicker{margin-bottom:15px!important;font-size:.53rem!important}.hero p{font-size:.85rem!important;line-height:1.75!important}.hero-actions{margin-top:21px!important;gap:8px!important}.hero-link{padding:11px 12px!important;font-size:.62rem!important}.hero-footnote{margin-top:23px!important;font-size:.45rem!important;line-height:1.8!important}.featured-story{padding:8px!important}.featured-topline{font-size:.5rem!important}.featured-art{aspect-ratio:1.4/1!important}.featured-category{left:11px;bottom:11px;font-size:.48rem}.featured-copy{padding:14px 5px 5px!important}.featured-copy h2{font-size:2.15rem!important;margin-top:14px!important}.featured-meta{font-size:.46rem!important}.featured-bottom{font-size:.47rem!important}.pathways{padding:35px 0!important}.pathways-heading{display:block!important;margin-bottom:17px!important}.pathways-heading h2{font-size:2.5rem!important}.pathways-heading>p{margin-top:10px!important;font-size:.75rem!important}.pathways-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}.pathway-visual{height:145px!important}.pathway-copy{padding:16px!important}.pathway-copy h3{font-size:2rem!important}.pathway-copy p{font-size:.73rem!important}.pathway-arrow{width:34px;height:34px;flex-basis:34px}.smart-taster{padding:34px 0!important}.smart-taster-grid{grid-template-columns:minmax(0,1fr)!important;gap:17px!important}.taster-result{grid-column:auto!important}.section{padding:43px 0!important}.sectionHead h2{font-size:2.45rem!important}.tools{grid-template-columns:minmax(0,1fr)!important}.grid{grid-template-columns:minmax(0,1fr)!important;gap:14px!important}.body{min-height:0!important;padding:20px 18px!important}.card h3{font-size:2.6rem!important}.topics{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:380px){.wrap{width:calc(100% - 26px)!important}.nav{gap:8px 14px!important}.nav a{font-size:.52rem!important}.hero h1{font-size:3.2rem!important}.edition-line{letter-spacing:.1em!important}.pathway-copy{padding:13px!important}.pathway-copy h3{font-size:1.75rem!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </body>
