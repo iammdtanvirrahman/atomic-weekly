@@ -11,6 +11,21 @@
   --aw-red:#ff5148;
   --aw-gold:#e8c987;
   --aw-radius:18px;
+  /* Override the legacy light palette so existing components inherit dark tokens. */
+  --ink:#f4f5f7!important;
+  --paper:#090b10!important;
+  --paper2:#11151d!important;
+  --white:#151a23!important;
+  --muted:#9aa5b5!important;
+  --line:#293140!important;
+  --accent:#ff5148!important;
+  --olive:#b9c7a6!important;
+  --dark:#090b10!important;
+  --gold:#e8c987!important;
+  --text:#f4f5f7!important;
+  --bg:#090b10!important;
+  --panel:#11151d!important;
+  --panel2:#171d27!important;
   --aw-max:1240px;
 }
 html{background:var(--aw-bg)!important;color-scheme:dark;scroll-behavior:smooth}
