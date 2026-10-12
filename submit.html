@@ -39,6 +39,21 @@ footer{border-top:1px solid rgba(229,194,123,.18);padding:25px 0 calc(42px + var
 body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
 @media(prefers-reduced-motion:reduce){.intro:before,.intro:after{display:none}.intro>div:first-child,.note,.formCard{animation:none!important}.brand:hover,.lang:hover,.form button:hover{transform:none}}
 @media(max-width:620px){.top{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.intro:before,.intro:after{display:none}.formCard{box-shadow:0 18px 50px rgba(0,0,0,.28)}}
+
+/* Shared Atomic Weekly visual system — presentation only */
+:root{--motion-ease:cubic-bezier(.19,.72,.23,1)}
+.top{background:rgba(8,9,12,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.brand{font-family:Arial,Helvetica,sans-serif;font-weight:900}
+.intro{background-image:linear-gradient(90deg,rgba(8,9,12,.97) 0%,rgba(8,9,12,.88) 52%,rgba(8,9,12,.3) 100%),url('assets/atomic-orbit.svg');background-size:cover,min(65vw,760px) auto;background-position:center,right -10px center;background-repeat:no-repeat}
+.intro h1{font-family:Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.105em;text-wrap:balance}
+.note,.formCard,.option{box-shadow:0 18px 60px rgba(0,0,0,.22)}
+.option{background-image:url('assets/atomic-grid.svg'),linear-gradient(145deg,#151a22,#0c0f14);background-size:150px,auto;background-position:right -40px bottom -35px,center;background-repeat:no-repeat}
+.formCard{border-color:rgba(229,194,123,.22);border-radius:18px}
+.formHead h2{font-family:Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.06em}
+.form input,.form textarea,.form select{border-radius:9px}
+@media(max-width:620px){.intro{background-size:cover,520px auto;background-position:center,right -210px center}.intro h1{letter-spacing:-.09em}.option{background-size:120px,auto}}
+@media(prefers-reduced-motion:reduce){.intro:before,.intro:after{animation:none!important}}
+
 </style></head>
 <body><header class="top"><div class="wrap"><div class="bar"><a class="brand" href="index.html">Atomic<i>Magazine</i></a><nav><a href="index.html">Home</a><a href="index.html#latest">Latest</a><a href="index.html#sections">Sections</a><a class="active" href="submit.html">Submit</a><a href="idea.html">Have Any Idea?</a></nav><button class="lang" id="lang">বাংলা</button></div></div></header><div class="ticker"><div class="wrap">ATOMIC MAGAZINE · VOL. 01 · 2026 — Curiosity is the editorial policy.</div></div>
 <main class="wrap"><section class="intro"><div><div class="eyebrow">Open Editorial Desk</div><h1>Choose how<br>to submit.</h1><p>Send an article or writer story to the editorial queue. The admin team can review and edit submissions before publication.</p></div><div class="note"><b>Editorial review</b><br>Nothing submitted here is published automatically.</div></section>
