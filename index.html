@@ -213,6 +213,22 @@ footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid 
 }
 
 /* Inlined shared Atomic Weekly theme: all page styling ships from index.html. */
+/* Dark editorial surfaces: remove remaining legacy paper-colored blocks from the homepage. */
+.hero,.hero:before{background-color:#090b10!important}
+.hero:after{background:linear-gradient(90deg,#090b10 0%,rgba(9,11,16,.96) 38%,rgba(9,11,16,.72) 78%,rgba(9,11,16,.46))!important}
+.hero p,.dek,.meta,.sectionHead span,.nav a{color:#aab4c3!important}
+.desk{border-left-color:#354052!important}
+.motion-strip{background:#11151d!important;border-color:#293140!important}
+.motion-track span{color:#c3cbd6!important}
+.tools input,.tools select{background:#11151d!important;color:#f4f5f7!important;border-color:#293140!important}
+.card:hover,.topic:hover{background:#151a23!important}
+.thumb,.noimg{background-color:#151a23!important}
+footer{color:#9aa5b5!important}
+.readerBox{background:#11151d!important;border-color:#293140!important}
+.readerText{color:#dce1e8!important}
+.readerText blockquote{background:#171d27!important;border-color:#ff5148!important}
+.readerText td,.readerText th{border-color:#354052!important}
+
 /* Atomic Weekly — shared dark editorial design system
    Loaded after page-specific CSS so every route shares the same visual language. */
 :root{
