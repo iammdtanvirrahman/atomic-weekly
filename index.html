@@ -622,6 +622,96 @@ footer{border-color:rgba(201,164,106,.2)!important;color:#777061!important}
  .topics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 @media(prefers-reduced-motion:reduce){.word-rain span{animation:none!important}}
+
+/* Editorial refinement pass — hierarchy, real artwork, and clearer navigation. */
+:root{color-scheme:dark;--aw-focus:rgba(215,183,120,.65)}
+::selection{background:#c9a46a;color:#080907}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--aw-focus)!important;outline-offset:4px}
+.topbar{grid-template-columns:minmax(160px,1fr) auto auto!important;gap:clamp(14px,2.4vw,34px)!important}
+.nav{justify-content:flex-end!important}
+.nav .nav-cta{background:linear-gradient(115deg,#e4c27f,#b98b4e)!important;color:#151109!important;border-color:#d6b574!important}
+.nav .nav-cta:hover{color:#080907!important;box-shadow:0 5px 22px rgba(201,164,106,.15)}
+.ticker{background:#0b0c0a!important;color:#7e786a!important;border-color:rgba(201,164,106,.16)!important}
+.hero{padding-top:clamp(42px,5.2vw,76px)!important;padding-bottom:clamp(40px,5vw,72px)!important}
+.heroGrid{grid-template-columns:minmax(300px,.78fr) minmax(0,1.22fr)!important}
+.hero h1{font-size:clamp(3.8rem,6.3vw,6.8rem)!important;line-height:.84!important;max-width:8.5ch!important}
+.heroDesc,.hero p{max-width:38ch}
+.artifact-wrap{box-shadow:0 28px 100px rgba(0,0,0,.38),0 0 0 1px rgba(201,164,106,.035) inset!important}
+.artifact-image{aspect-ratio:1.56/1!important}
+.artifact-image img{object-position:center 48%!important}
+.artifact-caption{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)!important}
+.hero-actions{align-items:center}
+.hero-link{transition:transform .25s ease,border-color .25s ease,background .25s ease!important}
+.hero-link:hover{transform:translateY(-2px);border-color:rgba(201,164,106,.65)!important}
+.hero-link-primary:hover{background:#f0d39a!important}
+.taster{position:relative}
+.taster-intro{align-self:start}
+.taster-control{min-width:0}
+.taster-result{transition:border-color .25s ease,transform .25s ease,background .25s ease}
+.taster-result[role="button"]{cursor:pointer}
+.taster-result[role="button"]:hover{border-color:rgba(201,164,106,.6);transform:translateY(-2px)}
+.sectionHead{align-items:end!important}
+.sectionHead h2{font-size:clamp(2.5rem,4.7vw,4.1rem)!important}
+.tools{align-items:stretch!important}
+.tools input{flex:1;min-width:0}
+.tools select{min-width:190px}
+#articles{min-height:150px}
+.topics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.topic{position:relative;isolation:isolate;display:flex!important;flex-direction:column!important;justify-content:flex-end!important;min-height:190px!important;padding:20px!important;overflow:hidden!important;text-decoration:none!important;background-color:#0c0d0a!important;background-size:cover!important;background-position:center!important}
+.topic:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,6,5,.04) 0%,rgba(5,6,5,.42) 42%,rgba(5,6,5,.96) 100%);transition:opacity .3s ease}
+.topic:after{content:"↗";position:absolute;top:15px;right:16px;color:#d4b77d;font:500 1rem ui-monospace,monospace;opacity:.75;transition:transform .25s ease,opacity .25s ease}
+.topic:hover:after{transform:translate(2px,-2px);opacity:1}
+.topic[data-section="Science"]{background-image:url('web-assets/science-atmosphere.png')!important}
+.topic[data-section="Technology"]{background-image:linear-gradient(135deg,rgba(14,19,19,.75),rgba(7,8,7,.15)),url('web-assets/atomic-grid.svg')!important}
+.topic[data-section="Cosmos"]{background-image:url('web-assets/cosmos-atmosphere.png')!important}
+.topic[data-section="Ideas"]{background-image:linear-gradient(135deg,rgba(10,10,8,.65),rgba(10,10,8,.2)),url('web-assets/atomic-orbit.svg')!important}
+.topic[data-section="story"]{background-image:url('web-assets/stories-atmosphere.png')!important}
+.topic b{position:relative;font:500 clamp(1.5rem,2vw,2rem)/1 var(--serif)!important;letter-spacing:-.025em!important}
+.topic span{position:relative;margin-top:8px!important;color:#b6ad9b!important;font:500 .58rem/1.6 var(--sans)!important;letter-spacing:.08em!important}
+footer{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.reader{background:rgba(2,3,3,.9)!important;backdrop-filter:blur(14px)!important}
+.readerBox{border:1px solid rgba(201,164,106,.22)!important;background:#090a08!important;box-shadow:0 35px 110px rgba(0,0,0,.65)!important}
+.readerTitle{color:#e8dfcd!important}
+.readerText{color:#c5bdad!important}
+.readerText h2,.readerText h3{color:#e8dfcd!important}
+.readerText a{color:#d9b779!important}
+.readerText blockquote{border-left-color:#c9a46a!important;color:#b8aa8f!important}
+.empty{border:1px solid rgba(201,164,106,.2)!important;border-radius:8px!important;background:linear-gradient(145deg,#10110d,#080907)!important;color:#a49a86!important;padding:28px!important}
+.empty strong{display:block;color:#e8dfcd!important;font:500 1.7rem/1.1 var(--serif)!important;margin-bottom:8px}
+@media(max-width:1050px){
+ .topbar{grid-template-columns:minmax(120px,1fr) auto!important;gap:10px 16px!important}
+ .nav{grid-column:1/-1;grid-row:2;justify-content:flex-start!important;overflow-x:auto!important;padding-bottom:11px!important}
+ .lang{grid-column:2;grid-row:1}
+ .heroGrid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important}
+ .hero h1{font-size:clamp(3.5rem,6.4vw,5.2rem)!important}
+ .topics{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+ .topbar{grid-template-columns:minmax(0,1fr) auto!important;min-height:unset!important;padding-top:15px!important}
+ .nav{grid-row:2!important;grid-column:1/-1!important;justify-content:flex-start!important;gap:20px!important}
+ .nav .nav-cta{padding:8px 11px!important}
+ .hero{padding-top:22px!important;padding-bottom:25px!important}
+ .heroGrid{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+ .hero h1{font-size:clamp(3.65rem,14.8vw,5.3rem)!important;max-width:8ch!important}
+ .artifact-image{aspect-ratio:1.18/1!important}
+ .artifact-caption{grid-template-columns:minmax(0,1fr)!important}
+ .artifact-aside{border-left:0!important;border-top:1px solid rgba(201,164,106,.22)!important;padding:12px 0 0!important}
+ .taster{grid-template-columns:minmax(0,1fr)!important}
+ .tools{flex-direction:column}
+ .tools select{width:100%;min-width:0}
+ .topics{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .topic{min-height:160px!important;padding:14px!important}
+ .topic b{font-size:1.45rem!important}
+ .topic span{font-size:.52rem!important}
+ footer{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:380px){
+ .hero h1{font-size:3.25rem!important}
+ .topics{grid-template-columns:minmax(0,1fr)!important}
+ .topic{min-height:145px!important}
+}
+@media(prefers-reduced-motion:reduce){.motion-track{animation:none!important}.word-rain span{animation:none!important}}
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#090b10">
@@ -654,7 +744,7 @@ footer{border-color:rgba(201,164,106,.2)!important;color:#777061!important}
    </div>
    <div class="artifact-wrap">
     <div class="artifact-topline"><span>01&nbsp;&nbsp; / &nbsp;&nbsp;IMAGE ARTIFACT</span><span class="artifact-mark">✳</span></div>
-    <a href="#latest" class="artifact-image" aria-label="Explore the latest stories"><img src="web-assets/reverie-feature.svg" alt="An original gold-lit constellation illustration inspired by the mysteries of nature" fetchpriority="high"><span class="image-corner">A / W&nbsp; — &nbsp;FIELD NOTES</span></a>
+    <a href="#latest" class="artifact-image" aria-label="Explore the latest stories"><img src="web-assets/hero-reverie.png" alt="Golden luminous filaments tracing an intricate living constellation across a dark natural landscape" fetchpriority="high" decoding="async"><span class="image-corner">A / W&nbsp; — &nbsp;FIELD NOTES</span></a>
     <div class="artifact-caption"><div class="artifact-title"><span class="artifact-kicker">A thought worth keeping</span><h2>Wonder is a way of seeing.</h2><p>Follow the strange, the beautiful, and the not-yet-understood.</p></div><div class="artifact-aside"><span>WANDERED FROM:</span><b>science / memory / the living world</b><div class="artifact-meta">ATOMIC WEEKLY&nbsp; · &nbsp;2026&nbsp; · &nbsp;OPEN JOURNAL</div></div></div>
    </div>
    <div class="word-rain" aria-hidden="true"><span>curiosity</span><span>deep sea</span><span>memory</span><span>old maps</span><span>starlight</span><span>becoming</span><span>the unknown</span></div>
