@@ -199,6 +199,80 @@ body{
   .hero{animation:none!important}
 }
 
+
+/* ATOMIC WEEKLY / editorial motion system — visual-only enhancement */
+:root{--paper:#f4f0e8;--coral:#ff594e;--motion-ease:cubic-bezier(.19,.72,.23,1)}
+body{background:radial-gradient(ellipse at 82% 8%,rgba(255,89,78,.10),transparent 30%),radial-gradient(ellipse at 8% 36%,rgba(229,194,123,.07),transparent 28%),var(--bg)}
+.top{background:rgba(8,9,12,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom-color:rgba(229,194,123,.16)}
+.topbar{min-height:78px}
+.brand{font-family:Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.09em}
+.nav{padding:12px 0 16px;gap:clamp(15px,2.6vw,32px)}
+.hero{padding:clamp(82px,10vw,142px) 0 clamp(74px,9vw,118px);background-image:linear-gradient(90deg,#08090c 0%,rgba(8,9,12,.94) 37%,rgba(8,9,12,.35) 100%),url('assets/atomic-orbit.svg');background-size:cover, min(78vw,1000px) auto;background-position:center, right 8% center;background-repeat:no-repeat}
+.heroGrid{position:relative;will-change:transform;transform:translate3d(0,var(--hero-parallax-y,0px),0);transition:transform .08s linear}
+.hero h1{max-width:900px;font-family:Arial,Helvetica,sans-serif;font-weight:900;font-size:clamp(4.4rem,10.8vw,10.4rem);letter-spacing:-.105em;line-height:.79;text-wrap:balance}
+.hero h1::selection{background:var(--red);color:#fff}
+.hero p{max-width:600px}
+.desk{max-width:360px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:linear-gradient(120deg,rgba(229,194,123,.12),rgba(8,9,12,.18));box-shadow:0 18px 60px rgba(0,0,0,.14)}
+.motion-strip{position:relative;overflow:hidden;border-top:1px solid rgba(229,194,123,.16);border-bottom:1px solid rgba(229,194,123,.16);background:rgba(229,194,123,.025);padding:16px 0;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.motion-track{display:flex;align-items:center;gap:clamp(24px,4vw,56px);width:max-content;animation:atomicTicker 34s linear infinite;will-change:transform}
+.motion-track span{font:900 .66rem/1 Arial,sans-serif;letter-spacing:.22em;white-space:nowrap;color:#d9d2c4}
+.motion-track i{font-style:normal;color:var(--red);font-size:1rem}
+.motion-strip:hover .motion-track{animation-play-state:paused}
+@keyframes atomicTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.section{padding-top:clamp(58px,7vw,92px);padding-bottom:clamp(58px,7vw,92px)}
+.sectionHead{position:relative;overflow:hidden;padding-bottom:18px}
+.sectionHead h2{font-family:Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.07em}
+.sectionHead span{letter-spacing:.18em}
+.tools{background:rgba(255,255,255,.025);border-color:rgba(229,194,123,.2);border-radius:14px;padding:12px}
+.tools input,.tools select{border-radius:9px;background:rgba(8,9,12,.82)}
+.grid{gap:1px;background:rgba(229,194,123,.23);border-color:rgba(229,194,123,.23);border-radius:18px;box-shadow:0 30px 100px rgba(0,0,0,.26)}
+.card{background:linear-gradient(150deg,rgba(23,27,35,.98),rgba(10,12,16,.99));overflow:hidden}
+.thumb{height:clamp(220px,24vw,330px);background-color:#11151d;background-image:linear-gradient(180deg,transparent 48%,rgba(0,0,0,.28));background-blend-mode:normal}
+.thumb:after{background:linear-gradient(180deg,rgba(4,5,8,.02) 8%,rgba(4,5,8,.08) 38%,rgba(4,5,8,.86) 100%)}
+.card h3{font-family:Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:-.045em;line-height:1.04}
+.body{padding:clamp(20px,2.3vw,30px)}
+.dek{min-height:0}
+.actions{align-items:center}
+.topic{background-image:url('assets/atomic-grid.svg'),linear-gradient(145deg,#151922,#0b0d12);background-size:180px,auto;background-position:right -55px bottom -50px,center;background-repeat:no-repeat;border-color:rgba(229,194,123,.18);min-height:136px}
+.topic b{font-family:Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.045em}
+.topic span{max-width:180px;line-height:1.55}
+footer{font-family:Arial,Helvetica,sans-serif;letter-spacing:.12em}
+.motion-reveal{opacity:0;transform:translate3d(0,20px,0);transition:opacity .7s var(--motion-ease),transform .7s var(--motion-ease)}
+.motion-reveal.is-visible{opacity:1;transform:none}
+.card.reveal{animation:cardReveal .65s var(--motion-ease) both}
+.reader{background:rgba(3,4,6,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.readerBox{border-color:rgba(229,194,123,.3);border-radius:22px}
+.readerInner{padding-top:clamp(35px,5vw,62px)}
+.readerTitle{font-family:Arial,Helvetica,sans-serif;font-weight:900;letter-spacing:-.09em;text-wrap:balance}
+.readerText{font-family:Georgia,'Times New Roman',serif}
+.readerText h2,.readerText h3,.readerText h4{font-family:Arial,Helvetica,sans-serif;line-height:1.08;letter-spacing:-.045em}
+.readerText p{margin:0 0 1.35em}
+.readerText figure{margin:30px 0}
+.readerText img{box-shadow:0 18px 45px rgba(0,0,0,.22)}
+@media(max-width:950px){.hero{background-position:center,right -100px center;background-size:cover,min(92vw,760px) auto}.heroGrid{gap:34px}.desk{max-width:none}}
+@media(max-width:620px){
+ .topbar{min-height:64px}.nav{padding:8px 0 12px}
+ .hero{padding:72px 0 58px;background-image:linear-gradient(90deg,rgba(8,9,12,.94),rgba(8,9,12,.74)),url('assets/atomic-orbit.svg');background-size:cover,600px auto;background-position:center,right -250px center}
+ .hero h1{font-size:clamp(3.4rem,15.8vw,5.6rem);line-height:.82;max-width:100%}
+ .heroGrid{transform:none!important}
+ .desk{padding:19px 20px}
+ .motion-strip{padding:13px 0}
+ .motion-track{gap:22px;animation-duration:27s}
+ .motion-track span{font-size:.58rem;letter-spacing:.16em}
+ .section{padding:52px 0}
+ .sectionHead{gap:10px}
+ .grid{border-radius:13px}
+ .thumb{height:235px}
+ .topic{min-height:106px}
+ .motion-reveal{opacity:1;transform:none;transition:none}
+ .readerBox{border-radius:0}
+}
+@media(prefers-reduced-motion:reduce){
+ .motion-track{animation:none!important;transform:none!important}
+ .heroGrid{transform:none!important}
+ .motion-reveal{opacity:1;transform:none;transition:none}
+}
+
 </style>
 </head>
 <body>
@@ -209,6 +283,13 @@ body{
 <div class="ticker"><div class="wrap" id="ticker">ATOMIC MAGAZINE · VOL. 01 · 2026 — Curiosity is the editorial policy.</div></div>
 <main class="wrap">
 <section class="hero"><div class="heroGrid"><div><div class="eyebrow" id="heroEyebrow">The new Atomic</div><h1 id="heroTitle">Big questions.<br>Clear ideas.</h1><p id="heroDesc">A digital magazine about science, technology, discovery, cosmos and the strange edges of human curiosity.</p></div><div class="desk"><b id="deskTitle">Editorial desk</b><span id="deskDesc">Direct publishing from the Atomic Admin editor.</span></div></div></section>
+
+<div class="motion-strip" aria-label="Atomic Magazine topics">
+  <div class="motion-track">
+    <span>SCIENCE IS A WAY OF SEEING</span><i>✳</i><span>IDEAS THAT MOVE CULTURE</span><i>✳</i><span>THE UNIVERSE, UP CLOSE</span><i>✳</i><span>TECHNOLOGY WITH PURPOSE</span><i>✳</i>
+    <span aria-hidden="true">SCIENCE IS A WAY OF SEEING</span><i aria-hidden="true">✳</i><span aria-hidden="true">IDEAS THAT MOVE CULTURE</span><i aria-hidden="true">✳</i><span aria-hidden="true">THE UNIVERSE, UP CLOSE</span><i aria-hidden="true">✳</i><span aria-hidden="true">TECHNOLOGY WITH PURPOSE</span><i aria-hidden="true">✳</i>
+  </div>
+</div>
 <section class="section" id="latest"><div class="sectionHead"><h2 id="latestTitle">Latest</h2><span id="count">Loading…</span></div><div class="tools"><input id="search" type="search" enterkeyhint="search" autocomplete="off" placeholder="Search stories…"><select id="filter"><option value="all">All sections</option><option value="story">Stories</option><option>Science</option><option>Technology</option><option>Cosmos</option><option>Ideas</option><option>News</option><option>Magazine</option></select></div><div id="articles"><div class="empty"><strong>Loading stories…</strong>Please wait.</div></div></section>
 <section class="section" id="sections"><div class="sectionHead"><h2 id="sectionsTitle">Sections</h2><span id="explore">Explore</span></div><div class="topics">
 <a class="topic" href="#latest" data-section="Science"><b>Science</b><span>Physics · Biology · Chemistry</span></a>
@@ -254,5 +335,47 @@ let raf=0,lastCard=null,lastX=0,lastY=0;
 document.addEventListener('pointermove',e=>{const card=e.target.closest('.card');if(!card){lastCard=null;return}lastCard=card;lastX=e.clientX;lastY=e.clientY;if(!raf)raf=requestAnimationFrame(()=>{raf=0;if(!lastCard)return;const r=lastCard.getBoundingClientRect(),x=(lastX-r.left)/r.width-.5,y=(lastY-r.top)/r.height-.5;lastCard.style.transform='translateY(-7px) scale(1.006) rotateX('+(-y*1.4)+'deg) rotateY('+(x*1.4)+'deg)'})});
 document.addEventListener('pointerout',e=>{const card=e.target.closest('.card');if(card&&!card.contains(e.relatedTarget)){card.style.transform='';lastCard=null}});
 }
+
+// Progressive motion only: keep all Firebase reads/writes and article contracts untouched.
+(function atomicEditorialMotion(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroGrid = document.querySelector('.heroGrid');
+  let scrollFrame = 0;
+  const updateScrollMotion = () => {
+    scrollFrame = 0;
+    if (!heroGrid || reduce || window.matchMedia('(max-width: 620px)').matches) return;
+    const y = Math.min(window.scrollY, 420);
+    heroGrid.style.setProperty('--hero-parallax-y', (y * -0.075).toFixed(2) + 'px');
+  };
+  window.addEventListener('scroll', () => {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(updateScrollMotion);
+  }, {passive:true});
+  updateScrollMotion();
+
+  const targets = document.querySelectorAll('.sectionHead, .desk');
+  if ('IntersectionObserver' in window && !reduce) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -35px 0px'});
+    targets.forEach(el => { el.classList.add('motion-reveal'); observer.observe(el); });
+  }
+
+  // Make the reader close path resilient: preserve scroll position even if another
+  // component has not initialized yet, and prevent background scroll while open.
+  const reader = document.getElementById('reader');
+  if (reader) {
+    reader.addEventListener('touchmove', event => {
+      if (!reader.classList.contains('open')) return;
+      if (!event.target.closest('.readerBox')) event.preventDefault();
+    }, {passive:false});
+  }
+})();
+
 </script>
 </body></html>
