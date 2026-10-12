@@ -54,7 +54,10 @@ footer{border-top:1px solid var(--aw-line)!important;color:var(--aw-muted)!impor
 @media(max-width:760px){.wrap{width:calc(100% - 28px)!important}.bar,.topbar{min-height:66px;flex-wrap:wrap;gap:12px}.bar nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap;padding:0 0 12px}.bar nav a{white-space:nowrap}.intro{grid-template-columns:1fr!important;padding:53px 0 32px!important;gap:22px!important}.intro h1{font-size:clamp(3.6rem,15vw,5.5rem)!important}.note{justify-self:stretch}.options,.cards{grid-template-columns:1fr!important}.panel,.formCard,.card{padding:21px!important}.center{min-height:62vh}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-</style></head><body><div class="wrap"><h1>Atomic<i>Admin</i></h1><p class="muted">Editorial panel · PDF auto-import + normal articles</p>
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/atomic-theme.css?v=1">
+<meta name="theme-color" content="#090b10">
+</head><body><div class="wrap"><h1>Atomic<i>Admin</i></h1><p class="muted">Editorial panel · PDF auto-import + normal articles</p>
 <div class="panel"><h2>GitHub PDF Inbox</h2><p class="muted">Put any <b>.pdf</b> inside <code>content/</code> in the <b>atomic-weekly</b> repository. Then scan here. The first page is read automatically for title/author hints and rendered as the cover.</p><div class="toolbar"><button id="scan">Scan content/ for PDFs</button><span id="scanStatus" class="muted"></span></div><div id="pdfInbox"><p class="muted">No scan yet.</p></div></div>
 <div class="panel"><h2>GitHub Sync</h2><p class="muted">Optional fine-grained GitHub token with Contents write permission. Stored only in this browser session. Repo: iammdtanvirrahman/atomic-weekly.</p><input id="token" type="password" placeholder="github_pat_…"><label><input id="sync" type="checkbox" checked style="width:auto"> Sync normal article text/images to GitHub when token is available</label></div>
 <div class="panel"><h2>Incoming submissions</h2><div id="pending">Loading…</div></div>
