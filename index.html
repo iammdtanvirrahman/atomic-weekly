@@ -175,3 +175,20 @@ document.addEventListener('pointerout',e=>{const card=e.target.closest('.card');
 }
 </script>
 </body></html>
+
+/* Next polish pass: gentle editorial image sheen and card action feedback */
+.thumb:before{
+  content:"";position:absolute;z-index:1;inset:-30% auto -30% -75%;width:48%;
+  pointer-events:none;transform:translateX(-130%) skewX(-16deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.11),transparent);
+  transition:transform .75s var(--motion-ease);
+}
+.card:hover .thumb:before{transform:translateX(360%) skewX(-16deg)}
+.card .actions{transition:border-color var(--motion-base) ease,transform var(--motion-base) var(--motion-ease)}
+.card:hover .actions{border-color:rgba(229,194,123,.35)}
+.card .read{transition:color var(--motion-fast) ease,letter-spacing var(--motion-base) var(--motion-ease)}
+.card:hover .read{color:var(--gold);letter-spacing:.025em}
+.sectionHead h2:before{display:inline-block;transition:transform .35s var(--motion-ease),color .25s ease}
+.sectionHead:hover h2:before{transform:rotate(45deg) scale(1.12);color:var(--red)}
+@media(hover:none),(pointer:coarse){.thumb:before{display:none}.sectionHead:hover h2:before{transform:none}}
+@media(prefers-reduced-motion:reduce){.thumb:before{display:none}.sectionHead h2:before{transition:none}}
