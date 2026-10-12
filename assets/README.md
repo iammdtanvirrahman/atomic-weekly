@@ -12,6 +12,12 @@ Keep media that belongs to published articles, stories, magazine issues, and aut
 - issues/ — issue covers and publication-specific artwork
 - inline/ — diagrams, charts, infographics, and images used inside article bodies
 
+## Current uploaded covers
+- `issues/issue-01-cover.png` — first magazine issue cover
+- `covers/science-feature-cover.png` — science feature cover
+- `covers/technology-feature-cover.png` — technology feature cover
+- `covers/stories-feature-cover.png` — stories feature cover
+
 ## Guidelines
 - Use lowercase kebab-case filenames; make names descriptive, e.g. black-hole-accretion-disk.webp.
 - Prefer WebP for photographs and illustrations; SVG for diagrams and simple vector art.
