@@ -166,6 +166,39 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opa
 @media(hover:none),(pointer:coarse){.lang:hover:before{display:none}.nav a[href="submit.html"]:hover{transform:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 14px rgba(0,0,0,.14)}}
 @media(prefers-reduced-motion:reduce){.lang:before{display:none}.nav a[href="submit.html"]{transform:none}}
 
+
+
+/* Scroll atmosphere: restrained editorial parallax, CSS-only */
+body{
+  background-attachment:fixed;
+  background-size:100% 100%,100% 100%,auto;
+}
+.hero{
+  background-image:
+    radial-gradient(ellipse at 78% 18%,rgba(255,77,67,.055),transparent 42%),
+    radial-gradient(ellipse at 18% 82%,rgba(229,194,123,.055),transparent 46%);
+  background-size:120% 135%,120% 135%;
+  background-position:50% 0%,50% 100%;
+}
+@supports (animation-timeline: scroll()){
+  .hero{
+    animation:editorialParallax linear both;
+    animation-timeline:scroll(root);
+    animation-range:0px 850px;
+  }
+  @keyframes editorialParallax{
+    from{background-position:50% 0%,50% 100%}
+    to{background-position:70% 100%,30% 0%}
+  }
+}
+@media(max-width:620px){
+  body{background-attachment:scroll}
+  .hero{background-size:150% 120%,150% 120%}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero{animation:none!important}
+}
+
 </style>
 </head>
 <body>
