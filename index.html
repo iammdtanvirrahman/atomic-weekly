@@ -118,6 +118,54 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opa
 @media((pointer:coarse) and (max-width:620px)){.hero:before,.hero:after{display:none!important}.card.reveal,.topic.reveal{animation:none!important}.card,.topic,.thumb{transition:none!important}.hero:before,.hero:after{animation:none;opacity:.45}.top{backdrop-filter:none;-webkit-backdrop-filter:none}.thumb .tag{backdrop-filter:none;-webkit-backdrop-filter:none}}
 @media((max-width:620px) and (prefers-reduced-motion:no-preference)){.card.reveal,.topic.reveal{animation-duration:.35s}}
 @media(max-width:620px) and (max-height:720px){.hero{padding-top:50px;padding-bottom:45px}.heroGrid{gap:22px}}
+
+
+/* Next polish pass: gentle editorial image sheen and card action feedback */
+.thumb:before{
+  content:"";position:absolute;z-index:1;inset:-30% auto -30% -75%;width:48%;
+  pointer-events:none;transform:translateX(-130%) skewX(-16deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.11),transparent);
+  transition:transform .75s var(--motion-ease);
+}
+.card:hover .thumb:before{transform:translateX(360%) skewX(-16deg)}
+.card .actions{transition:border-color var(--motion-base) ease,transform var(--motion-base) var(--motion-ease)}
+.card:hover .actions{border-color:rgba(229,194,123,.35)}
+.card .read{transition:color var(--motion-fast) ease,letter-spacing var(--motion-base) var(--motion-ease)}
+.card:hover .read{color:var(--gold);letter-spacing:.025em}
+.sectionHead h2:before{display:inline-block;transition:transform .35s var(--motion-ease),color .25s ease}
+.sectionHead:hover h2:before{transform:rotate(45deg) scale(1.12);color:var(--red)}
+@media(hover:none),(pointer:coarse){.thumb:before{display:none}.sectionHead:hover h2:before{transform:none}}
+@media(prefers-reduced-motion:reduce){.thumb:before{display:none}.sectionHead h2:before{transition:none}}
+
+
+
+/* Orb-inspired controls: reuse existing actions; no markup or behavior changes */
+.lang{
+  position:relative;isolation:isolate;overflow:hidden;
+  border-color:rgba(229,194,123,.34);
+  background:radial-gradient(ellipse at 28% 12%,rgba(255,255,255,.12),transparent 48%),linear-gradient(145deg,rgba(229,194,123,.13),rgba(15,17,22,.82));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 3px 14px rgba(0,0,0,.18);
+}
+.lang:before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.12) 48%,transparent 72%);
+  opacity:0;transform:translateX(-45%);transition:opacity var(--motion-base) ease,transform .5s var(--motion-ease);
+}
+.lang:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(229,194,123,.08),0 5px 20px rgba(229,194,123,.10)}
+.lang:hover:before{opacity:1;transform:translateX(45%)}
+.nav a[href="submit.html"]{
+  position:relative;isolation:isolate;border:1px solid rgba(229,194,123,.30);
+  border-radius:999px;padding:8px 14px;
+  background:radial-gradient(ellipse at 28% 0,rgba(255,255,255,.10),transparent 55%),linear-gradient(145deg,rgba(229,194,123,.12),rgba(18,19,23,.78));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 14px rgba(0,0,0,.14);
+  transition:transform var(--motion-fast) var(--motion-ease),border-color var(--motion-base) ease,box-shadow var(--motion-base) ease,background var(--motion-base) ease;
+}
+.nav a[href="submit.html"]:hover{border-color:rgba(229,194,123,.68);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 5px 20px rgba(229,194,123,.10);transform:translateY(-1px)}
+.nav a[href="submit.html"]:active{transform:scale(.98)}
+.close{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 5px 18px rgba(0,0,0,.18)}
+@media(hover:none),(pointer:coarse){.lang:hover:before{display:none}.nav a[href="submit.html"]:hover{transform:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 14px rgba(0,0,0,.14)}}
+@media(prefers-reduced-motion:reduce){.lang:before{display:none}.nav a[href="submit.html"]{transform:none}}
+
 </style>
 </head>
 <body>
@@ -175,20 +223,3 @@ document.addEventListener('pointerout',e=>{const card=e.target.closest('.card');
 }
 </script>
 </body></html>
-
-/* Next polish pass: gentle editorial image sheen and card action feedback */
-.thumb:before{
-  content:"";position:absolute;z-index:1;inset:-30% auto -30% -75%;width:48%;
-  pointer-events:none;transform:translateX(-130%) skewX(-16deg);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.11),transparent);
-  transition:transform .75s var(--motion-ease);
-}
-.card:hover .thumb:before{transform:translateX(360%) skewX(-16deg)}
-.card .actions{transition:border-color var(--motion-base) ease,transform var(--motion-base) var(--motion-ease)}
-.card:hover .actions{border-color:rgba(229,194,123,.35)}
-.card .read{transition:color var(--motion-fast) ease,letter-spacing var(--motion-base) var(--motion-ease)}
-.card:hover .read{color:var(--gold);letter-spacing:.025em}
-.sectionHead h2:before{display:inline-block;transition:transform .35s var(--motion-ease),color .25s ease}
-.sectionHead:hover h2:before{transform:rotate(45deg) scale(1.12);color:var(--red)}
-@media(hover:none),(pointer:coarse){.thumb:before{display:none}.sectionHead:hover h2:before{transform:none}}
-@media(prefers-reduced-motion:reduce){.thumb:before{display:none}.sectionHead h2:before{transition:none}}
