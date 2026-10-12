@@ -407,12 +407,29 @@ body.atomic-page-open{overflow:hidden}
       document.body.classList.remove('atomic-page-open');
       currentPage='home';frame.removeAttribute('srcdoc');
       nav.querySelectorAll('[data-page]').forEach(b=>b.removeAttribute('aria-current'));
-      window.scrollTo({top:0,behavior:'auto'});
+      const hash=window.__atomicReturnHash||'';
+      window.__atomicReturnHash='';
+      requestAnimationFrame(()=>{const target=hash&&document.querySelector(hash);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});else window.scrollTo({top:0,behavior:'auto'})});
       return;
     }
     if(!pages[page])return;
     currentPage=page;
-    frame.srcdoc=pages[page];
+    const sharedPageStyle = `
+<style id="atomicEmbeddedPageStyle">
+:root{color-scheme:dark!important;--ink:#f4f5f7!important;--paper:#090b10!important;--paper2:#11151d!important;--white:#151a23!important;--muted:#9aa5b5!important;--line:#293140!important;--accent:#ff5148!important;--olive:#b9c7a6!important;--dark:#090b10!important;--gold:#e8c987!important;--bg:#090b10!important;--panel:#11151d!important;--panel2:#171d27!important}
+html,body{background:#090b10!important;color:#f4f5f7!important;min-width:0!important;max-width:100%!important;overflow-x:hidden!important;font-family:Manrope,Inter,Arial,sans-serif!important}
+body{padding-top:0!important}
+.top,.topbar,.mast,.masthead,.nav,.navbar,.site-header,header.top,header.mast,body>header,body>.ticker,.ticker{display:none!important}
+h1,h2,h3,h4{color:#f4f5f7!important}
+p,.muted,.sub,.description,.desc{color:#9aa5b5}
+.panel,.card,.box,.formCard,.form-card,.article-card,.tile,.section-card,.submission,.paper,.editor-panel{background:linear-gradient(145deg,#161b25,#0d1017)!important;color:#f4f5f7!important;border-color:#293140!important}
+label{color:#cbd2dd!important}
+input,select,textarea{background:#11151d!important;color:#f4f5f7!important;border-color:#293140!important}
+button,.btn,.button{font-family:Manrope,Arial,sans-serif!important}
+@media(max-width:700px){.wrap,.container,.shell,.page,.layout{width:calc(100% - 28px)!important;max-width:100%!important}.row{grid-template-columns:minmax(0,1fr)!important}.panel,.card,.box,.formCard,.form-card{padding:18px!important}}
+</style>`;
+    const pageHtml=pages[page].replace('</head>', sharedPageStyle+'</head>');
+    frame.srcdoc=pageHtml;
     host.classList.add('is-open');host.setAttribute('aria-hidden','false');
     document.body.classList.add('atomic-page-open');
     nav.querySelectorAll('[data-page]').forEach(b=>{
@@ -439,7 +456,7 @@ body.atomic-page-open{overflow:hidden}
         const a=e.target.closest('a[href]');
         if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target==='_blank')return;
         const page=pageForHref(a.getAttribute('href'));
-        if(page){e.preventDefault();showPage(page)}
+        if(page){e.preventDefault();const href=a.getAttribute('href')||'';const hash=href.includes('#')?href.slice(href.indexOf('#')):'';if(page==='home')window.__atomicReturnHash=hash;showPage(page)}
       });
       doc.addEventListener('keydown',e=>{if(e.key==='Escape')showPage('home')});
     }catch(_){}
