@@ -924,6 +924,42 @@ footer{color:#858176!important;border-color:#302e27!important}
 @media(max-width:760px){.grid{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}.card,.card:nth-child(even){min-height:unset!important}.thumb{aspect-ratio:1.5/1!important}.body{padding:24px!important}.card h3{font-size:clamp(2.5rem,10vw,3.7rem)!important}#articles:before{left:8px}.hero{background:linear-gradient(150deg,#080909,#15120e)!important}.hero:after{background:linear-gradient(180deg,rgba(8,9,9,.9),rgba(8,9,9,.28))!important}}
 @media(prefers-reduced-motion:reduce){.card,.card.reveal{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}}
 
+
+/* Mobile polish from real-device review: keep navigation visible and remove empty card space. */
+@media(max-width:760px){
+ .top{position:sticky!important;top:0!important}
+ .topbar{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:auto auto!important;align-items:center!important;gap:12px 10px!important;padding:13px 15px 0!important}
+ .brand{grid-column:1!important;grid-row:1!important;font-size:clamp(1.08rem,5.2vw,1.42rem)!important;letter-spacing:.045em!important;white-space:nowrap!important}
+ .lang{grid-column:2!important;grid-row:1!important;justify-self:end!important;min-height:40px!important;padding:0 13px!important;font-size:.76rem!important}
+ .nav{grid-column:1/-1!important;grid-row:2!important;display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;align-items:center!important;gap:7px 17px!important;width:100%!important;overflow:visible!important;padding:0 0 13px!important;margin:0!important}
+ .nav a{font-size:.58rem!important;letter-spacing:.09em!important;padding:5px 0!important;white-space:nowrap!important}
+ .nav .nav-cta{padding:8px 11px!important;margin-left:auto!important}
+ .sectionHead{gap:10px!important}
+ .tools{gap:10px!important;margin-top:16px!important}
+ .tools input,.tools select{height:48px!important;padding:0 15px!important;font-size:.93rem!important}
+ .grid{gap:16px!important}
+ .card,.card:nth-child(even){border-radius:9px!important}
+ .thumb{aspect-ratio:1.55/1!important;padding:15px!important}
+ .thumb:after{inset:9px!important}
+ .cover-number{top:22px!important;left:22px!important}
+ .cover-open{right:22px!important;bottom:22px!important;width:36px!important;height:36px!important}
+ .body{min-height:0!important;padding:22px 20px 21px!important;justify-content:flex-start!important;gap:0!important}
+ .story-overline{margin-bottom:22px!important;padding-bottom:12px!important;font-size:.49rem!important}
+ .card h3{max-width:13ch!important;font-size:clamp(2.3rem,9.2vw,3.35rem)!important;line-height:.96!important}
+ .dek{margin:13px 0 20px!important;font-size:.87rem!important;line-height:1.65!important}
+ .story-bottom{margin-top:24px!important;padding-top:15px!important;gap:14px!important}
+ .story-bottom .meta{font-size:.54rem!important}
+ .story-read{font-size:.57rem!important;gap:12px!important}
+ .story-read b{width:34px!important;height:34px!important}
+}
+@media(max-width:390px){
+ .brand{font-size:1.08rem!important}
+ .nav{column-gap:13px!important}
+ .nav a{font-size:.54rem!important}
+ .nav .nav-cta{margin-left:0!important}
+ .body{padding:19px 17px!important}
+ .card h3{font-size:2.35rem!important}
+}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#090b10">
