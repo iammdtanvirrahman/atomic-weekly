@@ -201,6 +201,12 @@ body{
 
 
 /* ATOMIC WEEKLY / editorial motion system — visual-only enhancement */
+
+.top{position:sticky}
+.top:after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:var(--page-progress,0%);background:linear-gradient(90deg,var(--red),var(--gold));box-shadow:0 0 12px rgba(229,194,123,.24);pointer-events:none;transition:width .08s linear}
+.thumb.noimg{background-image:url('assets/atomic-grid.svg'),radial-gradient(circle at 28% 24%,#343b49,#090b0f 68%);background-size:220px,cover;background-position:right -45px bottom -40px,center;background-repeat:no-repeat}
+@media(prefers-reduced-motion:reduce){.top:after{transition:none}}
+
 :root{--paper:#f4f0e8;--coral:#ff594e;--motion-ease:cubic-bezier(.19,.72,.23,1)}
 body{background:radial-gradient(ellipse at 82% 8%,rgba(255,89,78,.10),transparent 30%),radial-gradient(ellipse at 8% 36%,rgba(229,194,123,.07),transparent 28%),var(--bg)}
 .top{background:rgba(8,9,12,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom-color:rgba(229,194,123,.16)}
@@ -343,6 +349,8 @@ document.addEventListener('pointerout',e=>{const card=e.target.closest('.card');
   let scrollFrame = 0;
   const updateScrollMotion = () => {
     scrollFrame = 0;
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    document.documentElement.style.setProperty('--page-progress', ((window.scrollY / maxScroll) * 100).toFixed(2) + '%');
     if (!heroGrid || reduce || window.matchMedia('(max-width: 620px)').matches) return;
     const y = Math.min(window.scrollY, 420);
     heroGrid.style.setProperty('--hero-parallax-y', (y * -0.075).toFixed(2) + 'px');
