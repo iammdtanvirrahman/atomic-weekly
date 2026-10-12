@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+<defs>
+ <radialGradient id="glow"><stop stop-color="#ff584d" stop-opacity=".24"/><stop offset="1" stop-color="#ff584d" stop-opacity="0"/></radialGradient>
+ <linearGradient id="line" x1="120" y1="80" x2="1000" y2="800" gradientUnits="userSpaceOnUse"><stop stop-color="#f0d39b" stop-opacity=".55"/><stop offset=".5" stop-color="#ff594e" stop-opacity=".2"/><stop offset="1" stop-color="#f0d39b" stop-opacity=".06"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="28"/></filter>
+</defs>
+<circle cx="780" cy="360" r="280" fill="url(#glow)" filter="url(#blur)"/>
+<g stroke="url(#line)" stroke-width="1.15">
+ <ellipse cx="770" cy="390" rx="420" ry="145" transform="rotate(-28 770 390)"/>
+ <ellipse cx="770" cy="390" rx="420" ry="145" transform="rotate(32 770 390)"/>
+ <ellipse cx="770" cy="390" rx="420" ry="145" transform="rotate(82 770 390)"/>
+ <circle cx="770" cy="390" r="250" stroke-opacity=".4"/>
+ <circle cx="770" cy="390" r="195" stroke-opacity=".24"/>
+ <path d="M220 390H1120M770 0V820" stroke-opacity=".16" stroke-dasharray="3 12"/>
+</g>
+<circle cx="770" cy="390" r="8" fill="#f0d39b"/>
+<circle cx="1002" cy="184" r="5" fill="#ff584d"/>
+<circle cx="442" cy="520" r="4" fill="#f0d39b" fill-opacity=".7"/>
+</svg>
