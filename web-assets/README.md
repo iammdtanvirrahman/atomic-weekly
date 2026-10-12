@@ -3,12 +3,12 @@
 Keep only assets used to design and decorate the website itself here. Do not put article-specific images here.
 
 ## Suggested files
-- hero-reverie.webp — desktop homepage hero artwork (wide, 16:9 or 3:2)
+- hero-reverie.png — homepage hero artwork (wide)
 - hero-mobile.webp — optional mobile crop of the hero artwork (portrait 4:5)
-- background-texture.webp — subtle dark paper/grain texture
-- science-atmosphere.webp — decorative science-section artwork
-- cosmos-atmosphere.webp — decorative space-section artwork
-- stories-atmosphere.webp — decorative literary/story-section artwork
+- background-texture.png — subtle dark paper/grain texture
+- science-atmosphere.png — decorative science-section artwork
+- cosmos-atmosphere.png — decorative space-section artwork
+- stories-atmosphere.png — decorative literary/story-section artwork
 - atomic-og.jpg — social-sharing preview image (1200×630)
 - logo-mark.svg — brand symbol
 - decorative-orbit.svg — small orbit/constellation decoration
