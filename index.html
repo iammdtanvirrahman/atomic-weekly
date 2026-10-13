@@ -1560,5 +1560,33 @@ footer{background:#0c0c0e!important;color:#929299!important;border-color:#303035
 @media(max-width:380px){.wrap{width:calc(100% - 26px)!important}.nav{gap:8px 13px!important}.nav a{font-size:.52rem!important}.hero h1{font-size:3rem!important}.edition-line{letter-spacing:.08em!important}.pathway-copy{padding:12px!important}.pathway-copy h3{font-size:1.72rem!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+<style id="atomic-masthead-redesign">
+/* Stronger, more recognizable publication masthead */
+.topbar .brand{
+  font-family:var(--sans)!important;
+  font-size:clamp(1.85rem,3vw,2.65rem)!important;
+  font-weight:900!important;
+  line-height:.95!important;
+  letter-spacing:-.085em!important;
+  gap:.12em!important;
+  color:#f5f5f6!important;
+  white-space:nowrap!important;
+}
+.topbar .brand i{
+  font-family:var(--serif)!important;
+  font-size:1.13em!important;
+  font-weight:600!important;
+  font-style:normal!important;
+  letter-spacing:-.065em!important;
+  color:#e53945!important;
+}
+@media(max-width:760px){
+ .topbar .brand{font-size:clamp(1.65rem,7vw,2.05rem)!important;letter-spacing:-.075em!important}
+ .topbar .brand i{font-size:1.12em!important}
+}
+@media(max-width:360px){
+ .topbar .brand{font-size:1.48rem!important}
+}
+</style>
 </body>
 </html>
