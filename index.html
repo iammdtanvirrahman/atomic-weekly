@@ -81,6 +81,27 @@
   .section-title{font-size:31px}
 }
 
+
+/* Keep the floating mobile dock from covering editorial copy while scrolling. */
+@media(max-width:720px){
+  .mobile-nav{
+    transition:transform .24s ease,opacity .24s ease,background .24s ease;
+    background:rgba(12,13,19,.97);
+    -webkit-backdrop-filter:blur(22px);
+    backdrop-filter:blur(22px);
+    will-change:transform;
+  }
+  .mobile-nav.nav-hidden{
+    transform:translateY(calc(100% + 24px));
+    opacity:.12;
+    pointer-events:none;
+  }
+  .mobile-nav a,.mobile-nav button{min-height:48px}
+}
+@media(prefers-reduced-motion:reduce){
+  .mobile-nav{transition:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -231,6 +252,32 @@ $('readerBack').onclick=closeReader;$('readerClose').onclick=closeReader;$('read
 window.addEventListener('hashchange',function(){var m=location.hash.match(/^#read\/(.+)$/);if(m){openArticle(decodeURIComponent(m[1]))}else if($('reader').classList.contains('open'))closeReader()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if($('reader').classList.contains('open'))closeReader();else $('searchDrawer').classList.remove('open')}});
 renderAll();
+
+/* Mobile dock: show at the top and on upward scroll; tuck away while reading down. */
+var mobileDock=document.querySelector('.mobile-nav');
+var lastDockY=window.scrollY||0;
+var dockTick=false;
+if(mobileDock){
+  window.addEventListener('scroll',function(){
+    if(dockTick)return;
+    dockTick=true;
+    window.requestAnimationFrame(function(){
+      var y=window.scrollY||0;
+      var delta=y-lastDockY;
+      if(y<120 || delta < -5 || document.body.classList.contains('reader-open')){
+        mobileDock.classList.remove('nav-hidden');
+      }else if(delta>5 && y>160){
+        mobileDock.classList.add('nav-hidden');
+      }
+      lastDockY=y;
+      dockTick=false;
+    });
+  },{passive:true});
+  mobileDock.addEventListener('click',function(e){
+    if(e.target.closest('a[href^="#"]'))mobileDock.classList.remove('nav-hidden');
+  });
+}
+
 var initial=location.hash.match(/^#read\/(.+)$/);if(initial)setTimeout(function(){openArticle(decodeURIComponent(initial[1]))},60);
 
 // The public magazine listens to the exact feed written by Atomic Admin.
