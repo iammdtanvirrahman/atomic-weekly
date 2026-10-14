@@ -40,6 +40,47 @@
 @media(max-width:720px){:root{--pad:19px;--radius:18px}.topbar{height:68px;gap:10px}.brand-main{font-size:28px}.brand-sub{font-size:8px;letter-spacing:.36em;margin-top:8px}.nav{display:none}.admin-link{font-size:0;padding:0;width:38px;height:38px;border-radius:50%;gap:0}.admin-link .spark{font-size:16px}.admin-link .admin-word{display:none}#menuBtn{display:grid}.top-actions .icon-btn{width:38px;height:38px}.search-drawer{top:68px}.hero{min-height:auto;padding-top:35px;padding-bottom:23px}.hero-bg{background-position:55% center;background-image:linear-gradient(90deg,rgba(8,9,13,.92),rgba(8,9,13,.55)),linear-gradient(0deg,#08090d 0%,transparent 65%),url("./assets/cosmic-hero.webp")}.hero-grid{grid-template-columns:1fr;gap:10px}.hero-copy{padding-top:0}.hero h1{font-size:clamp(49px,13vw,78px);max-width:510px;margin-bottom:17px}.hero-lede{font-size:12px;line-height:1.8;max-width:390px;margin-bottom:20px}.hero-quote{margin-top:24px;max-width:455px}.hero-side{justify-self:start;max-width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}.side-note{margin:0;font-size:19px;max-width:200px}.side-small{display:none}.text-link{margin-top:0}.hero-stats{padding-top:20px;margin-top:24px;gap:8px;align-items:flex-start}.hero-stat strong{font-size:20px}.hero-stat span{font-size:8px;letter-spacing:.06em}.scroll-cue{font-size:0}.scroll-cue b{font-size:14px}.floating-word{display:none}.section{padding-top:54px;padding-bottom:18px}.section-head{margin-bottom:19px;align-items:flex-start}.section-title{font-size:34px}.section-desc{font-size:11px}.featured-grid{grid-template-columns:1fr;gap:12px}.feature-card.large{min-height:390px}.feature-stack{grid-template-columns:1fr 1fr;grid-template-rows:1fr;gap:12px}.feature-stack .feature-card{min-height:220px}.feature-stack .feature-content{left:14px;right:12px;bottom:13px}.feature-stack .feature-content h3{font-size:21px}.feature-stack .article-meta{font-size:8px;gap:4px}.feature-stack .feature-bottom{margin-top:8px}.feature-stack .round-arrow{width:29px;height:29px;flex-basis:29px}.feature-content h3{font-size:34px}.feature-content p{font-size:11px}.feature-content{left:20px;bottom:19px;right:18px}.category-strip{margin-right:-19px;padding-right:19px}.latest{padding-top:48px}.articles-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card-art{aspect-ratio:1.02}.card-body{padding:12px}.card-body h3{font-size:19px;margin:10px 0 7px}.card-body .dek{font-size:10px;line-height:1.6;-webkit-line-clamp:2;margin-bottom:12px}.card-foot{padding-top:9px}.article-meta{font-size:8px;letter-spacing:.03em;gap:5px 8px}.category-label{font-size:8px;padding:5px 7px}.card-index{top:8px;right:8px;width:26px;height:26px}.view-all{font-size:9px}.quote-band{margin:53px 19px 22px;padding:25px 22px}.quote-band:before{font-size:170px;top:-40px;right:0}.quote-band blockquote{font-size:24px}.about-grid{grid-template-columns:1fr;gap:11px}.about-copy{padding:22px}.about-copy h3{font-size:24px}.about-principles{gap:8px}.principle{padding:13px}.principle h4{margin-top:8px}.footer{margin-top:40px;padding-top:29px}.footer-top{flex-direction:column}.footer-brand .brand-main{font-size:31px}.footer-bottom{font-size:8px;gap:9px}.mobile-nav{display:grid;position:fixed;z-index:48;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));grid-template-columns:repeat(4,1fr);padding:7px 6px;background:rgba(16,17,24,.91);border:1px solid rgba(255,255,255,.12);border-radius:18px;backdrop-filter:blur(20px);box-shadow:0 10px 35px rgba(0,0,0,.36)}.mobile-nav a,.mobile-nav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#9996a0;font:9px var(--sans);padding:5px 2px;min-width:0}.mobile-nav svg{width:18px;height:18px}.mobile-nav .active{color:#fff}.mobile-nav .active svg{color:var(--red)}.reader-top{height:60px}.reader-content{padding:28px 19px 90px}.reader-content h1{font-size:clamp(39px,11vw,63px)}.reader-content .article-copy{font-size:17px;line-height:1.85}.reader-cover{border-radius:12px;margin-bottom:25px}.reader-note{padding:17px}.reader-note blockquote{font-size:17px}.reader-actions .pill-btn{padding:8px 10px;font-size:10px}}
 @media(max-width:390px){.brand-main{font-size:24px}.top-actions{gap:5px}.top-actions .icon-btn{width:34px;height:34px}.hero h1{font-size:48px}.hero-stat strong{font-size:18px}.feature-stack .feature-content h3{font-size:18px}.articles-grid{gap:8px}.card-body{padding:10px}.card-body h3{font-size:17px}.card-body .dek{display:none}.card-foot{margin-top:10px}.section-title{font-size:30px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal,.article-card{opacity:1;translate:none}#three-scene{display:none}}
+
+/* Mobile layout repair: prevent hero elements and fixed navigation from colliding. */
+@media(max-width:720px){
+  .hero-grid{min-width:0}
+  .hero-copy,.hero-side{min-width:0;width:100%}
+  .hero-side{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-self:stretch;
+    gap:12px;
+    margin-top:22px;
+    max-width:none;
+  }
+  .orbit-tag{max-width:100%;white-space:nowrap;flex:0 0 auto}
+  .side-note{max-width:100%;width:100%;font-size:clamp(19px,5.4vw,23px);line-height:1.25;margin:0}
+  .text-link{margin-top:2px;align-self:flex-start}
+  .hero-stats{clear:both;position:relative;z-index:1}
+  .section-head{min-width:0;flex-wrap:wrap}
+  .section-head>div{min-width:0;flex:1 1 220px}
+  .view-all{flex:0 0 auto}
+  .mobile-nav{min-height:68px;padding-bottom:calc(7px + env(safe-area-inset-bottom));}
+  body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  :root{--pad:16px}
+  .topbar{padding-left:16px;padding-right:16px}
+  .top-actions{gap:6px}
+  .top-actions .icon-btn{width:35px;height:35px}
+  .brand-main{font-size:25px}
+  .brand-sub{letter-spacing:.29em;font-size:7px}
+  .hero h1{font-size:clamp(43px,12.2vw,54px);overflow-wrap:normal}
+  .hero-quote blockquote{font-size:18px}
+  .hero-stats{gap:7px}
+  .hero-stat strong{font-size:18px}
+  .hero-stat span{font-size:7px;letter-spacing:.025em}
+  .feature-stack{grid-template-columns:1fr}
+  .feature-stack .feature-card{min-height:190px}
+  .section-title{font-size:31px}
+}
+
 </style>
 </head>
 <body>
