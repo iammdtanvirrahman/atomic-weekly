@@ -1,0 +1,44 @@
+name: Update Asset Manifest
+
+on:
+  push:
+    paths:
+      - 'assets/**'
+      - '.github/workflows/assets-manifest.yml'
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build asset manifest
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os
+          exts={'.png','.jpg','.jpeg','.webp','.gif','.svg'}
+          files=[]
+          for root,dirs,names in os.walk('assets'):
+              dirs[:] = [d for d in dirs if d != '.git']
+              for name in names:
+                  if os.path.splitext(name)[1].lower() in exts:
+                      files.append(os.path.relpath(os.path.join(root,name),'assets').replace('\\','/'))
+          files.sort(key=str.lower)
+          with open('assets/assets.json','w',encoding='utf-8') as f:
+              json.dump({'assets':files},f,ensure_ascii=False,indent=2)
+              f.write('\\n')
+          PY
+
+      - name: Commit manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/assets.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: update asset manifest [skip ci]"
+          git push
