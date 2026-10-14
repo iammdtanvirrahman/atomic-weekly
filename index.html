@@ -251,7 +251,7 @@ $('loadMore').onclick=function(){visibleCount+=6;renderArticles()};
 $('searchBtn').onclick=function(){var open=$('searchDrawer').classList.toggle('open');if(open){$('searchInput').focus()}else{$('searchInput').value='';query='';visibleCount=9;renderArticles()}};
 $('mobileSearch').onclick=function(){$('searchDrawer').classList.add('open');$('searchInput').focus();window.scrollTo({top:0,behavior:'smooth'})};
 $('searchClose').onclick=function(){$('searchDrawer').classList.remove('open');$('searchInput').value='';query='';visibleCount=9;renderArticles()};
-$('searchInput').oninput=function(){query=$('searchInput').value;visibleCount=18;renderAll();if(query)document.getElementById('latest').scrollIntoView({block:'start',behavior:'smooth'})};
+var searchTimer=null,lastSearchHadQuery=false;$('searchInput').oninput=function(){var value=$('searchInput').value;clearTimeout(searchTimer);searchTimer=setTimeout(function(){query=value;visibleCount=query?18:9;renderAll();if(query&&!lastSearchHadQuery)document.getElementById('latest').scrollIntoView({block:'start',behavior:'smooth'});lastSearchHadQuery=!!query},120)};
 $('newQuote').onclick=setHeroQuote;$('bandNewQuote').onclick=setBandQuote;
 $('menuBtn').onclick=function(){var nav=document.querySelector('.nav');if(!nav)return;var opened=nav.dataset.mobileOpen==='1';nav.dataset.mobileOpen=opened?'0':'1';if(!opened){nav.style.cssText='display:flex;position:absolute;top:67px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:12px 20px;background:rgba(10,11,16,.98);border-bottom:1px solid var(--line)';nav.querySelectorAll('a').forEach(function(a){a.style.padding='12px 0';a.onclick=function(){nav.dataset.mobileOpen='0';nav.style.display='none'}})}else{nav.style.display='none'}};
 var toastTimer=null;function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){$('toast').classList.remove('show')},2400)}
@@ -327,7 +327,7 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
   var loaded=false,visible=false,raf=0,renderer=null,geometry=null,material=null,points=null,group=null,scene=null,camera=null,clock=null,mx=0,my=0,targetX=0,targetY=0;
   function schedule(){if(visible&&!document.hidden&&renderer&&!raf)raf=requestAnimationFrame(frame)}
   function load(){if(loaded||!visible||document.hidden)return;loaded=true;var script=document.createElement('script');script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';script.async=true;script.onload=init;script.onerror=function(){host.style.display='none'};document.head.appendChild(script)}
-  function init(){if(!window.THREE||!visible||document.hidden)return;try{
+  function init(){if(!window.THREE)return;if(!visible||document.hidden){loaded=false;return}try{
     var mobile=window.matchMedia('(max-width:720px)').matches;
     scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(52,host.clientWidth/Math.max(1,host.clientHeight),.1,100);camera.position.set(0,0,8);
     renderer=new THREE.WebGLRenderer({alpha:true,antialias:!mobile,powerPreference:'low-power',failIfMajorPerformanceCaveat:true});
@@ -342,7 +342,7 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
   function onPointer(e){mx=(e.clientX/window.innerWidth-.5)*.18;my=(e.clientY/window.innerHeight-.5)*.12}
   function resize(){if(!renderer||!host.clientWidth)return;camera.aspect=host.clientWidth/Math.max(1,host.clientHeight);camera.updateProjectionMatrix();renderer.setSize(host.clientWidth,host.clientHeight)}
   function frame(){raf=0;if(!visible||document.hidden||!renderer)return;var t=clock.getElapsedTime();targetX+=(mx-targetX)*.02;targetY+=(my-targetY)*.02;group.rotation.y=Math.sin(t*.13)*.12+targetX;group.rotation.x=Math.cos(t*.17)*.045+targetY;points.rotation.y=t*.008;renderer.render(scene,camera);raf=requestAnimationFrame(frame)}
-  function onVisibility(){if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0}else schedule()}
+  function onVisibility(){if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0}else if(visible&&!renderer){loaded=false;load()}else schedule()}
   function cleanup(){if(raf)cancelAnimationFrame(raf);raf=0;if(renderer){renderer.dispose();if(renderer.domElement.parentNode)renderer.domElement.remove()}if(geometry)geometry.dispose();if(material)material.dispose();renderer=null}
   document.addEventListener('visibilitychange',onVisibility);window.addEventListener('pagehide',cleanup,{once:true});
   if('IntersectionObserver'in window){var io=new IntersectionObserver(function(entries){visible=entries.some(function(e){return e.isIntersecting});if(visible)load();else{if(raf)cancelAnimationFrame(raf);raf=0}},{rootMargin:'160px 0px'});io.observe(hero)}else{visible=true;load()}
