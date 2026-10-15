@@ -596,6 +596,7 @@ renderAll();
 /* Pick a different cosmic cover on each reload. Keep Saturn out of the rotation. */
 (function rotateHeroArtwork(){
   var key='atomic-magazine-hero-art';
+  var configApi='https://atomictanvir-default-rtdb.firebaseio.com/publishedArticles/_heroImageLinks.json';
   var folderApi='https://api.github.com/repos/iammdtanvirrahman/atomic-weekly/contents/assets/hero-refresh?ref=atomic-weekly-2.0';
   var root=document.documentElement;
   var fallbackNames=[
@@ -609,58 +610,89 @@ renderAll();
   ];
   var previous='';
   try{previous=localStorage.getItem(key)||''}catch(e){}
-  function imagePath(name){return './assets/hero-refresh/'+encodeURIComponent(name)}
-  // Reuse the last valid selection immediately while the live directory list loads.
-  if(previous&&/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(previous)){
-    root.style.setProperty('--hero-art','url("'+imagePath(previous)+'")');
+  function localImageUrl(name){return './assets/hero-refresh/'+encodeURIComponent(name)}
+  function setHeroArtwork(url){
+    var safe=String(url||'').replace(/\\/g,'%5C').replace(/"/g,'%22');
+    root.style.setProperty('--hero-art','url("'+safe+'")');
   }
-  function preloadThenApply(imageName,candidates,index){
-    if(!imageName)return;
-    var path=imagePath(imageName);
+  function validRemoteUrl(raw){
+    try{var parsed=new URL(String(raw||'').trim());return parsed.protocol==='https:'?parsed.href:''}catch(e){return''}
+  }
+  // Keep the last successful image visible while the saved list is fetched.
+  if(previous){
+    if(/^https:\/\//i.test(previous))setHeroArtwork(previous);
+    else if(/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(previous))setHeroArtwork(localImageUrl(previous));
+  }
+  function preLoadOneByOne(images,index,onAllFailed){
+    if(index>=images.length){onAllFailed();return}
+    var selected=images[index];
     var probe=new Image();
     probe.decoding='async';
     probe.onload=function(){
       var apply=function(){
-        root.style.setProperty('--hero-art','url("'+path+'")');
-        try{localStorage.setItem(key,imageName)}catch(e){}
+        setHeroArtwork(selected.url);
+        try{localStorage.setItem(key,selected.url)}catch(e){}
       };
       if(typeof probe.decode==='function')probe.decode().then(apply).catch(apply);
       else apply();
     };
-    probe.onerror=function(){
-      var next=(candidates||[])[(index||0)+1];
-      if(next)preloadThenApply(next,candidates,(index||0)+1);
-      else if(!previous){
-        var lightweight='./assets/hero-refresh/cosmic-hero.webp';
-        root.style.setProperty('--hero-art','url("'+lightweight+'")');
-      }
-    };
-    probe.src=path;
+    probe.onerror=function(){preLoadOneByOne(images,index+1,onAllFailed)};
+    probe.src=selected.url;
   }
-  function chooseAndLoad(images){
-    var usable=images.filter(function(image){
-      return image&&image.name&&/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(image.name);
-    });
-    if(!usable.length)usable=fallbackNames.map(function(name){return {name:name}});
-    var choices=usable.filter(function(image){return image.name!==previous});
-    if(!choices.length)choices=usable;
+  function shuffledCandidates(items){
+    var usable=items.filter(function(item){return item&&item.url});
+    var choices=usable.filter(function(item){return item.url!==previous&&item.name!==previous});
+    if(!choices.length)choices=usable.slice();
     for(var i=choices.length-1;i>0;i--){
       var j=Math.floor(Math.random()*(i+1)),tmp=choices[i];choices[i]=choices[j];choices[j]=tmp;
     }
-    // Try another file if the chosen artwork fails to load.
-    preloadThenApply(choices[0]&&choices[0].name,choices.map(function(x){return x.name}),0);
+    return choices;
   }
-  fetch(folderApi,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}})
-    .then(function(response){
-      if(!response.ok)throw new Error('Artwork directory unavailable ('+response.status+')');
-      return response.json();
-    })
-    .then(function(files){
-      chooseAndLoad(files.filter(function(file){return file.type==='file'}).map(function(file){return {name:file.name}}));
+  function tryImages(items,onAllFailed){
+    var choices=shuffledCandidates(items);
+    if(!choices.length){onAllFailed();return}
+    preLoadOneByOne(choices,0,onAllFailed);
+  }
+  function loadFolderFallback(){
+    fetch(folderApi,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}})
+      .then(function(response){if(!response.ok)throw new Error('Artwork folder unavailable ('+response.status+')');return response.json()})
+      .then(function(files){
+        var images=files.filter(function(file){return file.type==='file'&&/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(file.name||'')})
+          .map(function(file){return {name:file.name,url:localImageUrl(file.name)}});
+        if(!images.length)images=fallbackNames.map(function(name){return {name:name,url:localImageUrl(name)}});
+        tryImages(images,function(){
+          var light=fallbackNames.find(function(name){return name==='cosmic-hero.webp'})||fallbackNames[0];
+          setHeroArtwork(localImageUrl(light));
+        });
+      })
+      .catch(function(error){
+        console.warn('Atomic hero art folder unavailable; using bundled fallback.',error);
+        var images=fallbackNames.map(function(name){return {name:name,url:localImageUrl(name)}});
+        tryImages(images,function(){setHeroArtwork(localImageUrl('cosmic-hero.webp'))});
+      });
+  }
+  function savedImageList(data){
+    var raw=data&&data.urls;
+    if(Array.isArray(raw))return raw;
+    if(raw&&typeof raw==='object')return Object.keys(raw).sort(function(a,b){return Number(a)-Number(b)}).map(function(k){return raw[k]});
+    return [];
+  }
+  fetch(configApi,{cache:'no-store'})
+    .then(function(response){if(!response.ok)throw new Error('Saved image links unavailable ('+response.status+')');return response.json()})
+    .then(function(data){
+      var urls=savedImageList(data).map(function(item){
+        var url=validRemoteUrl(typeof item==='string'?item:(item&&item.url));
+        return url?{name:url,url:url}:null;
+      }).filter(Boolean);
+      if(urls.length){
+        tryImages(urls,loadFolderFallback);
+      }else{
+        loadFolderFallback();
+      }
     })
     .catch(function(error){
-      console.warn('Atomic hero artwork list unavailable; using bundled fallback artwork.',error);
-      chooseAndLoad(fallbackNames.map(function(name){return {name:name}}));
+      console.warn('Atomic hero image links could not be loaded; using folder rotation.',error);
+      loadFolderFallback();
     });
 })();
 
