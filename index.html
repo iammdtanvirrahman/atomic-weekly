@@ -609,7 +609,7 @@ renderAll();
   try{previous=localStorage.getItem(key)||''}catch(e){}
   var choices=images.filter(function(name){return name!==previous});
   var selected=choices[Math.floor(Math.random()*choices.length)]||images[0];
-  var url='./assets/'+encodeURI(selected);
+  var url='./assets/hero-refresh/'+encodeURI(selected);
   document.documentElement.style.setProperty('--hero-art','url("'+url.replace(/"/g,'%22')+'")');
   try{localStorage.setItem(key,selected)}catch(e){}
 })();
