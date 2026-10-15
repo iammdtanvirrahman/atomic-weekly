@@ -168,6 +168,64 @@ body.reader-open #three-scene{opacity:.025}
 @media(max-width:520px){.reader-tools{align-items:flex-start;flex-direction:column;gap:6px;padding-top:8px;padding-bottom:8px}.reader-tools-actions{gap:5px}.reader-tool-btn{min-height:30px;padding:5px 8px}.reader-tools-note{font-size:8px}.reader-content{padding-top:25px}#reader .reader-content .article-copy{font-size:calc(17px * var(--reader-text-scale,1))}.image-zoom{padding:10px}}
 @media(prefers-reduced-motion:reduce){.reader-tool-btn,#reader .reader-content .article-copy img{transition:none!important}}</style>
 
+
+<style id="atomic-v2-reference-editorial">
+/* Reference direction: cinematic black-hole editorial, print-like spreads, science atlas details. */
+#reader{background:radial-gradient(ellipse at 82% 8%,rgba(158,48,28,.13),transparent 28%),radial-gradient(ellipse at 12% 38%,rgba(145,22,48,.08),transparent 32%),#08090d}
+#reader .reader-top{background:rgba(8,9,13,.95);border-bottom-color:rgba(240,68,82,.22)}
+#reader .reader-content{position:relative;isolation:isolate;max-width:1160px;padding:clamp(28px,5.2vw,76px) clamp(20px,4.3vw,62px) 110px}
+#reader .reader-content:before{content:"ATOMIC / SCIENCE & HUMANITY";position:absolute;top:14px;right:clamp(20px,4.3vw,62px);z-index:-1;color:rgba(255,255,255,.035);font:700 clamp(24px,5vw,64px)/1 var(--sans);letter-spacing:-.06em;white-space:nowrap;pointer-events:none}
+#reader .reader-kicker{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid rgba(240,68,82,.48);border-bottom:1px solid rgba(255,255,255,.1);font-size:9px;letter-spacing:.18em}
+#reader .reader-content>h1{max-width:1040px;margin:24px 0 22px;font:650 clamp(42px,7.7vw,94px)/.94 var(--serif);letter-spacing:-.058em;text-wrap:balance}
+#reader .reader-dek{max-width:760px;margin-bottom:26px;color:#c9bcb8;font:italic 500 clamp(17px,2.35vw,25px)/1.45 var(--serif)}
+#reader .reader-byline{display:flex;align-items:center;gap:10px 18px;padding:14px 0;margin-bottom:26px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);font-size:9px;letter-spacing:.12em}
+#reader .reader-byline span+span:before{content:"/";color:var(--red);margin-right:18px}
+#reader .reader-cover{display:block;width:100%;max-height:min(68vh,720px);aspect-ratio:16/7;object-fit:cover;object-position:center;border:1px solid rgba(233,109,72,.24);border-radius:2px;margin:0 0 clamp(28px,4vw,58px);box-shadow:0 22px 70px rgba(0,0,0,.32);background:#120b09}
+#reader .reader-toc{max-width:820px;margin:0 auto 36px;border-radius:2px;border-color:rgba(230,105,65,.23);background:linear-gradient(135deg,rgba(112,43,27,.12),rgba(255,255,255,.015))}
+#reader .reader-content .article-copy{max-width:790px;margin:0 auto;font:400 clamp(17px,1.35vw,20px)/1.92 var(--serif);color:#e3d6cf;overflow-wrap:anywhere}
+#reader .reader-content .article-copy>p:first-of-type{font-size:1.12em;color:#f0e5df}
+#reader .reader-content .article-copy>p:first-of-type::first-letter{float:left;padding:.09em .13em 0 0;color:#f04452;font:600 3.7em/.76 var(--serif)}
+#reader .reader-content .article-copy h1,#reader .reader-content .article-copy h2,#reader .reader-content .article-copy h3{position:relative;margin:1.8em 0 .62em;color:#fff;text-wrap:balance}
+#reader .reader-content .article-copy h2{padding-top:15px;border-top:1px solid rgba(240,68,82,.25);font-size:clamp(27px,3.4vw,42px)}
+#reader .reader-content .article-copy h2:before{content:"FIELD NOTE / ";display:block;margin-bottom:9px;color:#f04452;font:9px/1.5 var(--mono);letter-spacing:.18em}
+#reader .reader-content .article-copy h3{color:#f0bca7;font-size:1.27em}
+#reader .reader-content .article-copy p{margin-bottom:1.35em}
+#reader .reader-content .article-copy figure{max-width:100%;margin:34px 0 40px;padding:0 0 13px;border-bottom:1px solid rgba(232,129,81,.28)}
+#reader .reader-content .article-copy figure img{display:block;width:100%;max-height:68vh;object-fit:contain;border-radius:1px;margin:0 auto;background:#0b0b0e}
+#reader .reader-content .article-copy figcaption{margin-top:12px;text-align:left;color:#a89a92;font:10px/1.7 var(--sans);letter-spacing:.035em}
+#reader .reader-content .article-copy img{max-width:100%;height:auto;border-radius:1px}
+#reader .reader-content .article-copy blockquote{margin:36px 0;padding:20px 24px 20px 26px;border-left:2px solid #f04452;background:linear-gradient(110deg,rgba(240,68,82,.09),transparent 76%);color:#f0c8b9;font:italic 500 clamp(21px,2.4vw,29px)/1.52 var(--serif)}
+#reader .reader-content .article-copy ul,#reader .reader-content .article-copy ol{padding-left:1.45em}
+#reader .reader-content .article-copy li::marker{color:var(--red)}
+#reader .reader-content .article-copy a{color:#ff8779;text-decoration-color:rgba(255,135,121,.48)}
+#reader .reader-content .article-copy table{width:100%;border-collapse:collapse;font:12px/1.7 var(--sans);background:rgba(15,13,14,.55)}
+#reader .reader-content .article-copy th{background:rgba(240,68,82,.1);color:#f0c2b0;font:10px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+#reader .reader-content .article-copy th,#reader .reader-content .article-copy td{border:1px solid rgba(230,120,76,.22);padding:11px 13px}
+#reader .reader-content .article-copy .science-code{border-color:rgba(240,68,82,.32);border-radius:2px;background:linear-gradient(120deg,#100b0c,#08090d)}
+#reader .reader-content .article-copy .science-code pre{background:transparent}
+#reader .reader-content .article-copy mjx-container[display="true"]{max-width:100%;overflow-x:auto;overflow-y:hidden;margin:26px 0!important;padding:24px 18px;border-left:2px solid #e85b49;background:radial-gradient(ellipse at 0 50%,rgba(177,81,39,.14),transparent 65%),rgba(255,255,255,.018);color:#f0d6a6}
+#reader .reader-content .article-copy mjx-container{color:#ead5b9}
+#reader .reader-note{border-radius:2px;border-color:rgba(224,101,65,.3);background:linear-gradient(120deg,rgba(128,46,30,.14),rgba(240,68,82,.035))}
+#reader .reader-footer{border-top-color:rgba(224,101,65,.35)}
+#reader.reader-editorial-spread .reader-content{max-width:1420px}
+#reader.reader-editorial-spread .reader-content .article-copy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:clamp(18px,3.2vw,48px);max-width:none;margin:0 auto}
+#reader .reader-content .article-copy .spread-page{position:relative;min-width:0;padding:clamp(18px,2.35vw,34px);border:1px solid rgba(226,126,77,.19);background:linear-gradient(158deg,rgba(41,24,21,.72),rgba(12,11,14,.98) 70%);box-shadow:0 14px 42px rgba(0,0,0,.18)}
+#reader .reader-content .article-copy .spread-page:before{content:attr(data-folio);display:block;padding-bottom:12px;margin-bottom:22px;border-bottom:1px solid rgba(240,68,82,.42);color:#e36b52;font:9px var(--mono);letter-spacing:.16em}
+#reader .reader-content .article-copy .spread-page>h2:first-of-type,#reader .reader-content .article-copy .spread-page>h3:first-of-type{margin-top:0}
+#reader .reader-content .article-copy .spread-page img,#reader .reader-content .article-copy .spread-page figure,#reader .reader-content .article-copy .spread-page .science-code,#reader .reader-content .article-copy .spread-page table,#reader .reader-content .article-copy .spread-page blockquote{break-inside:avoid}
+#reader.reader-editorial-spread .reader-note,#reader.reader-editorial-spread .reader-footer{max-width:900px;margin-left:auto;margin-right:auto}
+@media(max-width:760px){
+ #reader .reader-content{padding-top:24px}
+ #reader .reader-content:before{display:none}
+ #reader .reader-cover{aspect-ratio:4/3;max-height:48vh}
+ #reader .reader-content .article-copy>p:first-of-type::first-letter{font-size:3.1em}
+ #reader.reader-editorial-spread .reader-content .article-copy{grid-template-columns:minmax(0,1fr);gap:14px}
+ #reader .reader-content .article-copy .spread-page{padding:19px}
+ #reader .reader-content .article-copy .spread-page:before{margin-bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){#reader .reader-content .article-copy img{transition:none!important}}
+</style>
+
 </head>
 <body>
 <div class="ambient"></div><div class="noise"></div>
@@ -261,7 +319,7 @@ body.reader-open #three-scene{opacity:.025}
 
 <nav class="mobile-nav" aria-label="Quick navigation"><a href="#home" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>Home</a><a href="#latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12a2 2 0 0 1 2 2v16l-8-4-8 4V5a2 2 0 0 1 2-2Z"/></svg>Stories</a><button id="mobileSearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>Search</button><a href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5V4.8A1.8 1.8 0 0 1 5.8 3H20v18H5.8A1.8 1.8 0 0 1 4 19.5Z"/><path d="M4 19a2 2 0 0 1 2-2h14M8 7h8M8 11h6"/></svg>Admin</a></nav>
 
-<section class="reader" id="reader" aria-hidden="true"><div class="reader-top"><button class="pill-btn" id="readerBack">← Back to magazine</button><div class="reader-brand">ATOMIC <span style="color:#c6b9bb;font:9px var(--mono);letter-spacing:.2em">MAGAZINE</span></div><div class="reader-actions"><button class="pill-btn" id="readerShare">↗ Share</button><button class="pill-btn" id="readerClose" aria-label="Close article">✕</button></div></div><div class="reader-progress" aria-hidden="true"><span id="readerProgressBar"></span></div><div class="reader-tools" role="toolbar" aria-label="Reading controls"><div class="reader-tools-actions"><button type="button" class="reader-tool-btn" id="readerTextDown" title="Decrease text size" aria-label="Decrease article text size">A−</button><button type="button" class="reader-tool-btn" id="readerTextUp" title="Increase text size" aria-label="Increase article text size">A+</button><button type="button" class="reader-tool-btn" id="readerWidthToggle" aria-pressed="false">Wide view</button><button type="button" class="reader-tool-btn" id="readerCopyLink">Copy link</button></div><span class="reader-tools-note" id="readerToolsNote" aria-live="polite">Comfortable reading</span></div><article class="reader-content" id="readerContent"></article></section>
+<section class="reader" id="reader" aria-hidden="true"><div class="reader-top"><button class="pill-btn" id="readerBack">← Back to magazine</button><div class="reader-brand">ATOMIC <span style="color:#c6b9bb;font:9px var(--mono);letter-spacing:.2em">MAGAZINE</span></div><div class="reader-actions"><button class="pill-btn" id="readerShare">↗ Share</button><button class="pill-btn" id="readerClose" aria-label="Close article">✕</button></div></div><div class="reader-progress" aria-hidden="true"><span id="readerProgressBar"></span></div><div class="reader-tools" role="toolbar" aria-label="Reading controls"><div class="reader-tools-actions"><button type="button" class="reader-tool-btn" id="readerTextDown" title="Decrease text size" aria-label="Decrease article text size">A−</button><button type="button" class="reader-tool-btn" id="readerTextUp" title="Increase text size" aria-label="Increase article text size">A+</button><button type="button" class="reader-tool-btn" id="readerWidthToggle" aria-pressed="false">Wide view</button><button type="button" class="reader-tool-btn" id="readerSpreadToggle" aria-pressed="false" title="Arrange this article as an open-book spread">Open-book view</button><button type="button" class="reader-tool-btn" id="readerCopyLink">Copy link</button></div><span class="reader-tools-note" id="readerToolsNote" aria-live="polite">Comfortable reading</span></div><article class="reader-content" id="readerContent"></article></section>
 <dialog class="image-zoom" id="imageZoom" aria-label="Article image viewer"><div class="image-zoom-inner"><button type="button" class="reader-tool-btn image-zoom-close" id="imageZoomClose">Close image ✕</button><img id="imageZoomImg" alt=""><p id="imageZoomCaption"></p></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -385,7 +443,47 @@ $('readerTextUp').onclick=function(){readerTextScale=Math.min(1.4,Math.round((re
 $('readerWidthToggle').onclick=function(){var wide=$('reader').classList.toggle('reader-wide');$('readerWidthToggle').setAttribute('aria-pressed',wide?'true':'false');$('readerWidthToggle').textContent=wide?'Narrow view':'Wide view';$('readerToolsNote').textContent=wide?'Wide reading layout':'Comfortable reading layout';};
 $('readerCopyLink').onclick=function(){copyText(location.href,'Article link copied.')};
 
-function openArticle(id){var reader=$('reader');if(!reader.classList.contains('open')&&!readerReturnFocus){var active=document.activeElement;if(active&&active!==document.body&&active!==document.documentElement&&!reader.contains(active))readerReturnFocus=active}var a=articleById(id);if(!a){toast('This story is no longer available.');return}currentArticle=a;var c=niceCategory(a);var body=a.content||a.body||a.text||'';var bodyHtml=/<[a-z][\s\S]*>/i.test(body)?sanitizeContent(body):'<p>'+escapeHtml(body).replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br>')+'</p>';var q=pickQuote();$('readerContent').innerHTML='<div class="reader-kicker"><span>'+escapeHtml(c)+'</span><span>／</span><span>Atomic Magazine</span></div><h1>'+escapeHtml(articleTitle(a))+'</h1><p class="reader-dek">'+escapeHtml(articleDek(a))+'</p><div class="reader-byline"><span>By '+escapeHtml(a.author||'Atomic Desk')+'</span><span>'+escapeHtml(dateOf(a))+'</span><span>'+readMinutes(a)+' minute read</span></div><img class="reader-cover" src="'+escapeHtml(articleImage(a))+'" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display=\'none\'"><nav class="reader-toc" id="readerToc" hidden aria-label="Article contents"><h2>On this page</h2><div class="reader-toc-list"></div></nav><div class="article-copy">'+bodyHtml+'</div><aside class="reader-note"><span class="mono">A thought, before you go</span><blockquote>“'+escapeHtml(q.q)+'”</blockquote><div class="quote-by"><span>'+escapeHtml(q.by)+'</span><button type="button" class="reader-copy-quote" id="copyReaderQuote">Copy quote</button><button class="quote-change" id="readerNewQuote" aria-label="Another quote">↻</button></div></aside><div class="reader-footer"><span class="article-meta">'+escapeHtml(c)+' · '+readMinutes(a)+' MIN READ</span><button class="pill-btn primary" id="relatedButton">Explore another story ↗</button></div>';buildReaderToc();enhanceReaderContent();typesetReaderMath();$('reader').classList.add('open');$('reader').setAttribute('aria-hidden','false');document.body.classList.add('reader-open');document.dispatchEvent(new CustomEvent('atomic:reader-toggle',{detail:{open:true}}));history.replaceState(null,'',location.pathname+location.search+'#read/'+encodeURIComponent(String(a.id||a.key)));$('readerNewQuote').onclick=function(){var nq=pickQuote();$('readerContent').querySelector('.reader-note blockquote').textContent='“'+nq.q+'”';$('readerContent').querySelector('.reader-note .quote-by span').textContent=nq.by};$('copyReaderQuote').onclick=function(){var quote=$('readerContent').querySelector('.reader-note blockquote');copyText(quote&&quote.textContent,'Quote copied.')};$('relatedButton').onclick=function(){var next=visibleArticles().find(function(x){return String(x.id||x.key)!==String(id)})||articles.find(function(x){return String(x.id||x.key)!==String(id)});if(next)openArticle(String(next.id||next.key))};$('reader').scrollTop=0;updateReaderProgress()}
+
+function setEditorialSpread(enabled){
+ var reader=$('reader'),copy=$('readerContent').querySelector('.article-copy'),button=$('readerSpreadToggle');
+ if(!copy||!button)return false;
+ var pages=copy.querySelectorAll(':scope > .spread-page');
+ if(enabled&&!pages.length){
+  var nodes=Array.from(copy.childNodes).filter(function(n){return !(n.nodeType===3&&!n.textContent.trim())});
+  if(nodes.length<4){toast('This article is too short for open-book view.');return false}
+  var weights=nodes.map(function(n){
+   if(n.nodeType!==1)return Math.max(1,(n.textContent||'').trim().length*.08);
+   var tag=n.tagName,txt=(n.textContent||'').trim().length;
+   if(tag==='IMG'||n.querySelector('img,iframe,table,mjx-container'))return Math.max(160,txt*.5);
+   if(tag==='H1'||tag==='H2'||tag==='H3'||tag==='H4')return Math.max(90,txt*.75);
+   if(tag==='BLOCKQUOTE'||tag==='PRE'||tag==='TABLE'||tag==='IFRAME')return Math.max(140,txt*.55);
+   return Math.max(15,txt*.55);
+  });
+  var total=weights.reduce(function(a,b){return a+b},0),running=0,bestSplit=1,bestDelta=Infinity;
+  for(var i=0;i<nodes.length-1;i++){running+=weights[i];var delta=Math.abs(total/2-running);if(delta<bestDelta){bestDelta=delta;bestSplit=i+1}}
+  bestSplit=Math.max(1,Math.min(nodes.length-1,bestSplit));
+  var left=document.createElement('div'),right=document.createElement('div');
+  left.className=right.className='spread-page';
+  left.dataset.folio='PLATE 01 / FIELD NOTES';left.setAttribute('aria-label','First page of article spread');
+  right.dataset.folio='PLATE 02 / CONTINUED';right.setAttribute('aria-label','Second page of article spread');
+  nodes.forEach(function(node,i){(i<bestSplit?left:right).appendChild(node)});
+  copy.appendChild(left);copy.appendChild(right);
+ }else if(!enabled&&pages.length){
+  var restored=[];pages.forEach(function(page){while(page.firstChild)restored.push(page.firstChild)});
+  while(copy.firstChild)copy.removeChild(copy.firstChild);
+  restored.forEach(function(node){copy.appendChild(node)});
+ }
+ reader.classList.toggle('reader-editorial-spread',!!enabled);
+ button.setAttribute('aria-pressed',enabled?'true':'false');
+ button.textContent=enabled?'Single column':'Open-book view';
+ return true;
+}
+$('readerSpreadToggle').onclick=function(){
+ var enabled=!$('reader').classList.contains('reader-editorial-spread');
+ if(setEditorialSpread(enabled))$('readerToolsNote').textContent=enabled?'Open-book editorial layout':'Comfortable reading layout';
+};
+
+function openArticle(id){var reader=$('reader');if(reader.classList.contains('reader-editorial-spread'))setEditorialSpread(false);if(!reader.classList.contains('open')&&!readerReturnFocus){var active=document.activeElement;if(active&&active!==document.body&&active!==document.documentElement&&!reader.contains(active))readerReturnFocus=active}var a=articleById(id);if(!a){toast('This story is no longer available.');return}currentArticle=a;var c=niceCategory(a);var body=a.content||a.body||a.text||'';var bodyHtml=/<[a-z][\s\S]*>/i.test(body)?sanitizeContent(body):'<p>'+escapeHtml(body).replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br>')+'</p>';var q=pickQuote();$('readerContent').innerHTML='<div class="reader-kicker"><span>'+escapeHtml(c)+'</span><span>／</span><span>Atomic Magazine</span></div><h1>'+escapeHtml(articleTitle(a))+'</h1><p class="reader-dek">'+escapeHtml(articleDek(a))+'</p><div class="reader-byline"><span>By '+escapeHtml(a.author||'Atomic Desk')+'</span><span>'+escapeHtml(dateOf(a))+'</span><span>'+readMinutes(a)+' minute read</span></div><img class="reader-cover" src="'+escapeHtml(articleImage(a))+'" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display=\'none\'"><nav class="reader-toc" id="readerToc" hidden aria-label="Article contents"><h2>On this page</h2><div class="reader-toc-list"></div></nav><div class="article-copy">'+bodyHtml+'</div><aside class="reader-note"><span class="mono">A thought, before you go</span><blockquote>“'+escapeHtml(q.q)+'”</blockquote><div class="quote-by"><span>'+escapeHtml(q.by)+'</span><button type="button" class="reader-copy-quote" id="copyReaderQuote">Copy quote</button><button class="quote-change" id="readerNewQuote" aria-label="Another quote">↻</button></div></aside><div class="reader-footer"><span class="article-meta">'+escapeHtml(c)+' · '+readMinutes(a)+' MIN READ</span><button class="pill-btn primary" id="relatedButton">Explore another story ↗</button></div>';buildReaderToc();enhanceReaderContent();typesetReaderMath();$('reader').classList.add('open');$('reader').setAttribute('aria-hidden','false');document.body.classList.add('reader-open');document.dispatchEvent(new CustomEvent('atomic:reader-toggle',{detail:{open:true}}));history.replaceState(null,'',location.pathname+location.search+'#read/'+encodeURIComponent(String(a.id||a.key)));$('readerNewQuote').onclick=function(){var nq=pickQuote();$('readerContent').querySelector('.reader-note blockquote').textContent='“'+nq.q+'”';$('readerContent').querySelector('.reader-note .quote-by span').textContent=nq.by};$('copyReaderQuote').onclick=function(){var quote=$('readerContent').querySelector('.reader-note blockquote');copyText(quote&&quote.textContent,'Quote copied.')};$('relatedButton').onclick=function(){var next=visibleArticles().find(function(x){return String(x.id||x.key)!==String(id)})||articles.find(function(x){return String(x.id||x.key)!==String(id)});if(next)openArticle(String(next.id||next.key))};$('reader').scrollTop=0;updateReaderProgress()}
 function closeReader(){var reader=$('reader');if(!reader.classList.contains('open'))return;var target=readerReturnFocus;if(!target||!target.isConnected||reader.contains(target)||typeof target.focus!=='function')target=$('home');if(target&&typeof target.focus==='function')target.focus({preventScroll:true});reader.classList.remove('open');reader.setAttribute('aria-hidden','true');document.body.classList.remove('reader-open');document.dispatchEvent(new CustomEvent('atomic:reader-toggle',{detail:{open:false}}));currentArticle=null;readerReturnFocus=null;history.replaceState(null,'',location.pathname+location.search+location.hash.replace(/#read\/.*/,''));}
 $('readerBack').onclick=closeReader;$('readerClose').onclick=closeReader;$('readerShare').onclick=async function(){if(!currentArticle)return;var url=location.href;try{if(navigator.share){await navigator.share({title:articleTitle(currentArticle),text:articleDek(currentArticle),url:url})}else if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('Story link copied.')}else{toast('Copy this link from your browser address bar.')}}catch(e){if(e&&e.name!=='AbortError')toast('Sharing was not available on this device.')}};
 window.addEventListener('hashchange',function(){var m=location.hash.match(/^#read\/(.+)$/);if(m){openArticle(decodeURIComponent(m[1]))}else if($('reader').classList.contains('open'))closeReader()});
