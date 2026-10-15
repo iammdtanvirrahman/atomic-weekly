@@ -233,6 +233,31 @@ body.reader-open #three-scene{opacity:.025}
  #reader .reader-content .article-copy .spread-page:before{margin-bottom:14px}
 }
 @media(prefers-reduced-motion:reduce){#reader .reader-content .article-copy img{transition:none!important}}
+
+/* Reader-facing article submission workflow */
+.send-article-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:0 15px;border:1px solid rgba(240,68,82,.62);border-radius:999px;background:linear-gradient(115deg,rgba(240,68,82,.14),rgba(240,68,82,.035));color:#fff;font:700 11px var(--sans);white-space:nowrap;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.send-article-btn span{color:var(--red);font-size:15px}.send-article-btn:hover{background:rgba(240,68,82,.19);border-color:var(--red);transform:translateY(-1px)}
+.submission-modal{display:none;position:fixed;inset:0;z-index:180;padding:clamp(10px,3vw,34px);align-items:center;justify-content:center}.submission-modal.open{display:flex}
+.submission-backdrop{position:absolute;inset:0;background:rgba(3,4,7,.86);backdrop-filter:blur(15px)}
+.submission-dialog{position:relative;z-index:1;width:min(850px,100%);max-height:min(92vh,1000px);overflow:auto;padding:clamp(20px,3.5vw,40px);border:1px solid rgba(222,147,107,.28);border-radius:16px;background:radial-gradient(ellipse at 100% 0,rgba(121,34,41,.2),transparent 37%),linear-gradient(145deg,#141116,#08090d 68%);color:#f5ece7;box-shadow:0 36px 120px rgba(0,0,0,.65);overscroll-behavior:contain}
+.submission-head{display:flex;justify-content:space-between;gap:18px;padding-bottom:19px;margin-bottom:21px;border-bottom:1px solid rgba(222,147,107,.21)}.submission-head>div{min-width:0}.submission-kicker{margin:0 0 11px;color:var(--red);font-size:9px;letter-spacing:.16em}
+.submission-head h2{margin:0;color:#fff2e9;font:600 clamp(35px,6vw,54px)/.98 var(--serif);letter-spacing:-.055em}.submission-head h2 em{color:var(--red);font-weight:500}.submission-head p:not(.submission-kicker){max-width:660px;margin:12px 0 0;color:#b7a7a0;font-size:12px;line-height:1.8}
+.submission-close{flex:0 0 38px;width:38px;height:38px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(255,255,255,.035);color:#fff;font-size:24px;cursor:pointer}
+.submission-form{display:grid;gap:15px}.submission-form>label,.submission-fields label{display:grid;gap:7px;color:#d7c7be;font:700 9px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}.submission-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submission-form input,.submission-form select,.submission-form textarea{width:100%;min-width:0;padding:12px 13px;border:1px solid #352b2d;border-radius:7px;background:#0a0a0e;color:#f7eeea;font:12px/1.7 var(--sans);letter-spacing:normal;text-transform:none;outline:none}
+.submission-form input:focus,.submission-form select:focus,.submission-form textarea:focus{border-color:rgba(240,68,82,.75);box-shadow:0 0 0 3px rgba(240,68,82,.09)}.submission-form input::placeholder,.submission-form textarea::placeholder{color:#71656a}
+.submission-form textarea{min-height:180px;resize:vertical;line-height:1.75}.submission-field-help{display:flex;justify-content:flex-end;color:#8e7f82;font:9px var(--mono);letter-spacing:0;text-transform:none}
+.submission-attachment{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;padding:16px;border:1px dashed rgba(222,147,107,.34);border-radius:9px;background:rgba(222,147,107,.045)}.submission-attachment strong{color:#f3dfd3;font:600 16px var(--serif)}.submission-attachment p{max-width:560px;margin:6px 0 0;color:#ad9a92;font-size:10px;line-height:1.75}
+.submission-file-label{display:inline-flex;align-items:center;justify-content:center;align-self:start;gap:8px;padding:10px 13px;border:1px solid rgba(222,147,107,.34);border-radius:6px;background:rgba(222,147,107,.07);color:#f2d5c5;font:10px var(--mono);white-space:nowrap;cursor:pointer}.submission-file-label input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.submission-file-list{grid-column:1/-1;color:#d59b84;font:10px/1.7 var(--mono);overflow-wrap:anywhere}
+.submission-disclosure{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border:1px solid rgba(240,68,82,.2);border-radius:7px;background:rgba(240,68,82,.045)}.submission-disclosure>span{color:var(--red);font-size:17px}.submission-disclosure p{margin:0;color:#b7a8a3;font-size:10px;line-height:1.8}.submission-disclosure strong{color:#f7e7df}.submission-disclosure b{color:#f0bdab;overflow-wrap:anywhere}
+.submission-status{display:none;padding:12px 14px;border:1px solid rgba(91,208,163,.3);border-radius:7px;background:rgba(91,208,163,.06);color:#b5ead3;font-size:11px;line-height:1.7}.submission-status.visible{display:block}.submission-status.error{border-color:rgba(240,68,82,.35);background:rgba(240,68,82,.06);color:#ffb2b4}
+.submission-actions{display:flex;justify-content:flex-end;gap:9px;padding-top:3px}.submission-actions button{min-height:42px;padding:0 16px;border-radius:999px;font:700 10px var(--sans);cursor:pointer}.submission-cancel{border:1px solid rgba(255,255,255,.14);background:transparent;color:#c7b8b3}.submission-submit{border:1px solid var(--red);background:var(--red);color:white;box-shadow:0 8px 23px rgba(240,68,82,.12)}.submission-submit:hover{background:#ff626d}.submission-submit:disabled{opacity:.6;cursor:wait}
+body.submission-open{overflow:hidden}body.submission-open .topbar{z-index:170}
+@media(max-width:1000px){.send-article-btn{padding:0 12px;font-size:10px}.top-actions{gap:6px}}
+@media(max-width:720px){.send-article-btn{min-height:38px;padding:0 10px;font-size:0;gap:0}.send-article-btn span{font-size:16px}.mobile-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.submission-modal{padding:8px}.submission-dialog{padding:20px 16px;max-height:94vh;border-radius:12px}.submission-fields{grid-template-columns:1fr}.submission-head h2{font-size:39px}.submission-form textarea{min-height:155px}.submission-attachment{grid-template-columns:1fr}.submission-file-list{grid-column:auto}.submission-file-label{justify-self:start}.submission-actions button{flex:1}}
+@media(max-width:390px){.top-actions{gap:4px}.send-article-btn{width:34px;padding:0}.submission-dialog{padding:17px 13px}.submission-disclosure{padding:10px}}
+@media(prefers-reduced-motion:reduce){.send-article-btn,.submission-dialog{transition:none!important}}
 </style>
 
 </head>
@@ -243,11 +268,46 @@ body.reader-open #three-scene{opacity:.025}
   <nav class="nav" aria-label="Main navigation"><a class="active" href="#home">Home</a><a href="#featured">Featured</a><a href="#latest">Articles</a><a href="#categories">Categories</a><a href="#about">About</a></nav>
   <div class="top-actions">
     <button class="icon-btn" id="searchBtn" aria-label="Search articles" title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+    <button type="button" class="send-article-btn" id="sendArticleBtn">Send Article <span aria-hidden="true">↗</span></button>
     <a class="admin-link" href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener" aria-label="Open Admin Panel"><span class="spark">✦</span><span class="admin-word">Admin panel</span></a>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
 <div class="search-drawer" id="searchDrawer" aria-label="Search magazine"><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="searchInput" type="search" placeholder="Search an idea, a feeling, a universe…" autocomplete="off"><button class="search-close" id="searchClose">ESC</button></div></div>
+
+<section class="submission-modal" id="submissionModal" aria-hidden="true">
+  <div class="submission-backdrop" data-close-submission></div>
+  <div class="submission-dialog" role="dialog" aria-modal="true" aria-labelledby="submissionTitle" aria-describedby="submissionHint">
+    <div class="submission-head">
+      <div><p class="mono submission-kicker">OPEN EDITORIAL INBOX / ATOMIC WEEKLY</p><h2 id="submissionTitle">Send an <em>article.</em></h2><p id="submissionHint">Share your writing with the editorial desk. The article text enters the Admin review queue; Gmail opens next for any files you want to send.</p></div>
+      <button type="button" id="closeSubmission" class="submission-close" aria-label="Close article submission">×</button>
+    </div>
+    <form id="sendArticleForm" class="submission-form">
+      <div class="submission-fields">
+        <label>Your name <input id="submissionAuthor" name="author" autocomplete="name" maxlength="100" placeholder="How should we credit you?" required></label>
+        <label>Your email <input id="submissionEmail" name="email" type="email" autocomplete="email" maxlength="180" placeholder="you@example.com" required></label>
+      </div>
+      <label>Article category
+        <select id="submissionSection" name="section" required>
+          <option>Stories</option><option>Science</option><option>Space</option><option>Technology</option><option>Humanity</option><option>Love</option><option>Life</option><option>Philosophy</option><option>Nature</option><option>Art</option><option>Physics</option>
+        </select>
+      </label>
+      <label>Article title <input id="submissionTitleInput" name="title" maxlength="180" placeholder="Give your article a title" required></label>
+      <label>Paste your article
+        <textarea id="submissionText" name="article" rows="8" maxlength="20000" placeholder="Paste the full article here…" required></textarea>
+        <span class="submission-field-help"><span id="submissionCharCount">0</span>/20,000 characters · Keep headings and paragraphs in your text.</span>
+      </label>
+      <div class="submission-attachment">
+        <div><strong>Optional attachments</strong><p>Choose cover art, diagrams or reference files. Gmail cannot attach these automatically; after it opens, add the same files in the compose window before sending.</p></div>
+        <label class="submission-file-label">Choose files <input id="submissionFiles" type="file" multiple accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.zip,.txt"></label>
+        <div id="submissionFileList" class="submission-file-list" aria-live="polite">No files selected.</div>
+      </div>
+      <div class="submission-disclosure"><span aria-hidden="true">↗</span><p><strong>What happens next?</strong> Your article text is saved to the Admin panel as pending immediately. Gmail opens addressed to <b>mdt...gmail.com</b> with the title and text filled in. Send the email yourself; the Admin panel will show that attachments are expected by email, not falsely mark the email as sent.</p></div>
+      <div id="submissionStatus" class="submission-status" role="status" aria-live="polite"></div>
+      <div class="submission-actions"><button type="button" id="cancelSubmission" class="submission-cancel">Cancel</button><button type="submit" id="submitArticleButton" class="submission-submit">Send article to editor <span aria-hidden="true">↗</span></button></div>
+    </form>
+  </div>
+</section>
 
 <main id="home" tabindex="-1">
 <section class="hero">
@@ -326,7 +386,7 @@ body.reader-open #three-scene{opacity:.025}
 
 <footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a class="brand" href="#"><span class="brand-main">ATOMIC</span><span class="brand-sub">M A G A Z I N E</span></a><p>A journal for the curious — exploring science, human stories, life and love. Knowledge expands the universe. Love gives it meaning.</p></div><div class="footer-nav"><a href="#home">Back to top ↑</a><a href="#featured">Featured</a><a href="#latest">All stories</a><a href="#about">About Atomic</a><a href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener">Editorial desk ↗</a></div></div><div class="footer-bottom"><span>© <span id="year"></span> Atomic Magazine</span><span>Made for minds that keep wandering.</span><span id="connectionLabel">Connecting to the editorial feed…</span></div></div></footer>
 
-<nav class="mobile-nav" aria-label="Quick navigation"><a href="#home" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>Home</a><a href="#latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12a2 2 0 0 1 2 2v16l-8-4-8 4V5a2 2 0 0 1 2-2Z"/></svg>Stories</a><button id="mobileSearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>Search</button><a href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5V4.8A1.8 1.8 0 0 1 5.8 3H20v18H5.8A1.8 1.8 0 0 1 4 19.5Z"/><path d="M4 19a2 2 0 0 1 2-2h14M8 7h8M8 11h6"/></svg>Admin</a></nav>
+<nav class="mobile-nav" aria-label="Quick navigation"><a href="#home" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>Home</a><a href="#latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12a2 2 0 0 1 2 2v16l-8-4-8 4V5a2 2 0 0 1 2-2Z"/></svg>Stories</a><button id="mobileSearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>Search</button><button type="button" id="mobileSendArticle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Send</button><a href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5V4.8A1.8 1.8 0 0 1 5.8 3H20v18H5.8A1.8 1.8 0 0 1 4 19.5Z"/><path d="M4 19a2 2 0 0 1 2-2h14M8 7h8M8 11h6"/></svg>Admin</a></nav>
 
 <section class="reader" id="reader" aria-hidden="true"><div class="reader-top"><button class="pill-btn" id="readerBack">← Back to magazine</button><div class="reader-brand">ATOMIC <span style="color:#c6b9bb;font:9px var(--mono);letter-spacing:.2em">MAGAZINE</span></div><div class="reader-actions"><button class="pill-btn" id="readerShare">↗ Share</button><button class="pill-btn" id="readerClose" aria-label="Close article">✕</button></div></div><div class="reader-progress" aria-hidden="true"><span id="readerProgressBar"></span></div><div class="reader-tools" role="toolbar" aria-label="Reading controls"><div class="reader-tools-actions"><button type="button" class="reader-tool-btn" id="readerTextDown" title="Decrease text size" aria-label="Decrease article text size">A−</button><button type="button" class="reader-tool-btn" id="readerTextUp" title="Increase text size" aria-label="Increase article text size">A+</button><button type="button" class="reader-tool-btn" id="readerWidthToggle" aria-pressed="false">Wide view</button><button type="button" class="reader-tool-btn" id="readerSpreadToggle" aria-pressed="false" title="Arrange this article as an open-book spread">Open-book view</button><button type="button" class="reader-tool-btn" id="readerCopyLink">Copy link</button></div><span class="reader-tools-note" id="readerToolsNote" aria-live="polite">Comfortable reading</span></div><article class="reader-content" id="readerContent"></article></section>
 <dialog class="image-zoom" id="imageZoom" aria-label="Article image viewer"><div class="image-zoom-inner"><button type="button" class="reader-tool-btn image-zoom-close" id="imageZoomClose">Close image ✕</button><img id="imageZoomImg" alt=""><p id="imageZoomCaption"></p></div></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -578,7 +638,7 @@ var initial=location.hash.match(/^#read\/(.+)$/);if(initial)setTimeout(function(
 
 // The public magazine listens to the exact feed written by Atomic Admin.
 // Demo content remains visible until the first successful database snapshot.
-import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(function(appMod){return Promise.all([Promise.resolve(appMod),import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js')])}).then(function(mods){var appMod=mods[0],dbMod=mods[1];var config={apiKey:'AIzaSyCit_SKjXRUpr8FNY1ahKhiG5sdDyOlW6k',authDomain:'atomictanvir.firebaseapp.com',projectId:'atomictanvir',storageBucket:'atomictanvir.firebasestorage.app',messagingSenderId:'140595401471',appId:'1:140595401471:web:8f92115a8c8b58d1ec32ca',databaseURL:'https://atomictanvir-default-rtdb.firebaseio.com'};var app;try{app=appMod.getApps().length?appMod.getApp():appMod.initializeApp(config)}catch(e){app=appMod.getApp()}var db=dbMod.getDatabase(app);dbMod.onValue(dbMod.ref(db,'publishedArticles'),function(snapshot){loadingFeed=false;var raw=snapshot.val()||{};var records=Object.keys(raw).map(function(id){return Object.assign({id:id},raw[id]||{})}).filter(function(a){return a.status==='published'||a.published===true});if(records.length){articles=records;isDemo=false}else{articles=seed.slice();isDemo=true}$('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';renderAll()},function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();console.warn('Atomic feed listener:',error)});$('feedState').textContent='Connecting to stories'}).catch(function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();console.warn('Atomic feed setup:',error)});
+import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(function(appMod){return Promise.all([Promise.resolve(appMod),import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js')])}).then(function(mods){var appMod=mods[0],dbMod=mods[1];var config={apiKey:'AIzaSyCit_SKjXRUpr8FNY1ahKhiG5sdDyOlW6k',authDomain:'atomictanvir.firebaseapp.com',projectId:'atomictanvir',storageBucket:'atomictanvir.firebasestorage.app',messagingSenderId:'140595401471',appId:'1:140595401471:web:8f92115a8c8b58d1ec32ca',databaseURL:'https://atomictanvir-default-rtdb.firebaseio.com'};var app;try{app=appMod.getApps().length?appMod.getApp():appMod.initializeApp(config)}catch(e){app=appMod.getApp()}var db=dbMod.getDatabase(app);window.atomicQueueArticleSubmission=async function(payload){var submissionRef=dbMod.push(dbMod.ref(db,'submissions'));var id=submissionRef.key;var createdAt=Date.now();var names=Array.isArray(payload.attachmentNames)?payload.attachmentNames.slice(0,20):[];var record={id:id,author:String(payload.author||'Reader').trim(),email:String(payload.email||'').trim(),title:String(payload.title||'').trim(),section:String(payload.section||'Stories').trim(),text:String(payload.text||''),type:'article',submissionType:'Website Article',source:'atomic-weekly-website',status:'pending_via_email',timestamp:createdAt,createdAt:createdAt,attachmentsExpected:names.length>0,attachmentNames:names,attachmentStatus:names.length?'awaiting_email':'not_required',attachmentEmail:'mdt...gmail.com',editorialNote:names.length?'Article text is queued. Sender selected attachments and is expected to send them separately by email. Email sending is not verified automatically.':'Article text submitted from the Atomic Weekly website.'};await dbMod.set(submissionRef,record);return {id:id,createdAt:createdAt,record:record}};dbMod.onValue(dbMod.ref(db,'publishedArticles'),function(snapshot){loadingFeed=false;var raw=snapshot.val()||{};var records=Object.keys(raw).map(function(id){return Object.assign({id:id},raw[id]||{})}).filter(function(a){return a.status==='published'||a.published===true});if(records.length){articles=records;isDemo=false}else{articles=seed.slice();isDemo=true}$('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';renderAll()},function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();console.warn('Atomic feed listener:',error)});$('feedState').textContent='Connecting to stories'}).catch(function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();console.warn('Atomic feed setup:',error)});
 
 // Ambient cosmic scene: procedural planet, spiral galaxy, nebulae and stars.
 // Keep the existing static artwork as the no-WebGL / reduced-motion fallback.
@@ -701,5 +761,62 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
 })();
 })();
 </script>
+
+<script id="article-submission-ui">
+(function(){
+ const $=id=>document.getElementById(id);
+ const modal=$('submissionModal'),form=$('sendArticleForm'),status=$('submissionStatus'),button=$('submitArticleButton'),files=$('submissionFiles'),count=$('submissionCharCount'),fileList=$('submissionFileList');
+ if(!modal||!form)return;
+ let returnFocus=null;
+ function openModal(){returnFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('submission-open');status.className='submission-status';status.textContent='';window.setTimeout(()=>$('submissionAuthor').focus(),40)}
+ function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('submission-open');if(returnFocus&&returnFocus.isConnected&&returnFocus.focus)returnFocus.focus({preventScroll:true})}
+ $('sendArticleBtn').addEventListener('click',openModal);
+ const mobileButton=$('mobileSendArticle');if(mobileButton)mobileButton.addEventListener('click',openModal);
+ $('closeSubmission').addEventListener('click',closeModal);
+ $('cancelSubmission').addEventListener('click',closeModal);
+ modal.querySelectorAll('[data-close-submission]').forEach(el=>el.addEventListener('click',closeModal));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal()});
+ $('submissionText').addEventListener('input',()=>{count.textContent=String($('submissionText').value.length)});
+ files.addEventListener('change',()=>{
+   const names=Array.from(files.files||[]).map(f=>f.name);
+   fileList.textContent=names.length?names.map((n,i)=>String(i+1)+'. '+n).join(' · '):'No files selected.';
+   button.innerHTML=names.length?'Save article &amp; open Gmail ↗':'Send article to editor ↗';
+ });
+ function showStatus(message,isError){status.textContent=message;status.className='submission-status visible'+(isError?' error':'')}
+ form.addEventListener('submit',async e=>{
+   e.preventDefault();
+   if(!form.reportValidity())return;
+   if(typeof window.atomicQueueArticleSubmission!=='function'){
+     showStatus('The editorial database is still connecting. Please wait a moment and try again.',true);return;
+   }
+   const author=$('submissionAuthor').value.trim(),email=$('submissionEmail').value.trim(),title=$('submissionTitleInput').value.trim(),section=$('submissionSection').value,text=$('submissionText').value.trim();
+   if(!author||!email||!title||!text){showStatus('Please fill in your name, email, title and article text.',true);return}
+   const selectedFiles=Array.from(files.files||[]);
+   if(selectedFiles.length>20){showStatus('Please choose no more than 20 attachments.',true);return}
+   const attachmentNames=selectedFiles.map(f=>f.name);
+   const composeTab=window.open('about:blank','_blank');
+   button.disabled=true;button.textContent='Saving to editorial inbox…';showStatus('Saving your article to the Admin panel pending queue…',false);
+   try{
+     const queued=await window.atomicQueueArticleSubmission({author,email,title,section,text,attachmentNames});
+     const to='mdt...gmail.com';
+     const subject='Atomic Weekly article submission — '+title;
+     const attachmentLine=attachmentNames.length
+       ?'ATTACHMENTS TO INCLUDE MANUALLY IN THIS EMAIL:\n'+attachmentNames.map(n=>'- '+n).join('\n')+'\n\nPlease attach these selected files in Gmail before pressing Send. The website cannot attach files to Gmail automatically.'
+       :'No additional attachments selected.';
+     const body='NEW ARTICLE SUBMISSION — ATOMIC WEEKLY\n\nSubmission ID: '+queued.id+'\nAuthor: '+author+'\nSender email: '+email+'\nCategory: '+section+'\nTitle: '+title+'\n\nARTICLE TEXT\n----------------------------------------\n'+text+'\n----------------------------------------\n\n'+attachmentLine+'\n\nThe article text has already been placed in the Admin panel pending queue. Please reply to the sender if follow-up is needed.';
+     const gmailUrl='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to)+'&su='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+     if(composeTab&&!composeTab.closed){composeTab.location.href=gmailUrl}
+     else {window.location.href=gmailUrl}
+     showStatus('Article saved to Admin pending queue (ID '+queued.id+'). Gmail compose is opening. '+(attachmentNames.length?'Add the selected files manually in Gmail, then press Send. ':'Review the prefilled email and press Send.')+' The email is not marked sent until the recipient receives it.',false);
+     button.textContent='Queued ✓';form.querySelectorAll('input,select,textarea').forEach(el=>{el.disabled=true});
+   }catch(err){
+     if(composeTab&&!composeTab.closed)composeTab.close();
+     button.disabled=false;button.innerHTML=attachmentNames.length?'Save article &amp; open Gmail ↗':'Send article to editor ↗';
+     showStatus('Could not add the article to the Admin queue. Nothing was sent. '+(err&&err.message?err.message:'Please retry.'),true);
+   }
+ });
+})();
+</script>
+
 </body>
 </html>
