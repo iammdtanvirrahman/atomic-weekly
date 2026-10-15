@@ -595,23 +595,49 @@ renderAll();
 
 /* Pick a different cosmic cover on each reload. Keep Saturn out of the rotation. */
 (function rotateHeroArtwork(){
-  var images=[
-    'cosmic-hero.webp',
+  var key='atomic-magazine-hero-art';
+  var folderApi='https://api.github.com/repos/iammdtanvirrahman/atomic-weekly/contents/assets/hero-refresh?ref=atomic-weekly-2.0';
+  // Fallback only: used if GitHub's public directory API is unavailable.
+  var fallback=[
     'Cinematic Galaxy and Rim-Lit Planet.png',
     'Crimson Nebula Starfield.png',
     'Earthrise Among the Stars.png',
     'Jupiter-Like Giant Among Moons.png',
     'Neptune-Like Giant Among the Stars.png',
-    'Pluto’s Heart Beneath the Stars.png'
-  ];
-  var key='atomic-magazine-hero-art';
-  var previous='';
-  try{previous=localStorage.getItem(key)||''}catch(e){}
-  var choices=images.filter(function(name){return name!==previous});
-  var selected=choices[Math.floor(Math.random()*choices.length)]||images[0];
-  var url='./assets/hero-refresh/'+encodeURI(selected);
-  document.documentElement.style.setProperty('--hero-art','url("'+url.replace(/"/g,'%22')+'")');
-  try{localStorage.setItem(key,selected)}catch(e){}
+    'Pluto’s Heart Beneath the Stars.png',
+    'cosmic-hero.webp'
+  ].map(function(name){return {name:name,url:'./assets/hero-refresh/'+encodeURI(name)}});
+  function chooseAndApply(images){
+    var usable=images.filter(function(image){
+      return image&&image.name&&image.url&&/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(image.name);
+    });
+    if(!usable.length)usable=fallback;
+    var previous='';
+    try{previous=localStorage.getItem(key)||''}catch(e){}
+    var choices=usable.filter(function(image){return image.name!==previous});
+    if(!choices.length)choices=usable;
+    var selected=choices[Math.floor(Math.random()*choices.length)]||usable[0];
+    if(!selected)return;
+    var url=String(selected.url).replace(/"/g,'%22').replace(/\\/g,'%5C');
+    document.documentElement.style.setProperty('--hero-art','url("'+url+'")');
+    try{localStorage.setItem(key,selected.name)}catch(e){}
+  }
+  fetch(folderApi,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}})
+    .then(function(response){
+      if(!response.ok)throw new Error('Artwork directory unavailable ('+response.status+')');
+      return response.json();
+    })
+    .then(function(files){
+      // The folder itself is the source of truth: any supported image added there is included automatically.
+      var images=files.filter(function(file){
+        return file.type==='file'&&/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(file.name||'')&&typeof file.download_url==='string';
+      }).map(function(file){return {name:file.name,url:file.download_url}});
+      chooseAndApply(images);
+    })
+    .catch(function(error){
+      console.warn('Atomic hero artwork list could not be refreshed; using fallback artwork.',error);
+      chooseAndApply(fallback);
+    });
 })();
 
 /* Mobile dock: show at the top and on upward scroll; tuck away while reading down. */
