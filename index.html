@@ -130,6 +130,14 @@
 
 
 .reader-tools{position:sticky;top:68px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px var(--pad);border-bottom:1px solid rgba(255,255,255,.065);background:rgba(8,9,13,.94);backdrop-filter:blur(14px)}
+/* Reader chrome auto-hides while reading and returns on upward scroll. */
+.reader-top,.reader-progress,.reader-tools{transition:transform .24s ease,opacity .2s ease;will-change:transform}
+.reader-top.reader-chrome-hidden{transform:translateY(-110%);opacity:0;pointer-events:none}
+.reader-progress.reader-chrome-hidden{transform:translateY(-110%);opacity:0;pointer-events:none}
+.reader-tools.reader-chrome-hidden{transform:translateY(calc(-100% - 3px));opacity:0;pointer-events:none}
+.reader.reader-chrome-collapsed .reader-tools{top:0}
+@media(prefers-reduced-motion:reduce){.reader-top,.reader-progress,.reader-tools{transition:none;will-change:auto}}
+
 .reader-tools-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .reader-tool-btn{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 10px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.035);color:#e5dfe3;font:10px var(--mono);letter-spacing:.025em;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
 .reader-tool-btn:hover,.reader-tool-btn:focus-visible{border-color:rgba(240,68,82,.8);color:#fff;background:rgba(240,68,82,.1)}
@@ -486,7 +494,35 @@ $('readerSpreadToggle').onclick=function(){
 
 function openArticle(id){var reader=$('reader');if(reader.classList.contains('reader-editorial-spread'))setEditorialSpread(false);if(!reader.classList.contains('open')&&!readerReturnFocus){var active=document.activeElement;if(active&&active!==document.body&&active!==document.documentElement&&!reader.contains(active))readerReturnFocus=active}var a=articleById(id);if(!a){toast('This story is no longer available.');return}currentArticle=a;var c=niceCategory(a);var body=a.content||a.body||a.text||'';var bodyHtml=/<[a-z][\s\S]*>/i.test(body)?sanitizeContent(body):'<p>'+escapeHtml(body).replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br>')+'</p>';var q=pickQuote();$('readerContent').innerHTML='<div class="reader-kicker"><span>'+escapeHtml(c)+'</span><span>／</span><span>Atomic Magazine</span></div><h1>'+escapeHtml(articleTitle(a))+'</h1><p class="reader-dek">'+escapeHtml(articleDek(a))+'</p><div class="reader-byline"><span>By '+escapeHtml(a.author||'Atomic Desk')+'</span><span>'+escapeHtml(dateOf(a))+'</span><span>'+readMinutes(a)+' minute read</span></div><img class="reader-cover" src="'+escapeHtml(articleImage(a))+'" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display=\'none\'"><nav class="reader-toc" id="readerToc" hidden aria-label="Article contents"><h2>On this page</h2><div class="reader-toc-list"></div></nav><div class="article-copy">'+bodyHtml+'</div><aside class="reader-note"><span class="mono">A thought, before you go</span><blockquote>“'+escapeHtml(q.q)+'”</blockquote><div class="quote-by"><span>'+escapeHtml(q.by)+'</span><button type="button" class="reader-copy-quote" id="copyReaderQuote">Copy quote</button><button class="quote-change" id="readerNewQuote" aria-label="Another quote">↻</button></div></aside><div class="reader-footer"><span class="article-meta">'+escapeHtml(c)+' · '+readMinutes(a)+' MIN READ</span><button class="pill-btn primary" id="relatedButton">Explore another story ↗</button></div>';buildReaderToc();enhanceReaderContent();typesetReaderMath();$('reader').classList.add('open');$('reader').setAttribute('aria-hidden','false');document.body.classList.add('reader-open');document.dispatchEvent(new CustomEvent('atomic:reader-toggle',{detail:{open:true}}));history.replaceState(null,'',location.pathname+location.search+'#read/'+encodeURIComponent(String(a.id||a.key)));$('readerNewQuote').onclick=function(){var nq=pickQuote();$('readerContent').querySelector('.reader-note blockquote').textContent='“'+nq.q+'”';$('readerContent').querySelector('.reader-note .quote-by span').textContent=nq.by};$('copyReaderQuote').onclick=function(){var quote=$('readerContent').querySelector('.reader-note blockquote');copyText(quote&&quote.textContent,'Quote copied.')};$('relatedButton').onclick=function(){var next=visibleArticles().find(function(x){return String(x.id||x.key)!==String(id)})||articles.find(function(x){return String(x.id||x.key)!==String(id)});if(next)openArticle(String(next.id||next.key))};$('reader').scrollTop=0;updateReaderProgress()}
 function closeReader(){var reader=$('reader');if(!reader.classList.contains('open'))return;var target=readerReturnFocus;if(!target||!target.isConnected||reader.contains(target)||typeof target.focus!=='function')target=$('home');if(target&&typeof target.focus==='function')target.focus({preventScroll:true});reader.classList.remove('open');reader.setAttribute('aria-hidden','true');document.body.classList.remove('reader-open');document.dispatchEvent(new CustomEvent('atomic:reader-toggle',{detail:{open:false}}));currentArticle=null;readerReturnFocus=null;history.replaceState(null,'',location.pathname+location.search+location.hash.replace(/#read\/.*/,''));}
-$('readerBack').onclick=function(){closeReader();var stories=$('latest');if(stories)stories.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};$('readerClose').onclick=closeReader;$('readerShare').onclick=async function(){if(!currentArticle)return;var url=location.href;try{if(navigator.share){await navigator.share({title:articleTitle(currentArticle),text:articleDek(currentArticle),url:url})}else if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('Story link copied.')}else{toast('Copy this link from your browser address bar.')}}catch(e){if(e&&e.name!=='AbortError')toast('Sharing was not available on this device.')}};
+$('readerBack').onclick=function(){closeReader();var stories=$('latest');if(stories)stories.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})};
+// Smart reader chrome: hide on downward scroll, reveal on upward scroll.
+(function(){
+ var reader=$('reader');
+ var chrome=[reader.querySelector('.reader-top'),reader.querySelector('.reader-progress'),reader.querySelector('.reader-tools')].filter(Boolean);
+ var lastY=0,rafPending=false;
+ function setChromeHidden(hidden){
+  chrome.forEach(function(el){el.classList.toggle('reader-chrome-hidden',hidden)});
+  reader.classList.toggle('reader-chrome-collapsed',hidden);
+ }
+ function handleReaderScroll(){
+  var y=Math.max(0,reader.scrollTop||0),delta=y-lastY;
+  if(y<48){setChromeHidden(false)}
+  else if(delta>5){setChromeHidden(true)}
+  else if(delta< -5){setChromeHidden(false)}
+  lastY=y;rafPending=false;
+ }
+ reader.addEventListener('scroll',function(){
+  if(!rafPending){rafPending=true;requestAnimationFrame(handleReaderScroll)}
+ },{passive:true});
+ reader.addEventListener('transitionend',function(e){
+  if(e.target===reader.querySelector('.reader-top')&&!reader.classList.contains('open'))setChromeHidden(false);
+ });
+ reader.addEventListener('click',function(e){
+  if(e.target.closest('#readerBack,#readerClose')){lastY=0;setChromeHidden(false)}
+ });
+ window.addEventListener('hashchange',function(){if(!reader.classList.contains('open')){lastY=0;setChromeHidden(false)}});
+})();
+$('readerClose').onclick=closeReader;$('readerShare').onclick=async function(){if(!currentArticle)return;var url=location.href;try{if(navigator.share){await navigator.share({title:articleTitle(currentArticle),text:articleDek(currentArticle),url:url})}else if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('Story link copied.')}else{toast('Copy this link from your browser address bar.')}}catch(e){if(e&&e.name!=='AbortError')toast('Sharing was not available on this device.')}};
 window.addEventListener('hashchange',function(){var m=location.hash.match(/^#read\/(.+)$/);if(m){openArticle(decodeURIComponent(m[1]))}else if($('reader').classList.contains('open'))closeReader()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if($('reader').classList.contains('open'))closeReader();else $('searchDrawer').classList.remove('open')}});
 renderAll();
