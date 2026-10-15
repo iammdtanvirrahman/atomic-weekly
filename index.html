@@ -639,17 +639,16 @@ renderAll();
     probe.onerror=function(){preLoadOneByOne(images,index+1,onAllFailed)};
     probe.src=selected.url;
   }
-  function shuffledCandidates(items){
+  function sequentialCandidates(items){
     var usable=items.filter(function(item){return item&&item.url});
-    var choices=usable.filter(function(item){return item.url!==previous&&item.name!==previous});
-    if(!choices.length)choices=usable.slice();
-    for(var i=choices.length-1;i>0;i--){
-      var j=Math.floor(Math.random()*(i+1)),tmp=choices[i];choices[i]=choices[j];choices[j]=tmp;
-    }
-    return choices;
+    if(usable.length<2)return usable;
+    var previousIndex=usable.findIndex(function(item){return item.url===previous||item.name===previous});
+    if(previousIndex<0)return usable;
+    // Respect the serial order entered in Admin: choose the next link after the last one used.
+    return usable.slice(previousIndex+1).concat(usable.slice(0,previousIndex+1));
   }
   function tryImages(items,onAllFailed){
-    var choices=shuffledCandidates(items);
+    var choices=sequentialCandidates(items);
     if(!choices.length){onAllFailed();return}
     preLoadOneByOne(choices,0,onAllFailed);
   }
