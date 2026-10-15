@@ -250,6 +250,11 @@ body.reader-open #three-scene{opacity:.025}
 .submission-attachment{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;padding:16px;border:1px dashed rgba(222,147,107,.34);border-radius:9px;background:rgba(222,147,107,.045)}.submission-attachment strong{color:#f3dfd3;font:600 16px var(--serif)}.submission-attachment p{max-width:560px;margin:6px 0 0;color:#ad9a92;font-size:10px;line-height:1.75}
 .submission-file-label{display:inline-flex;align-items:center;justify-content:center;align-self:start;gap:8px;padding:10px 13px;border:1px solid rgba(222,147,107,.34);border-radius:6px;background:rgba(222,147,107,.07);color:#f2d5c5;font:10px var(--mono);white-space:nowrap;cursor:pointer}.submission-file-label input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .submission-file-list{grid-column:1/-1;color:#d59b84;font:10px/1.7 var(--mono);overflow-wrap:anywhere}
+.submission-file-list ol{margin:0;padding-left:1.8em;list-style:decimal}
+.submission-file-list li{padding-left:.3em;overflow-wrap:anywhere;word-break:normal}
+.submission-file-list li+li{margin-top:2px}
+.submission-file-list li::marker{color:#e8b09b}
+
 .submission-disclosure{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border:1px solid rgba(240,68,82,.2);border-radius:7px;background:rgba(240,68,82,.045)}.submission-disclosure>span{color:var(--red);font-size:17px}.submission-disclosure p{margin:0;color:#b7a8a3;font-size:10px;line-height:1.8}.submission-disclosure strong{color:#f7e7df}.submission-disclosure b{color:#f0bdab;overflow-wrap:anywhere}
 .submission-status{display:none;padding:12px 14px;border:1px solid rgba(91,208,163,.3);border-radius:7px;background:rgba(91,208,163,.06);color:#b5ead3;font-size:11px;line-height:1.7}.submission-status.visible{display:block}.submission-status.error{border-color:rgba(240,68,82,.35);background:rgba(240,68,82,.06);color:#ffb2b4}
 .submission-actions{display:flex;justify-content:flex-end;gap:9px;padding-top:3px}.submission-actions button{min-height:42px;padding:0 16px;border-radius:999px;font:700 10px var(--sans);cursor:pointer}.submission-cancel{border:1px solid rgba(255,255,255,.14);background:transparent;color:#c7b8b3}.submission-submit{border:1px solid var(--red);background:var(--red);color:white;box-shadow:0 8px 23px rgba(240,68,82,.12)}.submission-submit:hover{background:#ff626d}.submission-submit:disabled{opacity:.6;cursor:wait}
@@ -779,7 +784,18 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
  $('submissionText').addEventListener('input',()=>{count.textContent=String($('submissionText').value.length)});
  files.addEventListener('change',()=>{
    const names=Array.from(files.files||[]).map(f=>f.name);
-   fileList.textContent=names.length?names.map((n,i)=>String(i+1)+'. '+n).join(' · '):'No files selected.';
+   fileList.replaceChildren();
+   if(names.length){
+     const list=document.createElement('ol');
+     names.forEach(name=>{
+       const item=document.createElement('li');
+       item.textContent=name;
+       list.appendChild(item);
+     });
+     fileList.appendChild(list);
+   }else{
+     fileList.textContent='No files selected.';
+   }
    button.innerHTML=names.length?'Save article &amp; open Gmail ↗':'Send article to editor ↗';
  });
  function showStatus(message,isError){status.textContent=message;status.className='submission-status visible'+(isError?' error':'')}
