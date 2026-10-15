@@ -119,16 +119,16 @@
 
 <style id="atomic-v2-enhancements">
 /* Atomic Weekly 2.0 — premium black/red editorial layer */
-.discover-section{padding-top:28px}
-.discover-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
-.discover-card{position:relative;display:flex;min-height:220px;flex-direction:column;align-items:flex-start;gap:13px;overflow:hidden;padding:21px 19px;text-align:left;color:var(--text);border:1px solid rgba(255,255,255,.09);border-radius:17px;background:linear-gradient(145deg,rgba(21,23,31,.96),rgba(9,10,15,.98));cursor:pointer;transition:transform .25s,border-color .25s,background .25s}
-.discover-card:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 90% 0,rgba(240,68,82,.18),transparent 55%);pointer-events:none}
-.discover-card:hover,.discover-card:focus-visible{transform:translateY(-3px);border-color:rgba(240,68,82,.62);background-color:#101016}
-.discover-index{position:relative;font:9px var(--mono);letter-spacing:.1em;color:#a8a0aa}
-.discover-symbol{position:relative;color:var(--red);font-size:28px;line-height:1.2}
-.discover-card strong{position:relative;font:600 19px/1.2 var(--serif);letter-spacing:-.025em}
-.discover-copy{position:relative;color:#a8a5ae;font-size:11px;line-height:1.65;max-width:210px}
-.discover-arrow{position:absolute;right:18px;bottom:16px;color:var(--red);font-size:18px}
+
+
+
+
+
+
+
+
+
+
 .reader-tools{position:sticky;top:68px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px var(--pad);border-bottom:1px solid rgba(255,255,255,.065);background:rgba(8,9,13,.94);backdrop-filter:blur(14px)}
 .reader-tools-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .reader-tool-btn{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 10px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.035);color:#e5dfe3;font:10px var(--mono);letter-spacing:.025em;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
@@ -165,10 +165,8 @@
 .image-zoom p{margin:0;color:#aaa0aa;font-size:11px;text-align:center}
 .image-zoom-close{align-self:flex-end}
 body.reader-open #three-scene{opacity:.025}
-@media(max-width:900px){.discover-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.discover-card{min-height:190px}}
-@media(max-width:520px){.discover-grid{gap:8px}.discover-card{min-height:180px;padding:15px 13px;gap:10px}.discover-card strong{font-size:17px}.discover-copy{font-size:10px}.discover-arrow{right:12px;bottom:12px}.reader-tools{align-items:flex-start;flex-direction:column;gap:6px;padding-top:8px;padding-bottom:8px}.reader-tools-actions{gap:5px}.reader-tool-btn{min-height:30px;padding:5px 8px}.reader-tools-note{font-size:8px}.reader-content{padding-top:25px}#reader .reader-content .article-copy{font-size:calc(17px * var(--reader-text-scale,1))}.image-zoom{padding:10px}}
-@media(prefers-reduced-motion:reduce){.discover-card,.reader-tool-btn,#reader .reader-content .article-copy img{transition:none!important}.discover-card:hover{transform:none}}
-</style>
+@media(max-width:520px){.reader-tools{align-items:flex-start;flex-direction:column;gap:6px;padding-top:8px;padding-bottom:8px}.reader-tools-actions{gap:5px}.reader-tool-btn{min-height:30px;padding:5px 8px}.reader-tools-note{font-size:8px}.reader-content{padding-top:25px}#reader .reader-content .article-copy{font-size:calc(17px * var(--reader-text-scale,1))}.image-zoom{padding:10px}}
+@media(prefers-reduced-motion:reduce){.reader-tool-btn,#reader .reader-content .article-copy img{transition:none!important}}</style>
 
 </head>
 <body>
@@ -218,8 +216,6 @@ body.reader-open #three-scene{opacity:.025}
   <div class="section-head reveal"><div><p class="section-kicker mono">Selected with curiosity</p><h2 class="section-title">Featured <em>stories.</em></h2><p class="section-desc">A few ideas worth slowing down for. New stories published in the admin panel flow into this collection automatically.</p></div><a href="#latest" class="view-all">All stories <b>↗</b></a></div>
   <div class="featured-grid" id="featuredGrid" aria-live="polite"></div>
 </section>
-
-<section class="section container discover-section" id="discover" aria-labelledby="discoverTitle"><div class="section-head reveal"><div><p class="section-kicker mono">Follow your curiosity</p><h2 class="section-title" id="discoverTitle">Explore by <em>interest.</em></h2><p class="section-desc">Four doorways into the ideas, discoveries and feelings that make the universe worth exploring.</p></div></div><div class="discover-grid"><button type="button" class="discover-card discover-space" data-category="Space"><span class="discover-index">01 / COSMOS</span><span class="discover-symbol" aria-hidden="true">✳</span><strong>Space &amp; the universe</strong><span class="discover-copy">Galaxies, planets and the unanswered.</span><span class="discover-arrow" aria-hidden="true">↗</span></button><button type="button" class="discover-card discover-science" data-category="Science"><span class="discover-index">02 / DISCOVERY</span><span class="discover-symbol" aria-hidden="true">⌬</span><strong>Science &amp; physics</strong><span class="discover-copy">From tiny particles to vast questions.</span><span class="discover-arrow" aria-hidden="true">↗</span></button><button type="button" class="discover-card discover-tech" data-category="Technology"><span class="discover-index">03 / TOMORROW</span><span class="discover-symbol" aria-hidden="true">⌘</span><strong>Technology</strong><span class="discover-copy">Ideas shaping what comes next.</span><span class="discover-arrow" aria-hidden="true">↗</span></button><button type="button" class="discover-card discover-love" data-category="Love"><span class="discover-index">04 / HUMANITY</span><span class="discover-symbol" aria-hidden="true">♡</span><strong>Love &amp; philosophy</strong><span class="discover-copy">The inner universe, written honestly.</span><span class="discover-arrow" aria-hidden="true">↗</span></button></div></section>
 
 <section class="section container latest" id="latest">
   <div class="section-head latest-head reveal"><div><p class="section-kicker mono">Read something unexpected</p><h2 class="section-title">The latest <em>thinking.</em></h2><p class="section-desc">Science, space, technology, love, philosophy and the beautiful in-between.</p></div><span class="results-label" id="resultsLabel">Curated selection</span></div>
