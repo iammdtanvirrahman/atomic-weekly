@@ -378,7 +378,7 @@ function typesetReaderMath(){
  function typeset(){if(window.MathJax&&window.MathJax.typesetPromise){window.MathJax.typesetClear&&window.MathJax.typesetClear([body]);window.MathJax.typesetPromise([body]).catch(function(){});}}
  if(window.MathJax&&window.MathJax.typesetPromise){typeset();return}
  if(!atomicMathLoadPromise){
-  window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]'],['$','$']],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+  window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]'],[String.fromCharCode(36).repeat(2),String.fromCharCode(36).repeat(2)]],processEscapes:true},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
   atomicMathLoadPromise=new Promise(function(resolve,reject){var script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';script.async=true;script.onload=resolve;script.onerror=reject;document.head.appendChild(script)});
  }
  atomicMathLoadPromise.then(typeset).catch(function(){/* keep original TeX source readable when the optional CDN is unavailable */});
@@ -548,7 +548,7 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
   function schedule(){if(visible&&!document.hidden&&renderer&&!raf)raf=requestAnimationFrame(frame);}
   function stopFrame(){if(raf)cancelAnimationFrame(raf);raf=0;}
   function frame(){
-    raf=0;if(!visible||document.hidden||!renderer)return;
+    raf=0;if(!visible||document.hidden||!renderer||document.body.classList.contains('reader-open'))return;
     var t=clock.getElapsedTime();tx+=(mx-tx)*.018;ty+=(my-ty)*.018;
     planet.rotation.y=t*.035+tx;planet.rotation.x=.08+ty*.35;atmosphere.rotation.copy(planet.rotation);
     galaxyGeo&& (galaxyGeo.attributes.position.needsUpdate=false);
