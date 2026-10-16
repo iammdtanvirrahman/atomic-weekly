@@ -743,7 +743,9 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
   // across the whole site instead of being limited to the hero section.
   host.style.cssText='position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;z-index:-1!important;opacity:.34!important;mix-blend-mode:screen!important;pointer-events:none!important;overflow:hidden!important;display:block!important';
   document.body.appendChild(host);
-  var loaded=false,visible=true,raf=0,renderer=null,scene=null,camera=null,clock=null,starGeo=null,starMat=null,galaxyGeo=null,galaxyMat=null,planet=null,planetMat=null,atmosphere=null,nebulae=[],resizeObserver=null;
+  var loaded=false,visible=true,raf=0,renderer=null,scene=null,camera=null,clock=null,starGeo=null,starMat=null,galaxyGeo=null,galaxyMat=null,planet=null,planetMat=null,atmosphere=null,nebulae=[],resizeObserver=null,nebulaTexture=null,cleaned=false;
+  function onReaderToggle(e){if(e.detail&&e.detail.open)stopFrame();else schedule();}
+  function onReducedMotionChange(e){if(e.matches){cleanup();fallback();}}
   function load(){
     if(loaded||document.hidden)return;
     loaded=true;
@@ -805,9 +807,9 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
       var atMat=new THREE.ShaderMaterial({vertexShader:'varying vec3 n; void main(){n=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',fragmentShader:'varying vec3 n; void main(){float rim=pow(1.0-max(dot(normalize(n),vec3(0.0,0.0,1.0)),0.0),2.2);gl_FragColor=vec4(.95,.12,.23,rim*.34);}',transparent:true,blending:THREE.AdditiveBlending,side:THREE.BackSide,depthWrite:false});
       atmosphere=new THREE.Mesh(atGeo,atMat);atmosphere.position.copy(planet.position);atmosphere.scale.copy(planet.scale).multiplyScalar(1.04);scene.add(atmosphere);
       // Soft procedural nebula sprites; no extra image downloads.
-      var tex=makeNebulaTexture();
+      nebulaTexture=makeNebulaTexture();
       for(var n=0;n<(mobile?2:4);n++){
-        var mat=new THREE.SpriteMaterial({map:tex,color:n%2?0x643a8c:0xc72e54,transparent:true,opacity:n%2?.14:.18,depthWrite:false,blending:THREE.AdditiveBlending});
+        var mat=new THREE.SpriteMaterial({map:nebulaTexture,color:n%2?0x643a8c:0xc72e54,transparent:true,opacity:n%2?.14:.18,depthWrite:false,blending:THREE.AdditiveBlending});
         var sprite=new THREE.Sprite(mat);sprite.position.set((n-1.4)*3.2,Math.sin(n*2.1)*2.1,-3-n*.4);sprite.scale.set(5.8,4.6,1);scene.add(sprite);nebulae.push(sprite);
       }
       clock=new THREE.Clock();
@@ -818,6 +820,7 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
         resizeObserver.observe(document.body);
       }
       document.addEventListener('visibilitychange',onVisibility);
+      document.addEventListener('atomic:reader-toggle',onReaderToggle);
       window.addEventListener('pagehide',cleanup,{once:true});
       schedule();
     }catch(e){cleanup();fallback();}
@@ -837,15 +840,24 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
     starMat.opacity=.54+Math.sin(t*.4)*.06;planetMat.uniforms.uTime.value=t;
     renderer.render(scene,camera);raf=requestAnimationFrame(frame);
   }
-  function onVisibility(){if(document.hidden||document.body.classList.contains('reader-open'))stopFrame();else schedule();}document.addEventListener('atomic:reader-toggle',function(e){if(e.detail&&e.detail.open)stopFrame();else schedule()});
+  function onVisibility(){if(document.hidden||document.body.classList.contains('reader-open'))stopFrame();else schedule();}
   function cleanup(){
-    stopFrame();if(resizeObserver)resizeObserver.disconnect();
+    if(cleaned)return;
+    cleaned=true;
+    stopFrame();
+    if(resizeObserver){resizeObserver.disconnect();resizeObserver=null;}
+    window.removeEventListener('resize',resize);
+    window.removeEventListener('pointermove',onPointer);
+    window.removeEventListener('pagehide',cleanup);
+    document.removeEventListener('visibilitychange',onVisibility);
+    document.removeEventListener('atomic:reader-toggle',onReaderToggle);
+    if(reduced.removeEventListener)reduced.removeEventListener('change',onReducedMotionChange);
     if(renderer){renderer.dispose();if(renderer.domElement.parentNode)renderer.domElement.remove();}
-    [starGeo,starMat,galaxyGeo,galaxyMat,planetMat].forEach(function(o){if(o&&o.dispose)o.dispose();});
     if(scene)scene.traverse(function(o){if(o.geometry&&o.geometry.dispose)o.geometry.dispose();if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(function(m){if(m&&m.dispose)m.dispose();});}});
-    renderer=null;
+    [starGeo,starMat,galaxyGeo,galaxyMat,planetMat,nebulaTexture].forEach(function(o){if(o&&o.dispose)o.dispose();});
+    renderer=null;scene=null;camera=null;clock=null;starGeo=null;starMat=null;galaxyGeo=null;galaxyMat=null;planet=null;planetMat=null;atmosphere=null;nebulae=[];
   }
-  if(reduced.addEventListener)reduced.addEventListener('change',function(e){if(e.matches){cleanup();fallback();}});
+  if(reduced.addEventListener)reduced.addEventListener('change',onReducedMotionChange);
   load();
 })();
 })();
