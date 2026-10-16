@@ -450,7 +450,27 @@ function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,function(c){retur
 function card(a,i,feature){var id=String(a.id||a.key||('story-'+i));var c=niceCategory(a);var meta='<div class="article-meta"><span>'+escapeHtml(dateOf(a))+'</span><span>·</span><span>'+readMinutes(a)+' min read</span></div>';if(feature){return '<article class="feature-card '+(feature==='large'?'large':'')+'" data-open="'+escapeHtml(id)+'" tabindex="0" role="button" aria-label="Read '+escapeHtml(articleTitle(a))+'"><div class="art" style="'+coverStyle(a)+'"></div><div class="feature-content"><span class="category-label">'+escapeHtml(c)+'</span><h3>'+escapeHtml(articleTitle(a))+'</h3><p>'+escapeHtml(articleDek(a))+'</p><div class="feature-bottom">'+meta+'<span class="round-arrow">↗</span></div></div></article>'}return '<article class="article-card" data-open="'+escapeHtml(id)+'" tabindex="0" role="button" aria-label="Read '+escapeHtml(articleTitle(a))+'"><div class="card-art"><img src="'+escapeHtml(articleImage(a))+'" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\''+categoryImage(c)+'\'"><span class="card-index">'+String(i+1).padStart(2,'0')+'</span></div><div class="card-body"><span class="category-label">'+escapeHtml(c)+'</span><h3>'+escapeHtml(articleTitle(a))+'</h3><p class="dek">'+escapeHtml(articleDek(a))+'</p><div class="card-foot"><span class="article-meta">'+escapeHtml(dateOf(a))+'</span><span class="read-label">Read <span>↗</span></span></div></div></article>'}
 function openArticleFromTrigger(el){if(!$('reader').classList.contains('open'))readerReturnFocus=el;openArticle(el.getAttribute('data-open'))}
 function attachCardEvents(root){root.querySelectorAll('[data-open]').forEach(function(el){el.onclick=function(){openArticleFromTrigger(el)};el.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openArticleFromTrigger(el)}}})}
-function observeReveals(){if(observer)observer.disconnect();var els=document.querySelectorAll('.reveal,.article-card');var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce){els.forEach(function(el){el.classList.add('is-visible')});return}observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px 40px 0px'});els.forEach(function(el,i){if(el.classList.contains('reveal'))observer.observe(el);else{el.style.transitionDelay=(i%6)*45+'ms';observer.observe(el)}})}
+function observeReveals(){
+  if(observer){observer.disconnect();observer=null}
+  var els=document.querySelectorAll('.reveal,.article-card');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Older browsers and embedded webviews may not implement IntersectionObserver.
+  // Reveal content immediately instead of allowing an unsupported API to break rendering.
+  if(reduce||!('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('is-visible');el.style.transitionDelay='0ms'});
+    return;
+  }
+  var activeObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('is-visible');activeObserver.unobserve(e.target)}
+    });
+  },{threshold:.1,rootMargin:'0px 0px 40px 0px'});
+  observer=activeObserver;
+  els.forEach(function(el,i){
+    if(el.classList.contains('reveal'))activeObserver.observe(el);
+    else{el.style.transitionDelay=(i%6)*45+'ms';activeObserver.observe(el)}
+  });
+}
 function renderFeatured(){var list=visibleArticles().slice();list.sort(function(a,b){var ap=a&&(a.featured===true||a.isFeatured===true||a.editorPick===true||a.pinned===true)?1:0;var bp=b&&(b.featured===true||b.isFeatured===true||b.editorPick===true||b.pinned===true)?1:0;return bp-ap||dateSort(b)-dateSort(a)});if(!list.length)list=articles.slice().sort(function(a,b){return dateSort(b)-dateSort(a)});var a=list[0],b=list[1]||list[0],c=list[2]||list[0];$('featuredGrid').innerHTML=a?card(a,0,'large')+'<div class="feature-stack">'+card(b,1,'small')+card(c,2,'small')+'</div>':'<div class="empty-state"><h3>No stories yet</h3><p>Publish your first story from the editorial desk.</p></div>';attachCardEvents($('featuredGrid'))}
 function renderArticles(){var list=visibleArticles();var show=list.slice(0,visibleCount);$('resultsLabel').textContent=list.length+' '+(list.length===1?'story':'stories')+(isDemo?' · starter edition':' · published');$('articleStat').textContent=String(articles.length).padStart(2,'0');$('articlesGrid').innerHTML=show.length?show.map(function(a,i){return card(a,i,false)}).join(''):'<div class="empty-state"><div class="empty-icon">⌕</div><h3>No stories found.</h3><p>Try another category or search term. New articles published from the admin panel will appear here automatically.</p><a href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener">Open the editorial desk ↗</a></div>';$('loadMore').hidden=list.length<=visibleCount;attachCardEvents($('articlesGrid'));observeReveals()}
 function renderAll(){renderFeatured();renderArticles();$('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';$('connectionLabel').textContent=isDemo?(loadingFeed?'Showing starter edition':'Starter edition · waiting for publication'):'Live feed connected'}
