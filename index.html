@@ -672,9 +672,17 @@ renderAll();
   function sequentialCandidates(items){
     var usable=items.filter(function(item){return item&&item.url});
     if(usable.length<2)return usable;
-    var previousIndex=usable.findIndex(function(item){return item.url===previous||item.name===previous});
-    if(previousIndex<0)return usable;
-    return usable.slice(previousIndex+1).concat(usable.slice(0,previousIndex+1));
+    // Shuffle the available URL-based covers on every page load, while avoiding
+    // showing the exact same cover first when an alternative is available.
+    for(var i=usable.length-1;i>0;i--){
+      var j=Math.floor(Math.random()*(i+1));
+      var temp=usable[i];usable[i]=usable[j];usable[j]=temp;
+    }
+    if(usable[0].url===previous&&usable.length>1){
+      var nextIndex=usable.findIndex(function(item){return item.url!==previous});
+      if(nextIndex>0){var first=usable[0];usable[0]=usable[nextIndex];usable[nextIndex]=first;}
+    }
+    return usable;
   }
   function tryImages(items,onAllFailed){
     var choices=sequentialCandidates(items);
