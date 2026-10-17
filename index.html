@@ -743,7 +743,8 @@ if(mobileDock){
   });
 }
 
-window.addEventListener('popstate',function(){var match=location.hash.match(/^#read\/(.+)$/);if(match){var articleId;try{articleId=decodeURIComponent(match[1])}catch(e){articleId=match[1]}if(!$('reader').classList.contains('open'))openArticle(articleId)}else if($('reader').classList.contains('open'))closeReader(true)});\nvar initial=location.hash.match(/^#read\/(.+)$/);if(initial)setTimeout(function(){var articleId;try{articleId=decodeURIComponent(initial[1])}catch(e){articleId=initial[1]}openArticle(articleId)},60);
+window.addEventListener('popstate',function(){var match=location.hash.match(/^#read\/(.+)$/);if(match){var articleId;try{articleId=decodeURIComponent(match[1])}catch(e){articleId=match[1]}if(!$('reader').classList.contains('open'))openArticle(articleId)}else if($('reader').classList.contains('open'))closeReader(true)});
+var initial=location.hash.match(/^#read\/(.+)$/);if(initial)setTimeout(function(){var articleId;try{articleId=decodeURIComponent(initial[1])}catch(e){articleId=initial[1]}openArticle(articleId)},60);
 
 // The public magazine listens to the exact feed written by Atomic Admin.
 // Demo content remains visible until the first successful database snapshot.
