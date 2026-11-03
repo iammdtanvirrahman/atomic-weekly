@@ -18,7 +18,6 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : Activity() {
     private lateinit var refresh: SwipeRefreshLayout
     private lateinit var webView: WebView
-    private var lastUrl = HOME_URL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +55,6 @@ class MainActivity : Activity() {
                     val uri = request.url
                     return if (uri.scheme == "https" && uri.host == "iammdtanvirrahman.github.io") false
                     else { runCatching { startActivity(Intent(Intent.ACTION_VIEW, uri)) }; true }
-                }
-                override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
-                    if (url != null) lastUrl = url
                 }
                 override fun onPageFinished(view: WebView?, url: String?) {
                     refresh.isRefreshing = false
