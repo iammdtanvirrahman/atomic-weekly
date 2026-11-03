@@ -29,6 +29,7 @@ class MainActivity : Activity() {
             setColorSchemeColors(Color.rgb(220, 38, 65))
             setProgressBackgroundColorSchemeColor(Color.rgb(17, 17, 20))
         }
+
         webView = WebView(this).apply {
             setBackgroundColor(Color.rgb(5, 5, 5))
             settings.javaScriptEnabled = true
@@ -45,8 +46,7 @@ class MainActivity : Activity() {
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                     val uri = request.url
-                    val host = uri.host.orEmpty()
-                    return if (host == "iammdtanvirrahman.github.io") {
+                    return if (uri.scheme == "https" && uri.host == "iammdtanvirrahman.github.io") {
                         false
                     } else {
                         runCatching { startActivity(Intent(Intent.ACTION_VIEW, uri)) }
@@ -60,6 +60,7 @@ class MainActivity : Activity() {
 
                 override fun onPageFinished(view: WebView?, url: String?) {
                     refresh.isRefreshing = false
+                    installNativeShareBridge()
                 }
             }
             webChromeClient = WebChromeClient()
@@ -69,6 +70,7 @@ class MainActivity : Activity() {
                 true
             }
         }
+
         refresh.addView(webView)
         refresh.setOnRefreshListener { webView.reload() }
         setContentView(refresh)
@@ -76,7 +78,10 @@ class MainActivity : Activity() {
         if (savedInstanceState != null) {
             webView.restoreState(savedInstanceState)
         } else {
-            webView.loadUrl(if (isOnline()) HOME_URL else HOME_URL)
+            webView.loadUrl(HOME_URL)
+            if (!isOnline()) {
+                Toast.makeText(this, "Offline mode: showing cached magazine content when available", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -87,11 +92,40 @@ class MainActivity : Activity() {
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
+    private fun installNativeShareBridge() {
+        // Web Share is not consistently exposed by Android WebView. Route the site's
+        // existing reader share action to Android's native Sharesheet instead.
+        val script = """
+            (function() {
+              if (window.__atomicNativeShareInstalled) return;
+              window.__atomicNativeShareInstalled = true;
+              try {
+                Object.defineProperty(navigator, 'share', {
+                  configurable: true,
+                  value: function(data) {
+                    var payload = data || {};
+                    window.AtomicNative.share(
+                      String(payload.title || document.title || 'Atomic Weekly'),
+                      String(payload.url || window.location.href)
+                    );
+                    return Promise.resolve();
+                  }
+                });
+              } catch (e) {}
+            })();
+        """.trimIndent()
+        webView.evaluateJavascript(script, null)
+    }
+
     private fun sharePage() {
+        shareContent(webView.title ?: "Atomic Weekly", lastUrl)
+    }
+
+    private fun shareContent(title: String, url: String) {
         val share = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_SUBJECT, webView.title ?: "Atomic Weekly")
-            putExtra(Intent.EXTRA_TEXT, lastUrl)
+            putExtra(Intent.EXTRA_SUBJECT, title)
+            putExtra(Intent.EXTRA_TEXT, url)
         }
         startActivity(Intent.createChooser(share, "Share Atomic Weekly"))
     }
@@ -100,12 +134,8 @@ class MainActivity : Activity() {
         @JavascriptInterface
         fun share(title: String, url: String) {
             runOnUiThread {
-                val intent = Intent(Intent.ACTION_SEND).apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_SUBJECT, title.ifBlank { "Atomic Weekly" })
-                    putExtra(Intent.EXTRA_TEXT, url)
-                }
-                startActivity(Intent.createChooser(intent, "Share article"))
+                val safeUrl = if (url.startsWith("https://iammdtanvirrahman.github.io/")) url else HOME_URL
+                shareContent(title.ifBlank { "Atomic Weekly" }, safeUrl)
             }
         }
 
