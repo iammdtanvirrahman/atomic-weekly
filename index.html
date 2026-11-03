@@ -265,6 +265,34 @@ body.submission-open{overflow:hidden}body.submission-open .topbar{z-index:170}
 @media(prefers-reduced-motion:reduce){.send-article-btn,.submission-dialog{transition:none!important}}
 </style>
 
+<style id="atomic-magazine-icon-navigation-polish">
+/* Refined touch targets, consistent icon geometry and accessible mobile menu */
+.icon-btn{width:44px;height:44px;color:#f3ece9;border-color:rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012));box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
+.icon-btn svg{width:19px;height:19px;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.icon-btn:hover svg{transform:scale(1.08)}
+.icon-btn:focus-visible,.send-article-btn:focus-visible,.nav a:focus-visible,.chip:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.send-article-btn{min-height:44px;padding-inline:17px;letter-spacing:.025em}
+.send-article-btn span{display:inline-grid;place-items:center;width:19px;height:19px;border:1px solid rgba(240,68,82,.45);border-radius:50%;font-size:12px;line-height:1}
+#menuBtn{border-color:rgba(240,68,82,.35);background:linear-gradient(145deg,rgba(240,68,82,.12),rgba(255,255,255,.018))}
+#menuBtn svg{width:20px;height:20px;stroke-width:1.8;stroke-linecap:round}
+.search-wrap{border-bottom-width:1px}
+.search-close{padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.035);font:10px var(--mono);letter-spacing:.08em}
+.search-close:hover{border-color:rgba(240,68,82,.55);color:#fff}
+.chip{min-height:38px;padding:10px 15px;border-color:rgba(255,255,255,.105);background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+.chip.active:before{content:"";display:inline-block;width:7px;height:7px;margin:0 9px 1px 0;border-radius:50%;background:var(--red);box-shadow:0 0 10px rgba(240,68,82,.7);vertical-align:middle}
+.chip:hover{transform:translateY(-1px)}
+@media(max-width:720px){
+ .topbar{gap:9px}
+ .top-actions{gap:7px}
+ .nav.mobile-open{display:flex!important;position:absolute;top:calc(100% + 1px);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:9px var(--pad) 14px;background:rgba(9,10,15,.98);border:1px solid rgba(255,255,255,.09);border-top:0;border-radius:0 0 15px 15px;box-shadow:0 22px 45px rgba(0,0,0,.38);backdrop-filter:blur(20px);animation:dropIn .18s ease-out}
+ .nav.mobile-open a{padding:14px 3px;border-bottom:1px solid rgba(255,255,255,.065);font-size:12px}
+ .nav.mobile-open a:last-child{border-bottom:0}
+ #menuBtn[aria-expanded="true"]{background:rgba(240,68,82,.18);border-color:rgba(240,68,82,.72)}
+ .search-drawer{box-shadow:0 20px 40px rgba(0,0,0,.28)}
+ .category-strip{scroll-padding-inline:var(--pad)}
+}
+@media(prefers-reduced-motion:reduce){.icon-btn svg,.nav.mobile-open{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
 <div class="ambient"></div><div class="noise"></div>
@@ -274,7 +302,6 @@ body.submission-open{overflow:hidden}body.submission-open .topbar{z-index:170}
   <div class="top-actions">
     <button class="icon-btn" id="searchBtn" aria-label="Search articles" title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
     <button type="button" class="send-article-btn" id="sendArticleBtn">Send Article <span aria-hidden="true">↗</span></button>
-    <a class="admin-link" href="https://iammdtanvirrahman.github.io/atomic-weekly-admin-panel/" target="_blank" rel="noopener" aria-label="Open Admin Panel"><span class="spark">✦</span><span class="admin-word">Admin panel</span></a>
     <button class="icon-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
@@ -462,7 +489,19 @@ $('mobileSearch').onclick=function(){$('searchDrawer').classList.add('open');$('
 $('searchClose').onclick=function(){$('searchDrawer').classList.remove('open');$('searchInput').value='';query='';visibleCount=9;renderArticles()};
 var searchTimer=null,lastSearchHadQuery=false;$('searchInput').oninput=function(){var value=$('searchInput').value;clearTimeout(searchTimer);searchTimer=setTimeout(function(){query=value;visibleCount=query?18:9;renderAll();if(query&&!lastSearchHadQuery)document.getElementById('latest').scrollIntoView({block:'start',behavior:'smooth'});lastSearchHadQuery=!!query},120)};
 $('newQuote').onclick=setHeroQuote;$('bandNewQuote').onclick=setBandQuote;
-$('menuBtn').onclick=function(){var nav=document.querySelector('.nav');if(!nav)return;var opened=nav.dataset.mobileOpen==='1';nav.dataset.mobileOpen=opened?'0':'1';if(!opened){nav.style.cssText='display:flex;position:absolute;top:67px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:12px 20px;background:rgba(10,11,16,.98);border-bottom:1px solid var(--line)';nav.querySelectorAll('a').forEach(function(a){a.style.padding='12px 0';a.onclick=function(){nav.dataset.mobileOpen='0';nav.style.display='none'}})}else{nav.style.display='none'}};
+var mobileNav=document.querySelector('.nav'),menuButton=$('menuBtn');
+function setMobileMenu(open){
+ if(!mobileNav||!menuButton)return;
+ mobileNav.classList.toggle('mobile-open',!!open);
+ mobileNav.dataset.mobileOpen=open?'1':'0';
+ menuButton.setAttribute('aria-expanded',open?'true':'false');
+ menuButton.setAttribute('aria-label',open?'Close menu':'Open menu');
+}
+menuButton.setAttribute('aria-expanded','false');
+menuButton.onclick=function(){setMobileMenu(mobileNav.dataset.mobileOpen!=='1')};
+mobileNav.querySelectorAll('a').forEach(function(link){link.addEventListener('click',function(){setMobileMenu(false)})});
+document.addEventListener('keydown',function(event){if(event.key==='Escape')setMobileMenu(false)});
+document.addEventListener('click',function(event){if(mobileNav.dataset.mobileOpen==='1'&&!mobileNav.contains(event.target)&&!menuButton.contains(event.target))setMobileMenu(false)});
 var toastTimer=null;function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){$('toast').classList.remove('show')},2400)}
 function sanitizeContent(html){var doc=new DOMParser().parseFromString(String(html||''),'text/html');doc.querySelectorAll('script,style,object,embed,form,button,input,textarea,select,.mediaToolbar,.mediaHandles,.mediaSize,.pageDelete').forEach(function(n){n.remove()});var allowed={P:1,DIV:1,SECTION:1,ARTICLE:1,H1:1,H2:1,H3:1,H4:1,UL:1,OL:1,LI:1,BLOCKQUOTE:1,STRONG:1,EM:1,B:1,I:1,U:1,S:1,DEL:1,A:1,IMG:1,FIGURE:1,FIGCAPTION:1,HR:1,TABLE:1,THEAD:1,TBODY:1,TR:1,TD:1,TH:1,PRE:1,CODE:1,BR:1,IFRAME:1,SPAN:1,SUP:1,SUB:1,DETAILS:1,SUMMARY:1,KBD:1,MARK:1,SMALL:1};Array.from(doc.body.querySelectorAll('*')).reverse().forEach(function(el){if(!allowed[el.tagName]){el.replaceWith.apply(el,Array.from(el.childNodes));return}var tag=el.tagName;var href=el.getAttribute('href'),src=el.getAttribute('src'),alt=el.getAttribute('alt')||'';Array.from(el.attributes).forEach(function(a){el.removeAttribute(a.name)});if(tag==='A'){if(href&&/^(https?:|mailto:|#)/i.test(href)){el.setAttribute('href',href);el.setAttribute('target','_blank');el.setAttribute('rel','noopener noreferrer')}}if(tag==='IMG'){if(src&&/^(https?:\/\/|data:image\/|\.\/|\.\.\/|\/)/i.test(src)){el.setAttribute('src',src);el.setAttribute('alt',alt);el.setAttribute('loading','lazy');el.setAttribute('decoding','async')}else{el.remove()}}if(tag==='IFRAME'){if(src&&/^https:\/\/(www\.)?(youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/|player\.vimeo\.com\/video\/)/i.test(src)){el.setAttribute('src',src);el.setAttribute('loading','lazy');el.setAttribute('allowfullscreen','');el.setAttribute('referrerpolicy','strict-origin-when-cross-origin')}else{el.remove()}}});return doc.body.innerHTML}
 function articleById(id){return articles.find(function(a){return String(a.id||a.key)===String(id)})}
