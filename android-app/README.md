@@ -15,7 +15,8 @@ A standalone Android Studio project for the Atomic Weekly magazine. The app reus
 - Native Android Sharesheet wired to the magazine reader's Web Share action
 - WebView DOM storage and normal HTTP cache for repeat visits
 - HTTPS-only first-party page navigation; external links open in the system browser
-- Basic offline detection and cached-content fallback where the WebView has a cached copy
+- Native saved-stories library stored on-device, with offline article text reading and remove/manage controls
+- Basic offline detection and cached homepage fallback where the WebView has a cached copy
 
 ## Publishing and data
 The app loads https://iammdtanvirrahman.github.io/atomic-weekly/. Articles continue to come from the existing Firebase `publishedArticles` feed. Publish and edit content through the existing Atomic Weekly Admin Panel.
@@ -26,7 +27,7 @@ In Android Studio choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. Th
 A GitHub Actions workflow also builds the debug APK on pushes and pull requests that touch `android-app/**`.
 
 ## Planned follow-up
-- Dedicated offline article downloads and a saved-articles library (not yet implemented)
+- Dedicated image/media downloads and richer saved-article management
 - Firebase Cloud Messaging push notifications (requires the project's Android Firebase app registration and `google-services.json`)
 - Native reader enhancements and deep links
 - Signed release APK / Android App Bundle for Play Store
