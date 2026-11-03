@@ -15,6 +15,8 @@ import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -26,11 +28,21 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Draw behind system bars, but keep the WebView content inside their safe area.
+        // This prevents Android's clock/status icons from overlapping the magazine header.
+        androidx.core.view.WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.rgb(5, 5, 5)
         window.navigationBarColor = Color.rgb(5, 5, 5)
         refresh = SwipeRefreshLayout(this).apply {
             setColorSchemeColors(Color.rgb(220, 38, 65))
             setProgressBackgroundColorSchemeColor(Color.rgb(17, 17, 20))
+            ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+                val systemBars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                )
+                view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
         }
         webView = WebView(this).apply {
             setBackgroundColor(Color.rgb(5, 5, 5))
@@ -67,6 +79,7 @@ class MainActivity : Activity() {
             if (showingOfflineArticle) refresh.isRefreshing = false else webView.reload()
         }
         setContentView(refresh)
+        ViewCompat.requestApplyInsets(refresh)
         if (savedInstanceState != null) {
             showingOfflineArticle = savedInstanceState.getBoolean(STATE_OFFLINE, false)
             webView.restoreState(savedInstanceState)
