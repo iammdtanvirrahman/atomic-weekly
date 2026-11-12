@@ -8,6 +8,10 @@ on:
       - '.github/workflows/assets-manifest.yml'
     branches: [4.0]
 
+concurrency:
+  group: asset-pipeline-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
