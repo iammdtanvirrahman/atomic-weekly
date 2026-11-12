@@ -6,8 +6,30 @@ function niceCategory(a){var c=String(a.section||a.category||a.topic||a.type||'S
 function plainText(h){var d=document.createElement('div');d.innerHTML=String(h||'');return(d.textContent||d.innerText||'').replace(/\s+/g,' ').trim()}
 function dateOf(a){var v=a.publishedAt||a.timestamp||a.updatedAt||a.date||a.createdAt;if(typeof v==='string'&&!/^\d+$/.test(v)){var dt=new Date(v);return isNaN(dt.getTime())?'Recently published':dt.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}var n=Number(v||Date.now());if(n<100000000000)n*=1000;var d=new Date(n);return isNaN(d.getTime())?'Recently published':d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}
 function readMinutes(a){if(a&&typeof a==='object'&&readTimeCache.has(a))return readTimeCache.get(a);var text=plainText(a.content||a.text||a.body||a.dek||'');var mins=Math.max(1,Math.ceil(text.split(/\s+/).filter(Boolean).length/220));if(a&&typeof a==='object')readTimeCache.set(a,mins);return mins}
-function safeUrl(url){var s=String(url||'').trim();return /^(https?:\/\/|data:image\/)/i.test(s)||s.startsWith('./')||s.startsWith('../')||s.startsWith('/')?s:''}
-function articleImage(a){var x=a.cover||a.coverImage||a.image||a.thumbnail||a.heroImage||'';if(!x)return categoryImage(niceCategory(a));var s=String(x).trim();if(/^https?:\/\//i.test(s)||/^data:image\//i.test(s)||s.startsWith('./')||s.startsWith('../')||s.startsWith('/'))return s;if(s.startsWith('assets/'))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s.split('/').map(encodeURIComponent).join('/');return 'https://iammdtanvirrahman.github.io/atomic-weekly/assets/'+encodeURIComponent(s)}
+function safeUrl(url){
+ var s=String(url||'').trim();
+ if(!s||s.startsWith('//')||/[\\u0000-\\u0020\\u007f]/.test(s))return '';
+ if(s.charAt(0)==='#')return s;
+ try{
+  var parsed=new URL(s,document.baseURI);
+  if(parsed.username||parsed.password)return '';
+  if(parsed.protocol==='https:'||parsed.protocol==='mailto:'||(parsed.protocol==='http:'&&parsed.origin===location.origin))return parsed.href;
+ }catch(e){}
+ return '';
+}
+function articleImage(a){
+ var x=a.cover||a.coverImage||a.image||a.thumbnail||a.heroImage||'';
+ if(!x)return categoryImage(niceCategory(a));
+ var s=String(x).trim();
+ if(!s||s.startsWith('//')||/[\\u0000-\\u0020\\u007f]/.test(s))return categoryImage(niceCategory(a));
+ if(/^https:\/\//i.test(s)){
+  try{var remote=new URL(s);if(!remote.username&&!remote.password)return remote.href}catch(e){}
+  return categoryImage(niceCategory(a));
+ }
+ if(s.startsWith('./')||s.startsWith('../')||(s.startsWith('/')&&!s.startsWith('//')))return s;
+ if(s.startsWith('assets/'))return 'https://iammdtanvirrahman.github.io/atomic-weekly/'+s.split('/').map(encodeURIComponent).join('/');
+ return 'https://iammdtanvirrahman.github.io/atomic-weekly/assets/'+encodeURIComponent(s);
+}
 function categoryImage(c){var n=norm(c);if(n==='love')return'./assets/cover-love.svg';if(n==='life'||n==='humanity')return'./assets/cover-life.svg';if(n==='technology')return'./assets/cover-tech.svg';if(n==='philosophy')return'./assets/cover-philosophy.svg';if(n==='nature')return'./assets/cover-nature.svg';if(n==='art')return'./assets/cover-art.svg';if(n==='space'||n==='universe')return'./assets/cover-moon.svg';return'./assets/cover-cosmos.svg'}
 function articleTitle(a){return a.title||a.headline||'Untitled story'}
 function articleDek(a){return a.dek||a.description||a.subtitle||plainText(a.content||a.text||'').slice(0,170)||'A new idea to explore.'}
@@ -53,7 +75,7 @@ function sanitizeContent(html){
     var u=new URL(String(src||''),document.baseURI);
     var allowedHost=(u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&(
       (u.hostname==='www.youtube.com'&&u.pathname.indexOf('/embed/')===0)||
-      (u.hostname==='www.youtube-nocookie.com'&&u.pathname.indexOf('/embed/')===0)||
+      ((u.hostname==='www.youtube-nocookie.com'||u.hostname==='youtube-nocookie.com')&&u.pathname.indexOf('/embed/')===0)||
       (u.hostname==='player.vimeo.com'&&u.pathname.indexOf('/video/')===0)
     ));
     if(allowedHost)safeEmbed=u.href;
