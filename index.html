@@ -666,17 +666,9 @@ renderAll();
   var key='atomic-magazine-hero-art';
   var rotationKey='atomic-magazine-hero-art-rotation';
   var configApi='https://atomictanvir-default-rtdb.firebaseio.com/siteSettings/heroImageLinks.json';
-  var folderApi='https://api.github.com/repos/iammdtanvirrahman/atomic-weekly/contents/assets/hero-refresh?ref=atomic-weekly-2.0';
+  var folderApi='https://api.github.com/repos/iammdtanvirrahman/atomic-weekly/contents/assets/hero-refresh?ref=4.0';
   var root=document.documentElement;
-  var fallbackNames=[
-    'cosmic-hero.webp',
-    'Cinematic Galaxy and Rim-Lit Planet.png',
-    'Crimson Nebula Starfield.png',
-    'Earthrise Among the Stars.png',
-    'Jupiter-Like Giant Among Moons.png',
-    'Neptune-Like Giant Among the Stars.png',
-    'Pluto’s Heart Beneath the Stars.png'
-  ];
+  var fallbackNames=['cosmic-hero.webp'];
   var previous='',previousRotation=0;
   try{previous=localStorage.getItem(key)||'';previousRotation=Number(localStorage.getItem(rotationKey))||0}catch(e){}
   function localImageUrl(name){return './assets/hero-refresh/'+encodeURIComponent(name)}
@@ -704,8 +696,8 @@ renderAll();
   }
   function preLoadOneByOne(images,index,onAllFailed){
     if(index>=images.length){onAllFailed();return}
-    var selected=images[index];
-    var probe=new Image();probe.decoding='async';
+    var selected=images[index],probe=new Image(),usingFallback=false;
+    probe.decoding='async';probe.fetchPriority='high';
     probe.onload=function(){
       var apply=function(){
         var rotation=normalizedRotation(selected.rotation);
@@ -714,7 +706,12 @@ renderAll();
       };
       if(typeof probe.decode==='function')probe.decode().then(apply).catch(apply);else apply();
     };
-    probe.onerror=function(){preLoadOneByOne(images,index+1,onAllFailed)};
+    probe.onerror=function(){
+      if(!usingFallback&&selected.fallbackUrl&&selected.fallbackUrl!==selected.url){
+        usingFallback=true;selected.url=selected.fallbackUrl;probe.src=selected.url;return;
+      }
+      preLoadOneByOne(images,index+1,onAllFailed);
+    };
     probe.src=selected.url;
   }
   function sequentialCandidates(items){
@@ -738,11 +735,16 @@ renderAll();
     preLoadOneByOne(choices,0,onAllFailed);
   }
   function loadFolderFallback(){
-    fetch(folderApi,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}})
+    fetch(folderApi,{cache:'force-cache',headers:{Accept:'application/vnd.github+json'}})
       .then(function(response){if(!response.ok)throw new Error('Artwork folder unavailable ('+response.status+')');return response.json()})
       .then(function(files){
-        var images=files.filter(function(file){return file.type==='file'&&/\.(png|jpe?g|webp|avif|gif|svg)$/i.test(file.name||'')})
-          .map(function(file){return {name:file.name,url:localImageUrl(file.name),rotation:0}});
+        var images=files.filter(function(file){return file.type==='file'&&/\.(png|jpe?g|webp)$/i.test(file.name||'')})
+          .map(function(file){
+            var optimizedName=file.name.replace(/\.(png|jpe?g)$/i,'.webp');
+            var optimizedUrl='./assets/optimized/hero-refresh/'+encodeURIComponent(optimizedName);
+            var originalUrl=localImageUrl(file.name);
+            return {name:file.name,url:/\.webp$/i.test(file.name)?originalUrl:optimizedUrl,fallbackUrl:/\.webp$/i.test(file.name)?'':originalUrl,rotation:0};
+          });
         if(!images.length)images=fallbackNames.map(function(name){return {name:name,url:localImageUrl(name),rotation:0}});
         tryImages(images,function(){setHeroArtwork(localImageUrl('cosmic-hero.webp'),0)});
       })
