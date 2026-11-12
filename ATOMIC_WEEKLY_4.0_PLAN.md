@@ -60,7 +60,7 @@ Extracted:
 - js/scene.js
 - js/submission.js
 
-The HTML file is now a smaller page shell. The reader and card-rendering lifecycle remain in app.js because they share state and DOM lifecycle. Further separation should be incremental and regression-tested rather than introducing a broad rewrite.
+The HTML shell is now 18,550 bytes versus 133,474 bytes in 3.0 (86.1% smaller as an HTML document; CSS and JavaScript are now separate cached assets). The reader and card-rendering lifecycle remain in app.js because they share state and DOM lifecycle. Further separation should be incremental and regression-tested rather than introducing a broad rewrite.
 
 ## Phase 4 — SEO and accessibility
 
