@@ -2,63 +2,97 @@
 
 Base: atomic-weekly-3.0 commit 9fb58c387b492a447c6c5fcf9357757a01e36354.
 
-All 4.0 work is isolated on branch 4.0. The 2.0, 3.0, and default branches must remain unchanged until review and explicit merge approval.
+All 4.0 work is isolated on branch 4.0. The 2.0, 3.0, and default branches have not been modified by this work.
 
-## Phase sequence
+## Phase status
 
-1. Security and trust boundaries.
-2. Mobile performance and asset delivery.
-3. Maintainability and modular architecture.
-4. SEO, accessibility, and editorial polish.
-5. Regression QA and release validation.
+| Phase | Status | Notes |
+|---|---|---|
+| 1. Security | Frontend hardening committed; production security blocked | Sanitizer and submission validation improved. Admin authentication, database rules, App Check, and Cloud Function authorization remain external blockers. |
+| 2. Performance | Asset pipeline implemented | 26 WebP derivatives generated; source/derivative total reduced from 44.94 MB to 4.15 MB (90.8% smaller across those pairs). Hero now prefers optimized local artwork. Real-device profiling remains pending. |
+| 3. Architecture | Progressive modularization committed | CSS, content helpers, Firebase feed, app controller, Three.js scene, and submission UI are separate files. Reader and card UI remain coordinated in app.js to avoid a risky rewrite of shared state. |
+| 4. SEO and accessibility | Initial improvements committed | Canonical/social metadata, WebSite JSON-LD, reader dialog semantics, focus handling, and modal focus trap added. Screen-reader and real keyboard testing remain pending. |
+| 5. Regression and release validation | In progress | GitHub Actions checks JavaScript syntax and local page references. Full browser, Android, Firebase, and deployed preview tests remain pending. |
 
-Each phase must be committed separately. A phase is complete only when its code/documentation changes are committed and its feasible checks have been run. Device, Firebase Console, production deployment, and authenticated Admin Panel checks must remain marked pending until actually executed.
-
-## Phase 1 — Security (partially implemented)
+## Phase 1 — Security
 
 Implemented in the public magazine:
-- Hardened the article HTML sanitizer with explicit element and URL allowlists.
-- Rejected data URLs and unsafe iframe origins.
-- Added client-side submission field validation and bounded attachment metadata.
+- Explicit HTML element allowlist and attribute reset.
+- HTTPS/same-origin URL restrictions for article links and images.
+- Strict allowlist for embedded video providers.
+- Client-side validation for name, email, category, title, article text, and attachment metadata.
 
-Blocking items outside this repository:
-- The Admin Panel currently signs in anonymously and writes to privileged database paths.
-- Cloud Functions verify Firebase ID tokens but do not enforce an admin identity.
-- Actual Firebase Realtime Database rules and App Check settings are not included in this repository.
+Important limitation:
+- Client-side validation is not a security boundary.
+- The separate Admin Panel currently uses anonymous Firebase authentication for privileged database paths.
+- Cloud Functions verify Firebase ID tokens but do not currently enforce an admin identity.
+- Actual Firebase Realtime Database rules and App Check settings are not stored or deployed from this repository.
 
-See SECURITY_REVIEW_4.0.md. Do not claim production security is complete until those dependencies are fixed and tested.
+See SECURITY_REVIEW_4.0.md. Production security must not be marked complete until Admin authentication, custom claims/allowlist, database rules, Cloud Function authorization, App Check, and non-admin negative tests are completed.
 
 ## Phase 2 — Performance
 
-- Reduce unnecessary GitHub API calls for hero artwork.
-- Use the repository asset manifest and browser caching where appropriate.
-- Preserve low-power, reduced-motion, lazy-loading, and WebGL fallback behavior.
-- Audit duplicate and oversized assets; only report measured savings after actual image processing and verification.
-- Run browser/device profiling where available; do not infer Android performance from source inspection alone.
+Implemented:
+- Pillow-based reproducible WebP generation in scripts/optimize-assets.py.
+- GitHub Actions asset pipeline creates derivatives and updates assets/assets.json on branch 4.0.
+- Hero artwork prefers generated optimized WebP and retains original-image fallback.
+- Static GitHub artwork listing uses browser cache.
+- Existing lazy loading, asynchronous decoding, reduced-motion, low-power, and WebGL fallback behavior retained.
+
+Measured:
+- 26 source/derivative pairs.
+- Source total: 44.94 MB.
+- WebP total: 4.15 MB.
+- Reduction: 90.8% across those pairs.
+
+Still pending:
+- Profile on a low-memory Android device and with data saver enabled.
+- Measure page transfer size and long tasks in browser DevTools.
+- Confirm newly uploaded assets are optimized after deployment to the Pages branch.
 
 ## Phase 3 — Architecture
 
-- Extract CSS and JavaScript into small, named files.
-- Keep the public GitHub Pages URL and Firebase data schema stable.
-- Keep optional Three.js code isolated and load it only when required.
-- Verify script ordering, relative paths, and direct article URLs after each extraction.
+Extracted:
+- css/atomic.css
+- js/content.js
+- js/feed.js
+- js/app.js
+- js/scene.js
+- js/submission.js
 
-## Phase 4 — SEO, accessibility, editorial polish
+The HTML file is now a smaller page shell. The reader and card-rendering lifecycle remain in app.js because they share state and DOM lifecycle. Further separation should be incremental and regression-tested rather than introducing a broad rewrite.
 
-- Add canonical and social metadata suitable for the GitHub Pages project URL.
-- Improve article card and media semantics, keyboard focus, dialog behavior, and screen-reader labels.
-- Respect reduced-motion preferences.
-- Preserve the existing visual identity and reader behavior.
+## Phase 4 — SEO and accessibility
+
+Implemented:
+- Canonical homepage URL, Open Graph URL/type/image, Twitter summary metadata, robots metadata, and WebSite JSON-LD.
+- Reader is exposed as a labelled modal dialog and focuses its article heading.
+- Reader keyboard focus is contained while open.
+- Submission dialog keyboard focus is contained while open.
+- Existing focus restoration, visible focus styling, and reduced-motion behavior retained.
+
+Still pending:
+- Keyboard-only walkthrough on desktop and mobile.
+- NVDA/VoiceOver/TalkBack review.
+- Social preview crawler test after a deployed preview exists.
+- Article-specific share previews: hash-based reader routes are not independently crawlable by social crawlers.
 
 ## Phase 5 — Regression and release validation
 
-- Check syntax and all relative paths.
-- Test feed success, empty feed, feed failure, submission success/failure, reader hash/back/forward, search, filters, and repeated reader open/close.
-- Test Android low-memory and data-saver scenarios.
-- Test WebGL unavailable and reduced-motion behavior.
-- Verify Firebase rules and privileged Admin actions with both admin and non-admin identities.
-- Verify deployed GitHub Pages behavior and social previews.
+Automated:
+- GitHub Actions checks syntax for all JavaScript modules.
+- Python static-site check verifies local HTML references and duplicate IDs.
+
+Manual:
+- Feed success, empty feed, and offline fallback.
+- Submission success/failure and validation.
+- Reader open/close, direct hash, back/forward, search, and filters.
+- 10 repeated reader open/close cycles and long-article scrolling.
+- Android low-memory/data-saver testing.
+- Reduced-motion and WebGL-unavailable testing.
+- Firebase rules and privileged actions tested with admin and non-admin identities.
+- GitHub Pages paths and social previews.
 
 ## Release gate
 
-Do not merge 4.0 into the default branch until every feasible automated check passes and all external/manual blockers are either resolved or explicitly accepted by the repository owner.
+Do not merge 4.0 into the default branch until all automated checks pass, manual QA is recorded, and the external Firebase/Admin security blockers are resolved or explicitly accepted by the repository owner.
