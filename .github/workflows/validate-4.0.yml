@@ -28,6 +28,8 @@ jobs:
           python-version: '3.12'
       - name: Check JavaScript syntax
         run: |
+          node --check js/content.js
+          node --check js/feed.js
           node --check js/app.js
           node --check js/scene.js
           node --check js/submission.js
