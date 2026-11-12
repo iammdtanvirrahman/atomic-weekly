@@ -41,11 +41,11 @@ jobs:
               dirs[:] = [d for d in dirs if d != '.git']
               for name in names:
                   if os.path.splitext(name)[1].lower() in exts:
-                      files.append(os.path.relpath(os.path.join(root,name),'assets').replace('\\\\','/'))
+                      files.append(os.path.relpath(os.path.join(root,name),'assets').replace('\\','/'))
           files.sort(key=str.lower)
           with open('assets/assets.json','w',encoding='utf-8') as f:
               json.dump({'assets':files},f,ensure_ascii=False,indent=2)
-              f.write('\\n')
+              f.write('\n')
           PY
 
       - name: Commit optimized assets and manifest
