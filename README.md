@@ -6,7 +6,9 @@ A mobile-first dark editorial magazine for science, space, technology, love, phi
 
 - `index.html`: semantic page shell and metadata.
 - `css/atomic.css`: visual system and responsive magazine/reader styles.
-- `js/app.js`: feed rendering, search, filters, reader navigation, and article reading experience.
+- `js/content.js`: shared article metadata, formatting, URL, and HTML-sanitization helpers.
+- `js/feed.js`: Firebase article feed and validated public submission queue.
+- `js/app.js`: search, filters, card rendering, reader navigation, and article reading experience.
 - `js/scene.js`: optional Three.js ambient scene; preserves the static fallback.
 - `js/submission.js`: reader-facing article submission workflow.
 - `assets/`: original artwork and source images.
@@ -36,6 +38,8 @@ To regenerate optimized assets locally:
 python -m pip install Pillow
 python scripts/optimize-assets.py
 python scripts/check-source.py
+node --check js/content.js
+node --check js/feed.js
 node --check js/app.js
 node --check js/scene.js
 node --check js/submission.js
