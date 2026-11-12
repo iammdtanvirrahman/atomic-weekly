@@ -12,7 +12,7 @@ All 4.0 work is isolated on branch 4.0. The 2.0, 3.0, and default branches have 
 | 2. Performance | Asset pipeline implemented | 26 WebP derivatives generated; source/derivative total reduced from 44.94 MB to 4.15 MB (90.8% smaller across those pairs). Hero now prefers optimized local artwork. Real-device profiling remains pending. |
 | 3. Architecture | Progressive modularization committed | CSS, content helpers, Firebase feed, app controller, Three.js scene, and submission UI are separate files. Reader and card UI remain coordinated in app.js to avoid a risky rewrite of shared state. |
 | 4. SEO and accessibility | Initial improvements committed | Canonical/social metadata, WebSite JSON-LD, reader dialog semantics, focus handling, and modal focus trap added. Screen-reader and real keyboard testing remain pending. |
-| 5. Regression and release validation | In progress | GitHub Actions checks JavaScript syntax and local page references. Full browser, Android, Firebase, and deployed preview tests remain pending. |
+| 5. Regression and release validation | Automated checks passing | GitHub Actions passes JavaScript syntax, local-reference/duplicate-ID checks, and headless browser smoke tests for feed fallback, sanitizer, submission validation, reader open/close, and submission dialog. Android, live Firebase, and deployed preview tests remain pending. |
 
 ## Phase 1 — Security
 
@@ -79,12 +79,13 @@ Still pending:
 
 ## Phase 5 — Regression and release validation
 
-Automated:
-- GitHub Actions checks syntax for all JavaScript modules.
+Automated — passing in GitHub Actions run 43192599216:
+- Node syntax checks for all JavaScript modules and the browser test script.
 - Python static-site check verifies local HTML references and duplicate IDs.
+- Headless Chromium smoke tests verify empty-feed fallback, sanitizer rejection of unsafe HTML/URLs, invalid email rejection, reader open/close and URL hash, and submission dialog focus/open/close.
 
-Manual:
-- Feed success, empty feed, and offline fallback.
+Manual — still pending:
+- Live Firebase feed success and offline fallback.
 - Submission success/failure and validation.
 - Reader open/close, direct hash, back/forward, search, and filters.
 - 10 repeated reader open/close cycles and long-article scrolling.
