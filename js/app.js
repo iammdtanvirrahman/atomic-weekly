@@ -355,25 +355,21 @@ if(mobileDock){
 window.addEventListener('popstate',function(){var match=location.hash.match(/^#read\/(.+)$/);if(match){var articleId;try{articleId=decodeURIComponent(match[1])}catch(e){articleId=match[1]}if(!$('reader').classList.contains('open'))openArticle(articleId)}else if($('reader').classList.contains('open'))closeReader(true)});
 var initial=location.hash.match(/^#read\/(.+)$/);if(initial)setTimeout(function(){var articleId;try{articleId=decodeURIComponent(initial[1])}catch(e){articleId=initial[1]}openArticle(articleId)},60);
 
-// The public magazine listens to the exact feed written by Atomic Admin.
-// Demo content remains visible until the first successful database snapshot.
-import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(function(appMod){return Promise.all([Promise.resolve(appMod),import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js')])}).then(function(mods){var appMod=mods[0],dbMod=mods[1];var config={apiKey:'AIzaSyCit_SKjXRUpr8FNY1ahKhiG5sdDyOlW6k',authDomain:'atomictanvir.firebaseapp.com',projectId:'atomictanvir',storageBucket:'atomictanvir.firebasestorage.app',messagingSenderId:'140595401471',appId:'1:140595401471:web:8f92115a8c8b58d1ec32ca',databaseURL:'https://atomictanvir-default-rtdb.firebaseio.com'};var app;try{app=appMod.getApps().length?appMod.getApp():appMod.initializeApp(config)}catch(e){app=appMod.getApp()}var db=dbMod.getDatabase(app);window.atomicQueueArticleSubmission=async function(payload){
- if(!payload||typeof payload!=='object')throw new Error('Invalid submission payload.');
- var author=String(payload.author||'').trim(),email=String(payload.email||'').trim(),title=String(payload.title||'').trim(),section=String(payload.section||'').trim(),articleText=String(payload.text||'').trim();
- var allowedSections=['Stories','Science','Space','Technology','Humanity','Love','Life','Philosophy','Nature','Art','Physics'];
- if(!author||author.length>100)throw new Error('Name must be between 1 and 100 characters.');
- if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||email.length>180)throw new Error('Enter a valid email address.');
- if(!title||title.length>180)throw new Error('Title must be between 1 and 180 characters.');
- if(allowedSections.indexOf(section)===-1)throw new Error('Choose a valid article category.');
- if(!articleText||articleText.length>20000)throw new Error('Article text must be between 1 and 20,000 characters.');
- var rawNames=Array.isArray(payload.attachmentNames)?payload.attachmentNames:[];
- if(rawNames.length>20)throw new Error('No more than 20 attachments are allowed.');
- var names=rawNames.map(function(name){return String(name||'').replace(/[\\u0000-\\u001f\\u007f]/g,'').trim().slice(0,180)}).filter(Boolean);
- var submissionRef=dbMod.push(dbMod.ref(db,'submissions')),id=submissionRef.key,createdAt=Date.now();
- var record={id:id,author:author,email:email,title:title,section:section,text:articleText,type:'article',submissionType:'Website Article',source:'atomic-weekly-website',status:'pending_via_email',timestamp:createdAt,createdAt:createdAt,attachmentsExpected:names.length>0,attachmentNames:names,attachmentStatus:names.length?'awaiting_email':'not_required',attachmentEmail:'mdtanvirrahman2022a@gmail.com',editorialNote:names.length?'Article text is queued. Sender selected attachments and is expected to send them separately by email. Email sending is not verified automatically.':'Article text submitted from the Atomic Weekly website.'};
- await dbMod.set(submissionRef,record);
- return {id:id,createdAt:createdAt,record:record};
-};dbMod.onValue(dbMod.ref(db,'publishedArticles'),function(snapshot){loadingFeed=false;var raw=snapshot.val()||{};var records=Object.keys(raw).map(function(id){var record=Object.assign({},raw[id]||{});record.key=record.key||id;record.id=id;return record}).filter(function(a){return a.status==='published'||a.published===true});if(records.length){articles=records;isDemo=false}else{articles=seed.slice();isDemo=true}$('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}},function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}console.warn('Atomic feed listener:',error)});$('feedState').textContent='Connecting to stories'}).catch(function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}console.warn('Atomic feed setup:',error)});
-
-
+window.AtomicFeed.start({
+ onLoading:function(){$('feedState').textContent='Connecting to stories'},
+ onSnapshot:function(records){
+  loadingFeed=false;
+  if(records.length){articles=records;isDemo=false}else{articles=seed.slice();isDemo=true}
+  $('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';
+  renderAll();
+  if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}
+ },
+ onError:function(error){
+  loadingFeed=false;isDemo=true;articles=seed.slice();
+  $('connectionLabel').textContent='Starter edition · live feed unavailable';
+  renderAll();
+  if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}
+  console.warn('Atomic feed setup:',error);
+ }
+});
 })();
