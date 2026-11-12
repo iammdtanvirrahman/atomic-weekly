@@ -1,0 +1,35 @@
+name: Validate Atomic Weekly 4.0
+
+on:
+  push:
+    branches: [4.0]
+    paths:
+      - 'index.html'
+      - 'css/**'
+      - 'js/**'
+      - 'scripts/**'
+      - '.github/workflows/validate-4.0.yml'
+  pull_request:
+    branches: [4.0]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check JavaScript syntax
+        run: |
+          node --check js/app.js
+          node --check js/scene.js
+          node --check js/submission.js
+      - name: Check static site references
+        run: python scripts/check-source.py
