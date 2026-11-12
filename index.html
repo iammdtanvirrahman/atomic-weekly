@@ -289,8 +289,8 @@ body.submission-open{overflow:hidden}body.submission-open .topbar{z-index:170}
     </div>
     <form id="sendArticleForm" class="submission-form">
       <div class="submission-fields">
-        <label>Your name <input id="submissionAuthor" name="author" autocomplete="name" maxlength="100" placeholder="How should we credit you?" required></label>
-        <label>Your email <input id="submissionEmail" name="email" type="email" autocomplete="email" maxlength="180" placeholder="you@example.com" required></label>
+        <label>Your name <input id="submissionAuthor" name="author" autocomplete="name" maxlength="100" autocomplete="name" placeholder="How should we credit you?" required></label>
+        <label>Your email <input id="submissionEmail" name="email" type="email" autocomplete="email" maxlength="180" autocomplete="email" placeholder="you@example.com" required></label>
       </div>
       <label>Article category
         <select id="submissionSection" name="section" required>
@@ -484,7 +484,55 @@ var searchTimer=null,lastSearchHadQuery=false;$('searchInput').oninput=function(
 $('newQuote').onclick=setHeroQuote;$('bandNewQuote').onclick=setBandQuote;
 $('menuBtn').onclick=function(){var nav=document.querySelector('.nav');if(!nav)return;var opened=nav.dataset.mobileOpen==='1';nav.dataset.mobileOpen=opened?'0':'1';if(!opened){nav.style.cssText='display:flex;position:absolute;top:67px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:12px 20px;background:rgba(10,11,16,.98);border-bottom:1px solid var(--line)';nav.querySelectorAll('a').forEach(function(a){a.style.padding='12px 0';a.onclick=function(){nav.dataset.mobileOpen='0';nav.style.display='none'}})}else{nav.style.display='none'}};
 var toastTimer=null;function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){$('toast').classList.remove('show')},2400)}
-function sanitizeContent(html){var doc=new DOMParser().parseFromString(String(html||''),'text/html');doc.querySelectorAll('script,style,object,embed,form,button,input,textarea,select,.mediaToolbar,.mediaHandles,.mediaSize,.pageDelete').forEach(function(n){n.remove()});var allowed={P:1,DIV:1,SECTION:1,ARTICLE:1,H1:1,H2:1,H3:1,H4:1,UL:1,OL:1,LI:1,BLOCKQUOTE:1,STRONG:1,EM:1,B:1,I:1,U:1,S:1,DEL:1,A:1,IMG:1,FIGURE:1,FIGCAPTION:1,HR:1,TABLE:1,THEAD:1,TBODY:1,TR:1,TD:1,TH:1,PRE:1,CODE:1,BR:1,IFRAME:1,SPAN:1,SUP:1,SUB:1,DETAILS:1,SUMMARY:1,KBD:1,MARK:1,SMALL:1};Array.from(doc.body.querySelectorAll('*')).reverse().forEach(function(el){if(!allowed[el.tagName]){el.replaceWith.apply(el,Array.from(el.childNodes));return}var tag=el.tagName;var href=el.getAttribute('href'),src=el.getAttribute('src'),alt=el.getAttribute('alt')||'';Array.from(el.attributes).forEach(function(a){el.removeAttribute(a.name)});if(tag==='A'){if(href&&/^(https?:|mailto:|#)/i.test(href)){el.setAttribute('href',href);el.setAttribute('target','_blank');el.setAttribute('rel','noopener noreferrer')}}if(tag==='IMG'){if(src&&/^(https?:\/\/|data:image\/|\.\/|\.\.\/|\/)/i.test(src)){el.setAttribute('src',src);el.setAttribute('alt',alt);el.setAttribute('loading','lazy');el.setAttribute('decoding','async')}else{el.remove()}}if(tag==='IFRAME'){if(src&&/^https:\/\/(www\.)?(youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/|player\.vimeo\.com\/video\/)/i.test(src)){el.setAttribute('src',src);el.setAttribute('loading','lazy');el.setAttribute('allowfullscreen','');el.setAttribute('referrerpolicy','strict-origin-when-cross-origin')}else{el.remove()}}});return doc.body.innerHTML}
+function sanitizeContent(html){
+ var doc=new DOMParser().parseFromString(String(html||''),'text/html');
+ doc.querySelectorAll('script,style,object,embed,form,button,input,textarea,select,svg,math,template,link,meta,base,.mediaToolbar,.mediaHandles,.mediaSize,.pageDelete').forEach(function(n){n.remove()});
+ var allowed={P:1,DIV:1,SECTION:1,ARTICLE:1,H1:1,H2:1,H3:1,H4:1,UL:1,OL:1,LI:1,BLOCKQUOTE:1,STRONG:1,EM:1,B:1,I:1,U:1,S:1,DEL:1,A:1,IMG:1,FIGURE:1,FIGCAPTION:1,HR:1,TABLE:1,THEAD:1,TBODY:1,TR:1,TD:1,TH:1,PRE:1,CODE:1,BR:1,IFRAME:1,SPAN:1,SUP:1,SUB:1,DETAILS:1,SUMMARY:1,KBD:1,MARK:1,SMALL:1};
+ function safeUrl(raw,kind){
+  if(!raw||/[\\u0000-\\u0020\\u007f]/.test(raw))return '';
+  var value=String(raw).trim();
+  if(kind==='anchor'&&value.charAt(0)==='#')return value;
+  try{
+   var parsed=new URL(value,document.baseURI);
+   if(parsed.username||parsed.password)return '';
+   if(kind==='anchor'){
+    if(parsed.protocol==='https:'||parsed.protocol==='mailto:'||(parsed.origin===location.origin&&parsed.protocol==='http:'))return parsed.href;
+   }else if(kind==='image'){
+    if(parsed.protocol==='https:'||(parsed.origin===location.origin&&(parsed.protocol==='http:'||parsed.protocol==='https:')))return parsed.href;
+   }
+  }catch(e){}
+  return '';
+ }
+ Array.from(doc.body.querySelectorAll('*')).reverse().forEach(function(el){
+  if(!allowed[el.tagName]){el.replaceWith.apply(el,Array.from(el.childNodes));return}
+  var tag=el.tagName,href=el.getAttribute('href'),src=el.getAttribute('src'),alt=el.getAttribute('alt')||'';
+  Array.from(el.attributes).forEach(function(attr){el.removeAttribute(attr.name)});
+  if(tag==='A'){
+   var safeHref=safeUrl(href,'anchor');
+   if(safeHref){el.setAttribute('href',safeHref);if(/^https?:/i.test(safeHref)){el.setAttribute('target','_blank');el.setAttribute('rel','noopener noreferrer')}}else{el.removeAttribute('href')}
+  }
+  if(tag==='IMG'){
+   var safeSrc=safeUrl(src,'image');
+   if(safeSrc){el.setAttribute('src',safeSrc);el.setAttribute('alt',alt.slice(0,300));el.setAttribute('loading','lazy');el.setAttribute('decoding','async');el.setAttribute('referrerpolicy','no-referrer')}
+   else{el.remove()}
+  }
+  if(tag==='IFRAME'){
+   var safeEmbed='';
+   try{
+    var u=new URL(String(src||''),document.baseURI);
+    var allowedHost=(u.protocol==='https:'&&!u.username&&!u.password&&!u.port&&(
+      (u.hostname==='www.youtube.com'&&u.pathname.indexOf('/embed/')===0)||
+      (u.hostname==='www.youtube-nocookie.com'&&u.pathname.indexOf('/embed/')===0)||
+      (u.hostname==='player.vimeo.com'&&u.pathname.indexOf('/video/')===0)
+    ));
+    if(allowedHost)safeEmbed=u.href;
+   }catch(e){}
+   if(safeEmbed){el.setAttribute('src',safeEmbed);el.setAttribute('title','Embedded video');el.setAttribute('loading','lazy');el.setAttribute('allowfullscreen','');el.setAttribute('referrerpolicy','strict-origin-when-cross-origin')}
+   else{el.remove()}
+  }
+ });
+ return doc.body.innerHTML;
+}
 function articleById(id){return articles.find(function(a){return String(a.id||a.key)===String(id)})}
 function buildReaderToc(){
  var copy=$('readerContent').querySelector('.article-copy'),toc=$('readerContent').querySelector('#readerToc');if(!copy||!toc)return;
@@ -756,7 +804,23 @@ var initial=location.hash.match(/^#read\/(.+)$/);if(initial)setTimeout(function(
 
 // The public magazine listens to the exact feed written by Atomic Admin.
 // Demo content remains visible until the first successful database snapshot.
-import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(function(appMod){return Promise.all([Promise.resolve(appMod),import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js')])}).then(function(mods){var appMod=mods[0],dbMod=mods[1];var config={apiKey:'AIzaSyCit_SKjXRUpr8FNY1ahKhiG5sdDyOlW6k',authDomain:'atomictanvir.firebaseapp.com',projectId:'atomictanvir',storageBucket:'atomictanvir.firebasestorage.app',messagingSenderId:'140595401471',appId:'1:140595401471:web:8f92115a8c8b58d1ec32ca',databaseURL:'https://atomictanvir-default-rtdb.firebaseio.com'};var app;try{app=appMod.getApps().length?appMod.getApp():appMod.initializeApp(config)}catch(e){app=appMod.getApp()}var db=dbMod.getDatabase(app);window.atomicQueueArticleSubmission=async function(payload){var submissionRef=dbMod.push(dbMod.ref(db,'submissions'));var id=submissionRef.key;var createdAt=Date.now();var names=Array.isArray(payload.attachmentNames)?payload.attachmentNames.slice(0,20):[];var record={id:id,author:String(payload.author||'Reader').trim(),email:String(payload.email||'').trim(),title:String(payload.title||'').trim(),section:String(payload.section||'Stories').trim(),text:String(payload.text||''),type:'article',submissionType:'Website Article',source:'atomic-weekly-website',status:'pending_via_email',timestamp:createdAt,createdAt:createdAt,attachmentsExpected:names.length>0,attachmentNames:names,attachmentStatus:names.length?'awaiting_email':'not_required',attachmentEmail:'mdtanvirrahman2022a@gmail.com',editorialNote:names.length?'Article text is queued. Sender selected attachments and is expected to send them separately by email. Email sending is not verified automatically.':'Article text submitted from the Atomic Weekly website.'};await dbMod.set(submissionRef,record);return {id:id,createdAt:createdAt,record:record}};dbMod.onValue(dbMod.ref(db,'publishedArticles'),function(snapshot){loadingFeed=false;var raw=snapshot.val()||{};var records=Object.keys(raw).map(function(id){var record=Object.assign({},raw[id]||{});record.key=record.key||id;record.id=id;return record}).filter(function(a){return a.status==='published'||a.published===true});if(records.length){articles=records;isDemo=false}else{articles=seed.slice();isDemo=true}$('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}},function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}console.warn('Atomic feed listener:',error)});$('feedState').textContent='Connecting to stories'}).catch(function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}console.warn('Atomic feed setup:',error)});
+import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(function(appMod){return Promise.all([Promise.resolve(appMod),import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js')])}).then(function(mods){var appMod=mods[0],dbMod=mods[1];var config={apiKey:'AIzaSyCit_SKjXRUpr8FNY1ahKhiG5sdDyOlW6k',authDomain:'atomictanvir.firebaseapp.com',projectId:'atomictanvir',storageBucket:'atomictanvir.firebasestorage.app',messagingSenderId:'140595401471',appId:'1:140595401471:web:8f92115a8c8b58d1ec32ca',databaseURL:'https://atomictanvir-default-rtdb.firebaseio.com'};var app;try{app=appMod.getApps().length?appMod.getApp():appMod.initializeApp(config)}catch(e){app=appMod.getApp()}var db=dbMod.getDatabase(app);window.atomicQueueArticleSubmission=async function(payload){
+ if(!payload||typeof payload!=='object')throw new Error('Invalid submission payload.');
+ var author=String(payload.author||'').trim(),email=String(payload.email||'').trim(),title=String(payload.title||'').trim(),section=String(payload.section||'').trim(),articleText=String(payload.text||'').trim();
+ var allowedSections=['Stories','Science','Space','Technology','Humanity','Love','Life','Philosophy','Nature','Art','Physics'];
+ if(!author||author.length>100)throw new Error('Name must be between 1 and 100 characters.');
+ if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||email.length>180)throw new Error('Enter a valid email address.');
+ if(!title||title.length>180)throw new Error('Title must be between 1 and 180 characters.');
+ if(allowedSections.indexOf(section)===-1)throw new Error('Choose a valid article category.');
+ if(!articleText||articleText.length>20000)throw new Error('Article text must be between 1 and 20,000 characters.');
+ var rawNames=Array.isArray(payload.attachmentNames)?payload.attachmentNames:[];
+ if(rawNames.length>20)throw new Error('No more than 20 attachments are allowed.');
+ var names=rawNames.map(function(name){return String(name||'').replace(/[\\u0000-\\u001f\\u007f]/g,'').trim().slice(0,180)}).filter(Boolean);
+ var submissionRef=dbMod.push(dbMod.ref(db,'submissions')),id=submissionRef.key,createdAt=Date.now();
+ var record={id:id,author:author,email:email,title:title,section:section,text:articleText,type:'article',submissionType:'Website Article',source:'atomic-weekly-website',status:'pending_via_email',timestamp:createdAt,createdAt:createdAt,attachmentsExpected:names.length>0,attachmentNames:names,attachmentStatus:names.length?'awaiting_email':'not_required',attachmentEmail:'mdtanvirrahman2022a@gmail.com',editorialNote:names.length?'Article text is queued. Sender selected attachments and is expected to send them separately by email. Email sending is not verified automatically.':'Article text submitted from the Atomic Weekly website.'};
+ await dbMod.set(submissionRef,record);
+ return {id:id,createdAt:createdAt,record:record};
+};dbMod.onValue(dbMod.ref(db,'publishedArticles'),function(snapshot){loadingFeed=false;var raw=snapshot.val()||{};var records=Object.keys(raw).map(function(id){var record=Object.assign({},raw[id]||{});record.key=record.key||id;record.id=id;return record}).filter(function(a){return a.status==='published'||a.published===true});if(records.length){articles=records;isDemo=false}else{articles=seed.slice();isDemo=true}$('feedState').textContent=isDemo?'Starter edition':'Live editorial feed';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}},function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}console.warn('Atomic feed listener:',error)});$('feedState').textContent='Connecting to stories'}).catch(function(error){loadingFeed=false;isDemo=true;articles=seed.slice();$('connectionLabel').textContent='Starter edition · live feed unavailable';renderAll();if(pendingReaderId){var pendingId=pendingReaderId;pendingReaderId=null;openArticle(pendingId)}console.warn('Atomic feed setup:',error)});
 
 // Ambient cosmic scene: procedural planet, spiral galaxy, nebulae and stars.
 // Keep the existing static artwork as the no-WebGL / reduced-motion fallback.
@@ -934,7 +998,8 @@ import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(functi
    if(!author||!email||!title||!text){showStatus('Please fill in your name, email, title and article text.',true);return}
    const selectedFiles=Array.from(files.files||[]);
    if(selectedFiles.length>20){showStatus('Please choose no more than 20 attachments.',true);return}
-   const attachmentNames=selectedFiles.map(f=>f.name);
+   if(selectedFiles.some(f=>!f.name||f.name.length>180)){showStatus('Each attachment filename must be 180 characters or fewer.',true);return}
+   const attachmentNames=selectedFiles.map(f=>f.name.slice(0,180));
    const composeTab=window.open('about:blank','_blank');
    button.disabled=true;button.textContent='Saving to editorial inbox…';showStatus('Saving your article to the Admin panel pending queue…',false);
    try{
