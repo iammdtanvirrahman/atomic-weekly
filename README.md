@@ -43,6 +43,12 @@ node --check js/feed.js
 node --check js/app.js
 node --check js/scene.js
 node --check js/submission.js
+node --check scripts/smoke-test.mjs
+npm install --no-save playwright
+npx playwright install chromium
+python -m http.server 4173
+# In another terminal:
+node scripts/smoke-test.mjs
 ```
 
 ## Security boundary
