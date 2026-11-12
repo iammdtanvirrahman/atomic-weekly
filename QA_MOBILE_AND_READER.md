@@ -4,7 +4,8 @@ Run this checklist against a deployed 4.0 preview before merging to the Pages so
 
 ## Automated checks
 
-- [ ] GitHub Actions: JavaScript syntax and static page-reference validation pass on the latest commit.
+- [x] GitHub Actions: JavaScript syntax and static page-reference validation passed.
+- [x] Headless Chromium smoke tests passed for starter-feed fallback, unsafe HTML/image rejection, invalid email rejection, reader open/close, and submission dialog open/close.
 - [ ] Confirm all local CSS/JS/image references resolve on the GitHub Pages project path.
 - [ ] Confirm no duplicate HTML IDs.
 
