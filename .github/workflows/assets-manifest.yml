@@ -6,7 +6,9 @@ on:
       - 'assets/**'
       - 'scripts/optimize-assets.py'
       - '.github/workflows/assets-manifest.yml'
-    branches: [4.0]
+      - '!assets/optimized/**'
+      - '!assets/assets.json'
+    branches: [4.0, main]
 
 concurrency:
   group: asset-pipeline-${{ github.ref }}
@@ -17,7 +19,6 @@ permissions:
 
 jobs:
   optimize-and-manifest:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
