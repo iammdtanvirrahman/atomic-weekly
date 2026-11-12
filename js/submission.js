@@ -10,7 +10,17 @@
  $('closeSubmission').addEventListener('click',closeModal);
  $('cancelSubmission').addEventListener('click',closeModal);
  modal.querySelectorAll('[data-close-submission]').forEach(el=>el.addEventListener('click',closeModal));
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal()});
+ document.addEventListener('keydown',e=>{
+   if(!modal.classList.contains('open'))return;
+   if(e.key==='Escape'){closeModal();return}
+   if(e.key!=='Tab')return;
+   const dialog=modal.querySelector('.submission-dialog');
+   const focusable=Array.from(dialog.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length>0);
+   if(!focusable.length){e.preventDefault();return}
+   const first=focusable[0],last=focusable[focusable.length-1];
+   if(e.shiftKey&&(document.activeElement===first||!dialog.contains(document.activeElement))){e.preventDefault();last.focus()}
+   else if(!e.shiftKey&&(document.activeElement===last||!dialog.contains(document.activeElement))){e.preventDefault();first.focus()}
+ });
  $('submissionText').addEventListener('input',()=>{count.textContent=String($('submissionText').value.length)});
  files.addEventListener('change',()=>{
    const names=Array.from(files.files||[]).map(f=>f.name);
