@@ -35,3 +35,18 @@ jobs:
           node --check js/submission.js
       - name: Check static site references
         run: python scripts/check-source.py
+      - name: Install browser test runner
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Start static preview server
+        run: |
+          python -m http.server 4173 --directory . >/tmp/atomic-weekly-http.log 2>&1 &
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/index.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/atomic-weekly-http.log
+          exit 1
+      - name: Run browser smoke tests
+        run: node scripts/smoke-test.mjs
