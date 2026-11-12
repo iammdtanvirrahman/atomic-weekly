@@ -22,6 +22,7 @@ function articleImage(a){
  if(!x)return categoryImage(niceCategory(a));
  var s=String(x).trim();
  if(!s||s.startsWith('//')||/[\u0000-\u0020\u007f]/.test(s))return categoryImage(niceCategory(a));
+ if(/^[a-z][a-z0-9+.-]*:/i.test(s))return categoryImage(niceCategory(a));
  if(/^https:\/\//i.test(s)){
   try{var remote=new URL(s);if(!remote.username&&!remote.password)return remote.href}catch(e){}
   return categoryImage(niceCategory(a));
